@@ -1,0 +1,22 @@
+# dependencies and builds
+node_modules/
+.next/
+out/
+
+# test output
+coverage/
+playwright-report/
+test-results/
+
+# local environment
+.env*
+!.env.example
+
+# editors and operating systems
+.DS_Store
+*.log
+*.tsbuildinfo
+
+# local source material retained outside the public deliverable
+ChatGPT Image*.png
+Syllabus-Sync-info-site-agent-prompt-2026*.md
