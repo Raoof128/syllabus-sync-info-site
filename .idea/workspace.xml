@@ -8,8 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3e2e0737-d03b-4088-a50c-a0c198cefef8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,22 +23,22 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "mrpouyaalavi"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;mrpouyaalavi&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Raoof128/syllabus-sync-info-site.git",
-    "accountId": "cd1eca05-4d91-4cba-9b8e-6aaeeb360514"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Raoof128/syllabus-sync-info-site.git&quot;,
+    &quot;accountId&quot;: &quot;cd1eca05-4d91-4cba-9b8e-6aaeeb360514&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7,
-  "fromUser": false
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7,
+  &quot;fromUser&quot;: false
+}</component>
   <component name="ProjectId" id="3GqgxCwUuR5EhxOxF6Zx2jYcyrd" />
   <component name="ProjectSessionTemplates">
     <option name="panelTemplate">
@@ -83,7 +82,7 @@
     "settings.editor.selected.configurable": "preferences.lookFeel",
     "show.migrate.to.gradle.popup": "false",
     "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "/Users/pouya/Documents/Projects/Syllabus-Sync/syllabus-sync-info-site/node_modules/typescript/lib"
+    "ts.external.directory.path": "/Applications/WebStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external"
   }
 }]]></component>
   <component name="ReactDesignerToolWindowState">
@@ -91,6 +90,7 @@
       <map>
         <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
         <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
       </map>
     </option>
   </component>
@@ -124,6 +124,8 @@
       <option name="presentableId" value="Default" />
       <updated>1784704757827</updated>
       <workItem from="1784704758987" duration="1581000" />
+      <workItem from="1784711831292" duration="3811000" />
+      <workItem from="1784720822888" duration="15000" />
     </task>
     <servers />
   </component>
