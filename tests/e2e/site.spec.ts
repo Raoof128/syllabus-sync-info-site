@@ -6,7 +6,7 @@ test("homepage exposes the product story and safe links", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: "Your semester, finally organised." })).toBeVisible();
   const appLinks = page.getByRole("main").getByRole("link", { name: "Open Syllabus Sync", exact: true });
   await expect(appLinks).toHaveCount(2);
-  await expect(appLinks.first()).toHaveAttribute("href", "https://syllabusing.app");
+  await expect(appLinks.first()).toHaveAttribute("href", "https://www.syllabus-sync.app");
   await expect(page.getByRole("heading", { level: 2, name: "Student technology should earn trust." })).toBeVisible();
 });
 
