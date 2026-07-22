@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const isDevelopment = process.env.NODE_ENV === "development";
@@ -32,6 +33,13 @@ const nextConfig: NextConfig = {
   typedRoutes: true,
   images: {
     formats: ["image/avif", "image/webp"],
+  },
+  turbopack: {
+    // This project is nested inside an unrelated parent repository that also
+    // contains a package-lock.json (and its own tools/proxy files). Pin the
+    // workspace root so Turbopack doesn't infer the parent directory and pull
+    // in unrelated files.
+    root: path.resolve(__dirname),
   },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
