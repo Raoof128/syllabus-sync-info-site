@@ -12,9 +12,9 @@ test("homepage exposes the product story and safe links", async ({ page }) => {
 
 test("primary navigation reaches a supporting page", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Product", exact: true }).click();
-  await expect(page).toHaveURL(/\/product$/);
-  await expect(page.getByRole("heading", { level: 1, name: "One place for the academic day" })).toBeVisible();
+  await page.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Contact", exact: true }).click();
+  await expect(page).toHaveURL(/\/contact$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Contact Syllabus Sync" })).toBeVisible();
 });
 
 test("mobile menu opens and Escape restores the closed state", async ({ page }) => {
