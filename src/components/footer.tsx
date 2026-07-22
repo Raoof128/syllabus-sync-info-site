@@ -19,6 +19,13 @@ export function Footer() {
           <Link href="/security#responsible-disclosure">Responsible disclosure</Link>
           <a href={projectFacts.mainApplicationUrl}>Main app <span aria-hidden="true">↗</span></a>
         </nav>
+        <nav aria-label="Elsewhere">
+          {projectFacts.socialLinks.map((link) => (
+            <a href={link.href} key={link.href} rel="noreferrer" target="_blank">
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </div>
     </footer>
   );
