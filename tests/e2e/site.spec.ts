@@ -72,3 +72,14 @@ test("ecosystem section exposes all three products with distinct anchors", async
   await expect(page.locator("#mq-navigation")).toContainText("Mobile prototype, not yet published");
   await expect(page.locator("#mq-navigation")).toContainText("Public OS-level linking and the complete production handoff are not yet released");
 });
+
+test("connections section explains the ecosystem without exposing backend details", async ({ page }) => {
+  await page.goto("/#connections");
+  const section = page.locator("#connections");
+  await expect(section.getByRole("heading", { level: 2 })).toContainText("connect");
+  await expect(section).toContainText("Academic context");
+  await expect(section).toContainText("AI-powered study layer");
+  await expect(section).toContainText("Campus wayfinding");
+  await expect(section).not.toContainText("Supabase");
+  await expect(section).not.toContainText("cookie");
+});

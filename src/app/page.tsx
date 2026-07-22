@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { ConnectionsSection } from "@/components/connections-section";
 import { EcosystemSection } from "@/components/ecosystem-section";
 import { Icon } from "@/components/icons";
 import { ProductDemo } from "@/components/product-demo";
@@ -70,6 +71,8 @@ export default function Home() {
       </section>
 
       <EcosystemSection />
+
+      <ConnectionsSection />
 
       <section className="pillars-section">
         <div className="container pillars">
