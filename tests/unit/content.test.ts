@@ -8,7 +8,7 @@ import {
   approvedTeam,
   projectFacts,
 } from "@/content/project-facts";
-import { pageMetadata, pageSlugs, primaryNavigation } from "@/content/site";
+import { footerNavigation, pageMetadata, pageSlugs, primaryNavigation } from "@/content/site";
 
 describe("public content governance", () => {
   it("never exposes unapproved proof points", () => {
@@ -84,5 +84,27 @@ describe("public content governance", () => {
       "Selected for the Macquarie University Incubator in May 2026.",
     );
     expect(projectFacts.incubator.approved).toBe(true);
+  });
+
+  it("primary navigation reflects the ecosystem anchor structure", () => {
+    expect(primaryNavigation.map((item) => item.label)).toEqual([
+      "Home",
+      "Platform",
+      "Sylla",
+      "MQ Navigation",
+      "Vision",
+      "About",
+      "Contact",
+    ]);
+    expect(primaryNavigation.find((item) => item.label === "Platform")?.href).toBe("/#platform");
+    expect(primaryNavigation.find((item) => item.label === "Sylla")?.href).toBe("/#sylla");
+    expect(primaryNavigation.find((item) => item.label === "MQ Navigation")?.href).toBe("/#mq-navigation");
+  });
+
+  it("footer navigation still reaches every existing standalone page", () => {
+    const paths = footerNavigation.map((item) => item.href);
+    for (const path of ["/product", "/features", "/security", "/privacy", "/accessibility", "/terms", "/universities", "/about", "/updates", "/contact", "/status"]) {
+      expect(paths).toContain(path);
+    }
   });
 });

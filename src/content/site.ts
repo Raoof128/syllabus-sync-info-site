@@ -3,19 +3,24 @@ import type { Metadata } from "next";
 import { projectFacts } from "./project-facts";
 
 export const primaryNavigation = [
-  { label: "Product", href: "/product" },
-  { label: "Features", href: "/features" },
-  { label: "Security", href: "/security" },
-  { label: "For Universities", href: "/universities" },
-  { label: "About", href: "/about" },
-  { label: "Updates", href: "/updates" },
+  { label: "Home", href: "/" },
+  { label: "Platform", href: "/#platform" },
+  { label: "Sylla", href: "/#sylla" },
+  { label: "MQ Navigation", href: "/#mq-navigation" },
+  { label: "Vision", href: "/#vision" },
+  { label: "About", href: "/#team" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const footerNavigation = [
-  ...primaryNavigation.slice(0, 3),
+  { label: "Platform", href: "/product" },
+  { label: "Features", href: "/features" },
+  { label: "Security", href: "/security" },
   { label: "Privacy", href: "/privacy" },
   { label: "Accessibility", href: "/accessibility" },
   { label: "Terms", href: "/terms" },
+  { label: "Universities", href: "/universities" },
+  { label: "About", href: "/about" },
   { label: "Updates", href: "/updates" },
   { label: "Contact", href: "/contact" },
   { label: "Status", href: "/status" },
