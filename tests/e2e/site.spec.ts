@@ -3,10 +3,10 @@ import { expect, test } from "@playwright/test";
 test("homepage exposes the product story and safe links", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/Syllabus Sync/);
-  await expect(page.getByRole("heading", { level: 1, name: "Your semester, finally organised." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "One connected ecosystem for university life." })).toBeVisible();
   const appLinks = page.getByRole("main").getByRole("link", { name: "Open Syllabus Sync", exact: true });
-  await expect(appLinks).toHaveCount(2);
   await expect(appLinks.first()).toHaveAttribute("href", "https://www.syllabus-sync.app");
+  await expect(page.getByRole("link", { name: "Open Sylla", exact: true }).first()).toHaveAttribute("href", "https://sylla.syllabus-sync.app");
   await expect(page.getByRole("heading", { level: 2, name: "Student technology should earn trust." })).toBeVisible();
 });
 
