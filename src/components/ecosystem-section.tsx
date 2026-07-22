@@ -41,7 +41,7 @@ export function EcosystemSection() {
                 <p className="tagline">{product.tagline}</p>
               </div>
               <p>{product.description}</p>
-              <span className="status-pill status-pill-early-access">{product.statusLabel}</span>
+              <span className={`status-pill status-pill-${product.status}`}>{product.statusLabel}</span>
               <div className="ecosystem-feature-list">
                 {product.features.map((feature) => (
                   <div className="ecosystem-feature" key={feature.name}>

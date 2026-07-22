@@ -71,6 +71,7 @@ test("ecosystem section exposes all three products with distinct anchors", async
   await expect(page.locator("#sylla")).toContainText("Flashcards");
   await expect(page.locator("#mq-navigation")).toContainText("Mobile prototype, not yet published");
   await expect(page.locator("#mq-navigation")).toContainText("Public OS-level linking and the complete production handoff are not yet released");
+  await expect(page.locator("#mq-navigation .status-pill").first()).toHaveClass(/status-pill-prototype/);
 });
 
 test("connections section explains the ecosystem without exposing backend details", async ({ page }) => {

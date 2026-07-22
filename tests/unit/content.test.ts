@@ -53,6 +53,15 @@ describe("public content governance", () => {
     expect(approvedEcosystem.every((product) => product.features.length > 0)).toBe(true);
   });
 
+  it("gives each ecosystem product a status matching its label's actual maturity, not a default", () => {
+    const platform = approvedEcosystem.find((p) => p.id === "platform")!;
+    const sylla = approvedEcosystem.find((p) => p.id === "sylla")!;
+    const mqNav = approvedEcosystem.find((p) => p.id === "mq-navigation")!;
+    expect(platform.status).toBe("early-access");
+    expect(sylla.status).toBe("early-access");
+    expect(mqNav.status).toBe("prototype");
+  });
+
   it("never claims Sylla's study tools are anything more than a prototype", () => {
     const sylla = approvedEcosystem.find((product) => product.id === "sylla")!;
     const chat = sylla.features.find((feature) => feature.name === "AI chat")!;

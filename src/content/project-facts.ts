@@ -36,6 +36,7 @@ export type EcosystemProduct = {
   tagline: string;
   description: string;
   statusLabel: string;
+  status: FeatureStatus;
   link: { label: string; href: string; external: boolean };
   screenshot?: { src: string; alt: string };
   features: EcosystemFeature[];
@@ -139,6 +140,7 @@ export const projectFacts = {
       description:
         "The core web platform for academic planning, deadlines, the calendar, campus context and the rest of the student day — and the entry point into Sylla and MQ Navigation.",
       statusLabel: "Web platform available in early access",
+      status: "early-access",
       link: { label: "Open Syllabus Sync", href: "https://www.syllabus-sync.app", external: true },
       screenshot: { src: "/products/platform-dashboard.png", alt: "Syllabus Sync dashboard showing a semester overview" },
       features: [
@@ -158,6 +160,7 @@ export const projectFacts = {
       description:
         "A standalone AI study assistant today, with chat available in early access. Study tools are working prototypes, not yet live AI features.",
       statusLabel: "AI chat available in early access",
+      status: "early-access",
       link: { label: "Open Sylla", href: "https://sylla.syllabus-sync.app", external: true },
       features: [
         { name: "AI chat", description: "Ask questions and get help understanding study material.", status: "early-access", source: "Repo audit, 2026-07-22", approved: true },
@@ -178,6 +181,7 @@ export const projectFacts = {
       description:
         "A mobile wayfinding app for Macquarie University's campus, built to hand off from Syllabus Sync so students can get from a plan to a place.",
       statusLabel: "Mobile prototype, not yet published",
+      status: "prototype",
       link: { label: "View on GitHub", href: "https://github.com/mrpouyaalavi/MQ_Navigation", external: true },
       screenshot: { src: "/products/mq-navigation-map.png", alt: "MQ Navigation campus map screen" },
       features: [
