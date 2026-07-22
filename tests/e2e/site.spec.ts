@@ -83,3 +83,14 @@ test("connections section explains the ecosystem without exposing backend detail
   await expect(section).not.toContainText("Supabase");
   await expect(section).not.toContainText("cookie");
 });
+
+test("Macquarie and incubator sections use the exact approved wording", async ({ page }) => {
+  await page.goto("/#macquarie");
+  await expect(page.locator("#macquarie")).toContainText("not an official university service");
+
+  await page.goto("/#incubator");
+  const incubator = page.locator("#incubator");
+  await expect(incubator).toContainText("Selected for the Macquarie University Incubator in May 2026.");
+  await expect(incubator).toContainText("mentoring, customer discovery and founder development");
+  await expect(incubator).toContainText("not an official university service");
+});

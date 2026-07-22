@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ConnectionsSection } from "@/components/connections-section";
 import { EcosystemSection } from "@/components/ecosystem-section";
 import { Icon } from "@/components/icons";
+import { IncubatorSection } from "@/components/incubator-section";
+import { MacquarieSection } from "@/components/macquarie-section";
 import { ProductDemo } from "@/components/product-demo";
 import { projectFacts } from "@/content/project-facts";
 import { websiteJsonLd } from "@/lib/metadata";
@@ -73,6 +75,10 @@ export default function Home() {
       <EcosystemSection />
 
       <ConnectionsSection />
+
+      <MacquarieSection />
+
+      <IncubatorSection />
 
       <section className="pillars-section">
         <div className="container pillars">
