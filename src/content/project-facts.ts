@@ -90,7 +90,9 @@ export const projectFacts = {
     "Designed and tested toward WCAG 2.2 Level AA; no formal conformance claim is made.",
   independenceStatement:
     "Syllabus Sync is an independent platform and is not an official university service.",
-  socialLinks: [] as { label: string; href: string }[],
+  socialLinks: [
+    { label: "Syllabus Sync on LinkedIn", href: "https://www.linkedin.com/company/syllabuss-sync/" },
+  ] as { label: string; href: string }[],
   proofPoints: [] as ProofPoint[],
   features: [
     {

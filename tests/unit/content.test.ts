@@ -107,4 +107,11 @@ describe("public content governance", () => {
       expect(paths).toContain(path);
     }
   });
+
+  it("lists the LinkedIn company page under the Syllabus Sync display name", () => {
+    const linkedIn = projectFacts.socialLinks.find((link) => link.href.includes("linkedin.com/company"));
+    expect(linkedIn).toBeDefined();
+    expect(linkedIn?.href).toBe("https://www.linkedin.com/company/syllabuss-sync/");
+    expect(linkedIn?.label).toBe("Syllabus Sync on LinkedIn");
+  });
 });
