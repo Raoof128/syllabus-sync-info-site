@@ -6,12 +6,4 @@ export default defineConfig([
   ...nextCoreWebVitals,
   ...nextTypeScript,
   globalIgnores([".next/**", "coverage/**", "playwright-report/**", "test-results/**"]),
-  {
-    rules: {
-      "@typescript-eslint/no-unused-vars": [
-        "warn",
-        { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
-      ],
-    },
-  },
 ]);
