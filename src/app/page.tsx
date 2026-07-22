@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { EcosystemSection } from "@/components/ecosystem-section";
 import { Icon } from "@/components/icons";
 import { ProductDemo } from "@/components/product-demo";
 import { projectFacts } from "@/content/project-facts";
@@ -67,6 +68,8 @@ export default function Home() {
           <p className="problem-close">Syllabus Sync connects these fragments into one organised academic view.</p>
         </div>
       </section>
+
+      <EcosystemSection />
 
       <section className="pillars-section">
         <div className="container pillars">

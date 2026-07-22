@@ -62,3 +62,13 @@ test("unknown routes show useful navigation", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: "That page is out of the plan." })).toBeVisible();
   await expect(page.getByRole("link", { name: "Return home" })).toBeVisible();
 });
+
+test("ecosystem section exposes all three products with distinct anchors", async ({ page }) => {
+  await page.goto("/#ecosystem");
+  await expect(page.locator("#platform")).toContainText("Syllabus Sync Platform");
+  await expect(page.locator("#platform")).toContainText("Web platform available in early access");
+  await expect(page.locator("#sylla")).toContainText("AI chat available in early access");
+  await expect(page.locator("#sylla")).toContainText("Flashcards");
+  await expect(page.locator("#mq-navigation")).toContainText("Mobile prototype, not yet published");
+  await expect(page.locator("#mq-navigation")).toContainText("Public OS-level linking and the complete production handoff are not yet released");
+});
