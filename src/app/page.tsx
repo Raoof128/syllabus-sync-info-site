@@ -6,6 +6,8 @@ import { Icon } from "@/components/icons";
 import { IncubatorSection } from "@/components/incubator-section";
 import { MacquarieSection } from "@/components/macquarie-section";
 import { ProductDemo } from "@/components/product-demo";
+import { RoadmapSection } from "@/components/roadmap-section";
+import { TeamSection } from "@/components/team-section";
 import { projectFacts } from "@/content/project-facts";
 import { websiteJsonLd } from "@/lib/metadata";
 
@@ -79,6 +81,10 @@ export default function Home() {
       <MacquarieSection />
 
       <IncubatorSection />
+
+      <RoadmapSection />
+
+      <TeamSection />
 
       <section className="pillars-section">
         <div className="container pillars">

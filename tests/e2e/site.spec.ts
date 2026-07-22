@@ -94,3 +94,22 @@ test("Macquarie and incubator sections use the exact approved wording", async ({
   await expect(incubator).toContainText("mentoring, customer discovery and founder development");
   await expect(incubator).toContainText("not an official university service");
 });
+
+test("roadmap section presents three future-facing phases without naming a Sydney university", async ({ page }) => {
+  await page.goto("/#vision");
+  const section = page.locator("#vision");
+  await expect(section).toContainText("Macquarie University");
+  await expect(section).toContainText("Expansion to other Sydney universities");
+  await expect(section).toContainText("Australia-wide expansion");
+  await expect(section).not.toContainText("UNSW");
+  await expect(section).not.toContainText("University of Sydney");
+});
+
+test("team section credits both founders with neutral titles", async ({ page }) => {
+  await page.goto("/#team");
+  const section = page.locator("#team");
+  await expect(section).toContainText("Co-founder, Software Engineering & Product");
+  await expect(section).toContainText("Co-founder, Backend & Platform Engineering");
+  await expect(section.getByRole("link", { name: /LinkedIn/ })).toHaveCount(2);
+  await expect(section.getByRole("link", { name: /GitHub/ })).toHaveCount(2);
+});
