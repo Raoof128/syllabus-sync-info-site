@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { BrandLogo } from "@/components/brand-logo";
 import { ConnectionsSection } from "@/components/connections-section";
 import { EcosystemSection } from "@/components/ecosystem-section";
 import { Icon } from "@/components/icons";
@@ -9,7 +10,7 @@ import { ProductDemo } from "@/components/product-demo";
 import { RoadmapSection } from "@/components/roadmap-section";
 import { TeamSection } from "@/components/team-section";
 import { projectFacts } from "@/content/project-facts";
-import { websiteJsonLd } from "@/lib/metadata";
+import { organisationJsonLd, websiteJsonLd } from "@/lib/metadata";
 
 const faqs = [
   ["What is Syllabus Sync?", "Syllabus Sync is an independent student experience ecosystem: an academic planning platform, an AI study assistant called Sylla, and a campus navigation companion called MQ Navigation."],
@@ -26,9 +27,17 @@ export default function Home() {
   return (
     <main id="main-content">
       <script dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }} type="application/ld+json" />
+      <script dangerouslySetInnerHTML={{ __html: JSON.stringify(organisationJsonLd).replace(/</g, "\\u003c") }} type="application/ld+json" />
       <section className="hero" id="hero">
         <div className="container hero-grid">
           <div className="hero-copy">
+            {/*
+              The symbol acts as a quiet brand anchor above the headline. The
+              headline itself stays real text for search and assistive tech, and
+              the logo is decorative here because the header link and the H1
+              already name the product.
+            */}
+            <BrandLogo className="hero-brandmark" decorative height={52} priority variant="icon" />
             <h1>One connected<br />ecosystem for university life.</h1>
             <p className="hero-lead">Syllabus Sync brings academic planning, AI-powered study support and campus navigation into one connected student ecosystem — starting at Macquarie University.</p>
             <p>Three distinct products, one shared direction: Syllabus Sync for planning, Sylla for study support, MQ Navigation for getting where you need to be.</p>
