@@ -8,7 +8,7 @@ export function TeamSection() {
       <div className="container">
         <div className="section-heading centered">
           <p className="section-label">Team</p>
-          <h2>Built by two founders, collaboratively.</h2>
+          <h2>Built by two founders.</h2>
           <p>Syllabus Sync, Sylla and Astronomy Open Night are built together, with each founder leading different parts of the ecosystem.</p>
         </div>
         <div className="team-grid">

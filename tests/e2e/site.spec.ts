@@ -88,7 +88,7 @@ test("connections section explains the ecosystem without exposing backend detail
   const section = page.locator("#connections");
   await expect(section.getByRole("heading", { level: 2 })).toContainText("connect");
   await expect(section).toContainText("Academic context");
-  await expect(section).toContainText("AI-powered study layer");
+  await expect(section).toContainText("AI-assisted study layer");
   await expect(section).toContainText("Event nights");
   await expect(section).not.toContainText("Supabase");
   await expect(section).not.toContainText("cookie");

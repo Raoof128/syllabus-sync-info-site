@@ -8,9 +8,9 @@ export function MacquarieSection() {
           <p className="section-label">Starting with Macquarie</p>
           <h2>We are starting where we know the student experience firsthand.</h2>
           <p>
-            Macquarie University is our first implementation and validation environment. Building
-            here first means unit information, campus context and student workflows can be tested
-            against real student needs before expanding elsewhere.
+            Macquarie University is where we build and test first. Unit information, campus context
+            and student workflows get checked against real student needs before we expand anywhere
+            else.
           </p>
           <p className="independence-note">{projectFacts.independenceStatement}</p>
         </div>
