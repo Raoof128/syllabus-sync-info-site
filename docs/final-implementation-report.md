@@ -2,6 +2,8 @@
 
 Verification date: 21 July 2026 (Australia/Sydney)
 
+This is a point-in-time record of the 21 July 2026 build, kept as evidence. Work shipped after that date is in `docs/changelog.md`, and where the two disagree the changelog is correct. The dependency, deployment and remaining-blocker sections below are superseded by the update at the end of this file.
+
 ## Summary
 
 The repository now contains a complete public information and trust site for `info.syllabus-sync.app`. It explains the intended Syllabus Sync product experience without inventing institutional relationships, adoption figures, pricing, certifications or product controls. The implementation includes the homepage, eleven supporting pages, a guarded contact flow, machine-readable discovery files, documentation and automated verification.
@@ -113,7 +115,22 @@ Important additions include `src/app`, `src/components`, `src/content`, `src/lib
 
 ## Remaining blockers
 
+*(As at 21 July 2026. Superseded by the update below.)*
+
 - No deployment provider, DNS access or production credentials were supplied, so the site is repository-ready but not deployed.
 - Contact delivery is deliberately unavailable until an approved transport and retention policy are configured.
 - Brand ownership, legal terms, product privacy wording, support/security contacts, supported institutions, pricing and current product controls require owner verification.
 - Production screen-reader evidence, shared rate limiting, live Lighthouse/structured-data/social-card checks and real-user Core Web Vitals require the deployed environment.
+
+## Update: 9 September 2026
+
+What changed since the July verification. Per-pull-request detail is in `docs/changelog.md`.
+
+- **Deployed.** The site is live at `https://info.syllabus-sync.app` on Cloudflare Workers through the OpenNext adapter, with the custom domain attached, Always Use HTTPS on and minimum TLS 1.2. The July blocker "repository-ready but not deployed" is cleared.
+- **Runtime.** Next.js 16.3.4 with React 19.2.7, TypeScript 6.0.3 and Tailwind CSS 4.3.3. `npm audit` reports zero vulnerabilities; the reasoning, including the `sharp` override, is in `docs/security.md`.
+- **Rate limiting.** The process-local contact limiter is replaced at the edge by the Cloudflare `CONTACT_RATE_LIMITER` binding, 5 requests per 60 seconds per hashed key. The July blocker "shared rate limiting" is cleared.
+- **Routes.** Sixteen indexable HTML routes, all in the sitemap: the homepage, eleven supporting pages, and the Astronomy Open Night index plus its privacy, support and terms pages. `/api/contact` remains the only dynamic route.
+- **Content.** MQ Navigation was replaced by the Astronomy Open Night app in the ecosystem, the public prose went through a copy audit, and the store pages were audited line by line against the app's own declarations.
+- **Tests.** 27 unit tests across three files; 47 Playwright tests passed with 10 intentional skips; axe clean on five routes.
+
+Still open: contact delivery transport, brand ownership and legal approval, verified contacts, product feature and pricing confirmation, live Lighthouse and Search Console checks, real-user Core Web Vitals, a retained screen-reader evaluation, and the Astronomy Open Night contact address. `docs/launch-checklist.md` is the working list.
