@@ -15,7 +15,9 @@ Nonce CSP would force every otherwise-static page into dynamic rendering. Follow
 
 ## Dependency review
 
-`npm audit` reports a moderate PostCSS advisory through Next.js's exact internal PostCSS 8.4.31 dependency. The site does not accept, transform or render user-supplied CSS, so the advisory's unescaped CSS-stringification path is not reachable in this design. No high or critical advisory is present. Upgrade to an upstream Next.js release that updates the internal dependency when available; do not force-downgrade Next.js as npm currently suggests.
+`npm audit` currently reports **0 vulnerabilities**.
+
+Reviewed 2026-09-09: an earlier audit surfaced a critical Next.js advisory (unauthenticated RCE in the Image Optimization API), several high Next.js advisories (App Router middleware/proxy bypass, SSRF in Server Actions and rewrites) and transitive `postcss`/`sharp` advisories, all against Next.js `16.2.10`. These were resolved by upgrading to `next` `16.3.4` (a non-major, in-line security release; `eslint-config-next` bumped to match). The remaining transitive build/lint-tooling advisories (`brace-expansion`, `browserslist`, `js-yaml`, `baseline-browser-mapping`) were cleared with a non-forced `npm audit fix`, which adjusted only nested lockfile versions and left the pinned direct dependencies unchanged. Continue to track upstream Next.js security releases; do not force-downgrade Next.js as npm sometimes suggests.
 
 ## Remaining production controls
 

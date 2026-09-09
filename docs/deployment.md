@@ -22,7 +22,7 @@ Secrets must be configured in the deployment platform, never committed or prefix
 ## DNS and TLS
 
 1. Create the provider-specific `info` CNAME or A/AAAA record.
-2. Add `info.syllabusing.app` as the production host.
+2. Add `info.syllabus-sync.app` as the production host.
 3. Verify automatic TLS and HTTP-to-HTTPS redirection.
 4. Verify the canonical host and certificate before relying on HSTS.
 5. Keep staging hosts blocked from indexing.

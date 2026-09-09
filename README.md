@@ -1,6 +1,6 @@
 # Syllabus Sync information site
 
-Production-oriented public information, product education and trust site for `info.syllabusing.app`.
+Production-oriented public information, product education and trust site for `info.syllabus-sync.app`.
 
 ## Local usage
 

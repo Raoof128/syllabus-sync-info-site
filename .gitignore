@@ -16,6 +16,8 @@ test-results/
 .DS_Store
 *.log
 *.tsbuildinfo
+.idea/
+.remember/
 
 # local source material retained outside the public deliverable
 ChatGPT Image*.png
