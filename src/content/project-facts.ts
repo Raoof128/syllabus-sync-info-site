@@ -138,7 +138,7 @@ export const projectFacts = {
       name: "Syllabus Sync Platform",
       tagline: "The main workspace and entry point into the ecosystem.",
       description:
-        "The core web platform for academic planning, deadlines, the calendar, campus context and the rest of the student day — and the entry point into Sylla.",
+        "The core web platform for academic planning, deadlines, the calendar, campus context and the rest of the student day, and the entry point into Sylla.",
       statusLabel: "Web platform available in early access",
       status: "early-access",
       link: { label: "Open Syllabus Sync", href: "https://www.syllabus-sync.app", external: true },
@@ -255,7 +255,7 @@ export const projectFacts = {
     {
       name: "Mohammad Raouf Abedini",
       role: "Co-founder, Backend & Platform Engineering",
-      bio: "Leads backend, security and platform engineering across Syllabus Sync, and co-develops Astronomy Open Night — the passport/QR and 360° panorama subsystems.",
+      bio: "Leads backend, security and platform engineering across Syllabus Sync, and co-develops Astronomy Open Night, working on the passport/QR and 360° panorama subsystems.",
       linkedIn: "https://www.linkedin.com/in/mohammad-raouf-abedini-885a9226a/",
       gitHub: "https://github.com/Raoof128",
       photo: "/team/raouf.jpg",

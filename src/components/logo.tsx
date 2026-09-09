@@ -17,7 +17,7 @@ type LogoProps = {
 
 export function Logo({ responsive = false, priority = false }: LogoProps) {
   return (
-    <Link aria-label="Syllabus Sync — home" className="brand" href="/">
+    <Link aria-label="Syllabus Sync home" className="brand" href="/">
       <BrandLogo
         className={responsive ? "brand-logo-lockup" : undefined}
         decorative

@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
       signal: AbortSignal.timeout(6_000),
     });
     if (!response.ok) throw new Error(`Contact transport returned ${response.status}`);
-    return Response.json({ message: "Thanks — your enquiry has been sent." });
+    return Response.json({ message: "Thanks, your enquiry has been sent." });
   } catch {
     return Response.json({ message: "The contact service is temporarily unavailable. Please try again later." }, { status: 502 });
   }

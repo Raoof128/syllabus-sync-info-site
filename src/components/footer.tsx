@@ -15,7 +15,7 @@ export function Footer() {
             the header and the hero, and repeating it here would work against
             keeping the mark a premium, sparingly used asset.
           */}
-          <Link aria-label="Syllabus Sync — home" className="brand footer-brand-link" href="/">
+          <Link aria-label="Syllabus Sync home" className="brand footer-brand-link" href="/">
             <BrandLogo className="brand-logo-footer" decorative height={26} variant="wordmarkWide" />
           </Link>
           <p>{projectFacts.independenceStatement}</p>

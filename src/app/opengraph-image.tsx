@@ -1,7 +1,7 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { ImageResponse } from "next/og";
 
-export const alt = "Syllabus Sync — Your semester, finally organised";
+export const alt = "Syllabus Sync: your semester, finally organised";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

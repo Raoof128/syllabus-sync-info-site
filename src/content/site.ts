@@ -60,7 +60,7 @@ export const pages = {
       {
         heading: "From information to a clear plan",
         body: [
-          "Add or connect academic information, review the organised semester, see today's priorities, connect commitments with campus context, stay updated and keep control of personal data.",
+          "Connect your academic information once, then work from an organised semester instead of a pile of tabs and PDFs.",
           "The interface scenes shown here use fictional course information and contain no personal student data.",
         ],
         items: [
@@ -84,7 +84,7 @@ export const pages = {
     title: "Features organised around student outcomes",
     description: "Planning, calendar, deadlines, campus context and events.",
     intro:
-      "The product direction centres on reducing the effort required to understand what is happening, what matters and where a student needs to be.",
+      "The product direction centres on cutting the effort it takes to see what is happening and where you need to be.",
     sections: [
       {
         heading: "Planning and calendar",
@@ -118,7 +118,7 @@ export const pages = {
       {
         heading: "Public-site protections",
         body: [
-          "The site uses server-rendered content, strict input validation, bounded request bodies, rate limiting, a honeypot and timing signal for the contact endpoint, and restrictive browser security headers.",
+          "The site serves server-rendered content behind restrictive browser security headers. The contact endpoint validates input on the server, bounds the request body, rate-limits submissions, and uses a honeypot and a timing signal.",
           "No secret is included in the client bundle, and no contact message is logged by the application.",
         ],
         items: [
@@ -185,7 +185,7 @@ export const pages = {
       {
         heading: "What is built in",
         body: [
-          "The interface uses semantic landmarks, a skip link, logical headings, visible focus, keyboard-operable navigation and accordions, labelled forms, reduced-motion support and responsive reflow.",
+          "The interface is built on semantic HTML, so landmarks, headings, focus and forms behave the way assistive technology expects. The list below is what that covers today.",
         ],
         items: [
           "Keyboard navigation",
@@ -251,7 +251,7 @@ export const pages = {
       {
         heading: "Product principles",
         body: [
-          "Clarity before novelty. Evidence before claims. Accessibility and privacy from the start. Deliberate independence from institutional branding.",
+          "We choose clarity over novelty and evidence over claims. Accessibility and privacy come first, and we stay deliberately independent of institutional branding.",
         ],
       },
       {
@@ -264,7 +264,7 @@ export const pages = {
     title: "Updates",
     description: "Truthful notes about Syllabus Sync product and site development.",
     intro:
-      "A small, readable record of meaningful project changes. No invented release history and no decorative version numbers.",
+      "A small, readable record of meaningful project changes. We do not invent release history or add decorative version numbers.",
     sections: updates.map((update) => ({
       heading: update.title,
       body: [`${update.date} · ${update.category}`, update.summary],
