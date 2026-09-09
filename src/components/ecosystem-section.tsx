@@ -2,6 +2,8 @@ import Image from "next/image";
 
 import { approvedEcosystem, type FeatureStatus } from "@/content/project-facts";
 
+import { Icon } from "./icons";
+
 const statusLabels: Record<FeatureStatus, string> = {
   available: "Available",
   "early-access": "Early access",
@@ -26,7 +28,7 @@ export function EcosystemSection() {
         <div className="ecosystem-grid">
           {approvedEcosystem.map((product) => (
             <article className="ecosystem-card" id={product.id} key={product.id}>
-              {product.screenshot && (
+              {product.screenshot ? (
                 <div className="ecosystem-card-media">
                   <Image
                     alt={product.screenshot.alt}
@@ -34,6 +36,10 @@ export function EcosystemSection() {
                     src={product.screenshot.src}
                     width={640}
                   />
+                </div>
+              ) : (
+                <div className="ecosystem-card-media ecosystem-card-media-placeholder" aria-hidden="true">
+                  <Icon name="spark" size={40} />
                 </div>
               )}
               <div>
