@@ -30,7 +30,7 @@ export function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Logo />
+        <Logo priority responsive />
         <nav aria-label="Primary" className="desktop-nav">
           {primaryNavigation.map((item) => (
             <Link href={item.href} key={item.href}>{item.label}</Link>
@@ -57,7 +57,7 @@ export function Header() {
       {open && (
         <div aria-label="Mobile navigation" aria-modal="true" className="mobile-menu" id="mobile-navigation" role="dialog">
           <div className="mobile-menu-top">
-            <Logo />
+            <Logo responsive />
             <button
               aria-label="Close navigation"
               className="menu-button"
