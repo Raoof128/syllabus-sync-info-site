@@ -26,7 +26,7 @@ describe("Astronomy Open Night store pages", () => {
 
   it("names both publishers and never a university as publisher", () => {
     expect(aonPublisher).toBe("Leo Alavi and Mohammad Raouf Abedini");
-    expect(allText("app-privacy")).toContain(`published by ${aonPublisher}`);
+    expect(allText("app-privacy")).toContain(`${aonPublisher}, the Syllabus Sync team, publish`);
     for (const slug of aonLegalSlugs) {
       // "published by <a university>" must never appear; "not affiliated with any university" is fine.
       expect(allText(slug)).not.toMatch(/published (by|under) (the |a |an )?(macquarie|university)/i);
@@ -48,8 +48,18 @@ describe("Astronomy Open Night store pages", () => {
     expect(privacy).toContain("route origin");
     expect(privacy).toContain("system backups");
     expect(privacy).toContain("Delete my data");
-    // The disproven "we collect nothing" framing must not come back.
-    expect(privacy).not.toMatch(/collects? nothing/i);
+    // The disproven "we collect nothing" framing must not come back, in any wording:
+    // a route origin and Google SDK diagnostics do leave the device.
+    expect(privacy).not.toMatch(/collects? (nothing|no personal (information|data))/i);
+    // Both platforms' backups are covered, and the compass sensor is disclosed.
+    expect(privacy).toMatch(/iCloud/);
+    expect(privacy).toMatch(/motion sensor/);
+  });
+
+  it("support page claims only the accessibility support the app team verified", () => {
+    const support = allText("app-support");
+    expect(support).toContain("VoiceOver");
+    expect(support).not.toContain("TalkBack");
   });
 
   it("terms flow the Google Maps terms through to end users", () => {
