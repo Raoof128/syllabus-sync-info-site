@@ -2,6 +2,7 @@ import "server-only";
 
 import { createHash } from "node:crypto";
 
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { NextRequest } from "next/server";
 
 import { validateContactInput } from "@/lib/contact";
@@ -12,6 +13,27 @@ const RATE_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT = 5;
 const MAX_TRACKED_CLIENTS = 5_000;
 const MAX_BODY_BYTES = 16_384;
+
+/**
+ * Cloudflare Workers Rate Limiting binding (GA). Declared in wrangler.jsonc as
+ * CONTACT_RATE_LIMITER (5 requests / 60s per key). Colo-distributed, so it holds
+ * across the many isolates a Worker deployment runs — unlike the per-isolate
+ * in-memory map below, which is only a fallback for local dev / non-Cloudflare
+ * hosts (e.g. Vercel) where the binding is absent.
+ */
+type RateLimitBinding = { limit: (options: { key: string }) => Promise<{ success: boolean }> };
+
+async function edgeRateLimited(key: string): Promise<boolean | null> {
+  try {
+    const { env } = getCloudflareContext();
+    const limiter = (env as Record<string, unknown>).CONTACT_RATE_LIMITER as RateLimitBinding | undefined;
+    if (!limiter) return null;
+    const { success } = await limiter.limit({ key });
+    return !success;
+  } catch {
+    return null;
+  }
+}
 
 function rateLimitKey(request: NextRequest) {
   const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim().slice(0, 80);
@@ -75,7 +97,10 @@ export async function POST(request: NextRequest) {
     return Response.json({ message: "The submission is too large." }, { status: 413 });
   }
 
-  if (isRateLimited(rateLimitKey(request))) {
+  const rateKey = rateLimitKey(request);
+  const edgeLimited = await edgeRateLimited(rateKey);
+  const limited = edgeLimited ?? isRateLimited(rateKey);
+  if (limited) {
     return Response.json({ message: "Too many attempts. Please wait before trying again." }, { status: 429 });
   }
 
