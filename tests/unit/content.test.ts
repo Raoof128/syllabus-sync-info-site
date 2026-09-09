@@ -48,7 +48,7 @@ describe("public content governance", () => {
     expect(approvedEcosystem.map((product) => product.id)).toEqual([
       "platform",
       "sylla",
-      "mq-navigation",
+      "astronomy-open-night",
     ]);
     expect(approvedEcosystem.every((product) => product.features.length > 0)).toBe(true);
   });
@@ -56,10 +56,18 @@ describe("public content governance", () => {
   it("gives each ecosystem product a status matching its label's actual maturity, not a default", () => {
     const platform = approvedEcosystem.find((p) => p.id === "platform")!;
     const sylla = approvedEcosystem.find((p) => p.id === "sylla")!;
-    const mqNav = approvedEcosystem.find((p) => p.id === "mq-navigation")!;
+    const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
     expect(platform.status).toBe("early-access");
     expect(sylla.status).toBe("early-access");
-    expect(mqNav.status).toBe("prototype");
+    // Built and in testing, but not publicly released — never "available".
+    expect(openNight.status).toBe("in-development");
+    expect(openNight.statusLabel).toContain("In testing");
+  });
+
+  it("never links Astronomy Open Night to a repository the public cannot open", () => {
+    const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
+    expect(openNight.link.external).toBe(false);
+    expect(openNight.link.href).toBe("/contact");
   });
 
   it("never claims Sylla's study tools are anything more than a prototype", () => {
@@ -100,14 +108,14 @@ describe("public content governance", () => {
       "Home",
       "Platform",
       "Sylla",
-      "MQ Navigation",
+      "Open Night",
       "Vision",
       "About",
       "Contact",
     ]);
     expect(primaryNavigation.find((item) => item.label === "Platform")?.href).toBe("/#platform");
     expect(primaryNavigation.find((item) => item.label === "Sylla")?.href).toBe("/#sylla");
-    expect(primaryNavigation.find((item) => item.label === "MQ Navigation")?.href).toBe("/#mq-navigation");
+    expect(primaryNavigation.find((item) => item.label === "Open Night")?.href).toBe("/#astronomy-open-night");
   });
 
   it("footer navigation still reaches every existing standalone page", () => {

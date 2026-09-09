@@ -21,7 +21,7 @@ export function EcosystemSection() {
           <h2>One ecosystem, three connected products.</h2>
           <p>
             Syllabus Sync is the main platform and student workspace. Sylla is the AI-assisted study
-            companion. MQ Navigation is the campus navigation companion. Each is a distinct product,
+            companion. Astronomy Open Night is the offline event companion. Each is a distinct product,
             built to work together.
           </p>
         </div>
@@ -39,7 +39,9 @@ export function EcosystemSection() {
                 </div>
               ) : (
                 <div className="ecosystem-card-media ecosystem-card-media-placeholder" aria-hidden="true">
-                  <Icon name="spark" size={40} />
+                  {/* A motif that says something about the product rather than
+                      repeating one decorative glyph on every card. */}
+                  <Icon name={product.id === "astronomy-open-night" ? "compass" : "spark"} size={40} />
                 </div>
               )}
               <div>
