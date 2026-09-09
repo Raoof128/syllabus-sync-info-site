@@ -30,6 +30,8 @@ export type ContentSection = {
   heading: string;
   body: string[];
   items?: string[];
+  /** Related links rendered after the body; external hrefs open in a new tab. */
+  links?: { label: string; href: string }[];
   anchor?: string;
 };
 

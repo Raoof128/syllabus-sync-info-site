@@ -57,6 +57,28 @@ test("metadata and machine-readable routes resolve", async ({ request }) => {
   }
 });
 
+test("Astronomy Open Night store pages are live, accurate and in the sitemap", async ({ page, request }) => {
+  for (const path of ["/astronomy-open-night", "/astronomy-open-night/app-privacy", "/astronomy-open-night/app-support", "/astronomy-open-night/app-terms"]) {
+    const response = await request.get(path);
+    expect(response.ok(), `${path} should resolve`).toBe(true);
+  }
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  expect(sitemap).toContain("/astronomy-open-night/app-privacy");
+  expect(sitemap).toContain("/astronomy-open-night/app-support");
+
+  await page.goto("/astronomy-open-night/app-privacy");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("Privacy Policy");
+  const main = page.getByRole("main");
+  await expect(main).toContainText("Google Maps");
+  await expect(main).toContainText("ML Kit");
+  await expect(main).toContainText("Delete my data");
+  // Google's policy must be a real, clickable link for reviewers.
+  await expect(main.getByRole("link", { name: "Google Privacy Policy" })).toHaveAttribute("href", "https://policies.google.com/privacy");
+
+  await page.goto("/astronomy-open-night/nope");
+  await expect(page.getByRole("heading", { level: 1, name: "That page is out of the plan." })).toBeVisible();
+});
+
 test("unknown routes show useful navigation", async ({ page }) => {
   await page.goto("/not-a-real-page");
   await expect(page.getByRole("heading", { level: 1, name: "That page is out of the plan." })).toBeVisible();

@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Link from "next/link";
 
 import type { PageDefinition } from "@/content/site";
@@ -28,6 +29,21 @@ export function ContentPage({ page, slug }: { page: PageDefinition; slug: string
               <h2>{section.heading}</h2>
               {section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
               {section.items && <ul>{section.items.map((item) => <li key={item}><Icon name="check" size={18} />{item}</li>)}</ul>}
+              {section.links && (
+                <ul className="section-links">
+                  {section.links.map((link) => {
+                    const external = /^https?:\/\//.test(link.href);
+                    return (
+                      <li key={link.href}>
+                        <Icon name="arrow" size={18} />
+                        {external
+                          ? <a href={link.href} rel="noreferrer" target="_blank">{link.label}</a>
+                          : <Link href={link.href as Route}>{link.label}</Link>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
             </div>
           </section>
         ))}
