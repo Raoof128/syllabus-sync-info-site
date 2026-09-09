@@ -99,10 +99,17 @@ p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.
   z-index: 100;
 }
 .header-inner { align-items: center; display: flex; height: 82px; justify-content: space-between; margin-inline: auto; max-width: 1400px; padding-inline: clamp(1.25rem, 4vw, 3rem); }
-.brand { align-items: center; display: inline-flex; flex: none; gap: .65rem; }
-.brand-mark { display: block; flex: none; height: 48px; overflow: hidden; position: relative; width: 48px; }
-.brand-mark img { height: 48px; object-fit: cover; transform: scale(1.12); width: 48px; }
-.brand-name { font-size: 1.28rem; font-weight: 760; letter-spacing: -.035em; white-space: nowrap; }
+.brand { align-items: center; display: inline-flex; flex: none; }
+/*
+  Brand artwork is always sized by height with an automatic width so the
+  supplied aspect ratio is preserved; the width/height attributes on the image
+  reserve the box before load, so no placement shifts layout.
+*/
+.brand-logo { display: block; height: auto; max-width: 100%; object-fit: contain; width: auto; }
+.brand-logo-lockup { height: 46px; }
+/* Swapped in below the desktop breakpoint, where the lockup's wordmark is too small to read. */
+.brand-logo-wordmark { display: none; height: 24px; }
+.brand-logo-footer { height: 26px; }
 .desktop-nav { align-items: center; display: flex; gap: clamp(1rem, 2.4vw, 2rem); margin-inline: auto; padding-inline: 2rem; }
 .desktop-nav a, .desktop-action { font-size: .92rem; font-weight: 560; }
 .desktop-nav a { position: relative; }
@@ -122,6 +129,7 @@ p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.
 .hero { overflow: hidden; padding: clamp(3.5rem, 5.4vw, 5rem) 0 clamp(4rem, 5.5vw, 5.2rem); }
 .hero-grid { align-items: center; display: grid; gap: clamp(2.5rem, 4vw, 4.5rem); grid-template-columns: minmax(460px, .92fr) minmax(580px, 1.08fr); }
 .hero-copy { min-width: 0; position: relative; z-index: 2; }
+.hero-brandmark { height: clamp(42px, 4vw, 56px); margin-bottom: 1.15rem; }
 .hero-copy h1 { font-size: clamp(3.5rem, 4.65vw, 4.55rem); line-height: 1.01; margin-bottom: 1.55rem; }
 .hero-copy p { max-width: 580px; }
 .hero-copy .hero-lead { color: var(--ink); font-size: clamp(1.15rem, 1.6vw, 1.34rem); }
@@ -262,13 +270,15 @@ p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.
 .site-footer { background: var(--canvas); border-top: 1px solid var(--line); padding: 3.5rem 0; }.footer-inner { display: grid; gap: 3rem; grid-template-columns: .8fr 1.2fr; margin-inline: auto; max-width: var(--container); padding-inline: clamp(1.25rem, 4vw, 2.5rem); }.footer-brand p { font-size: .82rem; margin: 1rem 0 0; max-width: 390px; }.site-footer nav { align-content: start; display: grid; gap: 1rem 1.5rem; grid-template-columns: repeat(4, 1fr); }.site-footer nav a { font-size: .86rem; }
 
 @media (max-width: 1100px) {
-  .desktop-nav { gap: 1rem; padding-inline: 1rem; }.desktop-nav a { font-size: .82rem; }.brand-name { font-size: 1.1rem; }
+  .desktop-nav { gap: 1rem; padding-inline: 1rem; }.desktop-nav a { font-size: .82rem; }.brand-logo-lockup { height: 40px; }
   .hero-grid { grid-template-columns: 1fr; }.hero-copy { max-width: 740px; }.hero-visual { margin-left: 4rem; }
   .universities-grid { grid-template-columns: 1fr 1fr; }.university-demo { grid-column: 1 / -1; margin-inline: auto; max-width: 680px; width: 100%; }
 }
 
 @media (max-width: 860px) {
   .desktop-nav, .desktop-action { display: none; }.menu-button { display: inline-flex; }.header-inner { height: 72px; }
+  /* Below this width the lockup's wordmark stops being legible, so show the wordmark artwork on its own. */
+  .brand-logo-lockup { display: none; }.brand-logo-wordmark { display: block; }
   .hero { padding-top: 4rem; }.hero-visual { margin-left: 0; }.phone-demo { right: -.5rem; width: 150px; }
   .fragmentation { grid-template-columns: 1fr; }.source-list { grid-template-columns: repeat(2, 1fr); }.flow-lines { height: 110px; transform: rotate(90deg); }.fragment-demo { margin-top: -2rem; }
   .pillars { grid-template-columns: repeat(2, 1fr); }
@@ -278,7 +288,7 @@ p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.
 }
 
 @media (max-width: 560px) {
-  .brand-mark { height: 42px; width: 42px; }.brand-name { font-size: 1rem; }
+  .brand-logo-wordmark { height: 21px; }.brand-logo-footer { height: 23px; }
   h1 { font-size: clamp(2.8rem, 14vw, 4rem); }.hero-copy .button-row, .hero-copy .button { width: 100%; }
   .hero-visual > .product-demo .demo-sidebar, .fragment-demo .demo-sidebar { display: none; }.hero-visual > .product-demo .demo-body, .fragment-demo .demo-body { display: block; }.hero-visual > .product-demo .demo-content { padding: 12px; }.hero-visual > .product-demo .today-layout { grid-template-columns: 1fr; }.phone-demo { display: none; }.sync-paths { display: none; }
   .source-list { grid-template-columns: 1fr; }.flow-lines { display: none; }.fragment-demo { margin-top: 2rem; }.problem-close { text-align: left; }
