@@ -42,7 +42,19 @@ const nextConfig: NextConfig = {
     root: path.resolve(__dirname),
   },
   async headers() {
-    return [{ source: "/(.*)", headers: securityHeaders }];
+    return [
+      { source: "/(.*)", headers: securityHeaders },
+      {
+        // Only the production canonical host should be indexable. Any other
+        // host that serves this app (e.g. a *.workers.dev preview/staging URL)
+        // gets a noindex header, so previews never compete with the real domain
+        // in search. The canonical <link> already points at production; this is
+        // defence in depth for hosts that reach the app directly.
+        source: "/(.*)",
+        missing: [{ type: "host", value: "info.syllabus-sync.app" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
   },
 };
 
