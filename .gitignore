@@ -3,6 +3,11 @@ node_modules/
 .next/
 out/
 
+# cloudflare / opennext build output
+.open-next/
+.wrangler/
+cloudflare-env.d.ts
+
 # test output
 coverage/
 playwright-report/
@@ -16,6 +21,8 @@ test-results/
 .DS_Store
 *.log
 *.tsbuildinfo
+.idea/
+.remember/
 
 # local source material retained outside the public deliverable
 ChatGPT Image*.png

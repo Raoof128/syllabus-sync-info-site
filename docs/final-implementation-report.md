@@ -4,7 +4,7 @@ Verification date: 21 July 2026 (Australia/Sydney)
 
 ## Summary
 
-The repository now contains a complete public information and trust site for `info.syllabusing.app`. It explains the intended Syllabus Sync product experience without inventing institutional relationships, adoption figures, pricing, certifications or product controls. The implementation includes the homepage, eleven supporting pages, a guarded contact flow, machine-readable discovery files, documentation and automated verification.
+The repository now contains a complete public information and trust site for `info.syllabus-sync.app`. It explains the intended Syllabus Sync product experience without inventing institutional relationships, adoption figures, pricing, certifications or product controls. The implementation includes the homepage, eleven supporting pages, a guarded contact flow, machine-readable discovery files, documentation and automated verification.
 
 ## Architecture
 
@@ -107,7 +107,7 @@ Important additions include `src/app`, `src/components`, `src/content`, `src/lib
 
 1. Use Node.js 20.9 or newer and run `npm ci`, `npm run build`, then `npm run start` on the selected Next.js host.
 2. Configure `CONTACT_WEBHOOK_URL` with an approved HTTPS endpoint and optionally `CONTACT_WEBHOOK_TOKEN`; test delivery, retention and redaction before enabling the form publicly.
-3. Configure `info.syllabusing.app`, TLS and the canonical redirect, then verify all security headers at the edge.
+3. Configure `info.syllabus-sync.app`, TLS and the canonical redirect, then verify all security headers at the edge.
 4. Replace the process-local contact rate limit with a shared store when running multiple instances.
 5. Run the deployed checks in `docs/launch-checklist.md` and `docs/deployment.md`.
 
