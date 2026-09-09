@@ -47,20 +47,20 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
   "app-privacy": {
     title: "Astronomy Open Night app: Privacy Policy",
     description: "How the Astronomy Open Night event app handles information.",
-    intro: `Astronomy Open Night is published by ${aonPublisher}, the Syllabus Sync team, as an independent project. On Google Play it is published under Leo Alavi's developer account. The app is not affiliated with, endorsed or sponsored by any university. Last updated ${aonLastUpdated}.`,
+    intro: `${aonPublisher}, the Syllabus Sync team, publish the Astronomy Open Night app as an independent project. On Google Play it is published under Leo Alavi's developer account. The app is not affiliated with, endorsed or sponsored by any university. This policy covers everyone who uses the app. Last updated ${aonLastUpdated}.`,
     sections: [
       {
         heading: "What the app collects",
         body: [
           "There is no account, sign-in, advertising or developer-operated analytics service. We do not operate a server that holds your saved plan, stamps or anything else about you.",
-          "Passport stamps, favourites, your saved plan and your preferences are stored locally on your device. Android may include local data in system backups or device transfers according to your device settings.",
+          "The app stores passport stamps, favourites, your saved plan and your preferences on your device. Your device's own backup (iCloud or device backups on iOS; system backups or device transfers on Android) may include that local data, according to your device settings.",
         ],
       },
       {
         heading: "Location",
         body: [
-          "Location is optional and the app works without it. If you allow it, your location is processed on your device to show where you are on the campus map and to point the compass toward a venue.",
-          "When you request walking directions and agree to Google Maps, the route origin (which may be your precise or approximate location) and the destination are sent to Google over HTTPS. Until you agree, no Google map is loaded and no request is sent.",
+          "Location is optional and the app works without it. If you allow it, the app uses your location on your device to show where you are on the campus map and to point the compass toward a venue. The compass also reads your device's motion sensor to tell which way you are facing; that reading never leaves your device.",
+          "When you request walking directions and agree to Google Maps, the app sends the route origin (which may be your precise or approximate location) and the destination to Google over HTTPS. Until you agree, the app loads no Google map and sends no request.",
         ],
       },
       {
@@ -74,7 +74,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       {
         heading: "Camera and QR scanning",
         body: [
-          "The camera is used for one purpose: reading the QR code on a venue sign for the Astronomy Passport. It starts only when you tap Scan. Camera images are processed on your device and are never saved or uploaded by the app.",
+          "The app uses the camera for one purpose: reading the QR code on a venue sign for the Astronomy Passport. It starts only when you tap Scan. The app processes camera images on your device and never saves or uploads them.",
           "On Android, the QR scanner uses Google ML Kit, which reports device and app information, installation identifiers, and performance and usage diagnostics to Google over HTTPS. You can type the printed station code instead of using the camera.",
         ],
       },
@@ -94,7 +94,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       {
         heading: "Children",
         body: [
-          "The app is intended for general audiences attending a public event. Because it collects no personal information from anyone, it collects none from children.",
+          "The app is intended for general audiences attending a public event. It has no account and asks for no personal details from anyone, including children. The only information that leaves your device is described above, and none of it is linked to who you are.",
         ],
       },
       {
@@ -137,7 +137,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       {
         heading: "Accessibility",
         body: [
-          `The app supports VoiceOver and TalkBack, larger text up to 200%, and Reduce Motion. If you hit an accessibility barrier, tell us at ${aonContactEmail} and we will fix it.`,
+          `The app supports VoiceOver, larger text up to 200% and Reduce Motion. If you hit an accessibility barrier, tell us at ${aonContactEmail}; we want to fix it.`,
         ],
       },
       {
@@ -156,7 +156,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
   "app-terms": {
     title: "Astronomy Open Night app: Terms of Use",
     description: "Terms for using the Astronomy Open Night event app.",
-    intro: `The Astronomy Open Night app is provided free by ${aonPublisher}, the Syllabus Sync team, to help visitors find their way around the Astronomy Open Night event. Last updated ${aonLastUpdated}.`,
+    intro: `${aonPublisher}, the Syllabus Sync team, provide the Astronomy Open Night app free of charge to help visitors find their way around the Astronomy Open Night event. Last updated ${aonLastUpdated}.`,
     sections: [
       {
         heading: "Event information may change",
