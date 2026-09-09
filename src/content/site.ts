@@ -6,7 +6,7 @@ export const primaryNavigation = [
   { label: "Home", href: "/" },
   { label: "Platform", href: "/#platform" },
   { label: "Sylla", href: "/#sylla" },
-  { label: "MQ Navigation", href: "/#mq-navigation" },
+  { label: "Open Night", href: "/#astronomy-open-night" },
   { label: "Vision", href: "/#vision" },
   { label: "About", href: "/#team" },
   { label: "Contact", href: "/contact" },

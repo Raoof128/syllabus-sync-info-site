@@ -21,14 +21,13 @@ export function ConnectionsSection() {
             <p>The AI-powered study layer: summaries, explanations, flashcards, quizzes and planning support.</p>
           </article>
           <article>
-            <h3>MQ Navigation</h3>
-            <p>Campus wayfinding: destination handoff, maps and mobile navigation.</p>
+            <h3>Astronomy Open Night</h3>
+            <p>Event nights: programme, campus map, 360° venue previews and a QR passport — all offline.</p>
           </article>
         </div>
         <p className="problem-close">
           Today, each product is independently usable under one shared brand. Deeper integration —
-          like an embedded Sylla panel inside Syllabus Sync, and a full destination handoff to MQ
-          Navigation — is in development.
+          like an embedded Sylla panel inside Syllabus Sync — is in development.
         </p>
       </div>
     </section>

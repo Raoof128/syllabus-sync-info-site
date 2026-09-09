@@ -69,9 +69,18 @@ test("ecosystem section exposes all three products with distinct anchors", async
   await expect(page.locator("#platform")).toContainText("Web platform available in early access");
   await expect(page.locator("#sylla")).toContainText("AI chat available in early access");
   await expect(page.locator("#sylla")).toContainText("Flashcards");
-  await expect(page.locator("#mq-navigation")).toContainText("Mobile prototype, not yet published");
-  await expect(page.locator("#mq-navigation")).toContainText("Public OS-level linking and the complete production handoff are not yet released");
-  await expect(page.locator("#mq-navigation .status-pill").first()).toHaveClass(/status-pill-prototype/);
+  await expect(page.locator("#astronomy-open-night")).toContainText("In testing ahead of the September 2026 event");
+  await expect(page.locator("#astronomy-open-night")).toContainText("QR passport rally");
+  await expect(page.locator("#astronomy-open-night .status-pill").first()).toHaveClass(/status-pill-in-development/);
+});
+
+test("Astronomy Open Night is never presented as publicly released", async ({ page }) => {
+  await page.goto("/#astronomy-open-night");
+  const card = page.locator("#astronomy-open-night");
+  await expect(card).toContainText("In testing");
+  await expect(card).not.toContainText("Download");
+  // The repository is private, so the card must not offer a link the public cannot open.
+  await expect(card.getByRole("link", { name: /GitHub/i })).toHaveCount(0);
 });
 
 test("connections section explains the ecosystem without exposing backend details", async ({ page }) => {
@@ -80,7 +89,7 @@ test("connections section explains the ecosystem without exposing backend detail
   await expect(section.getByRole("heading", { level: 2 })).toContainText("connect");
   await expect(section).toContainText("Academic context");
   await expect(section).toContainText("AI-powered study layer");
-  await expect(section).toContainText("Campus wayfinding");
+  await expect(section).toContainText("Event nights");
   await expect(section).not.toContainText("Supabase");
   await expect(section).not.toContainText("cookie");
 });
