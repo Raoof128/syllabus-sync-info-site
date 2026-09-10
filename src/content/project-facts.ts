@@ -38,6 +38,13 @@ export type EcosystemProduct = {
   statusLabel: string;
   status: FeatureStatus;
   link: { label: string; href: string; external: boolean };
+  /**
+   * Optional extra call-to-action buttons rendered on the card. When present,
+   * these are shown instead of the single {@link link}. Used by Astronomy Open
+   * Night, which launches a web app and links to its privacy policy and the
+   * official event site — all public destinations.
+   */
+  actions?: { label: string; href: string; external: boolean }[];
   screenshot?: { src: string; alt: string };
   features: EcosystemFeature[];
   source: string;
@@ -185,6 +192,11 @@ export const projectFacts = {
       // The app is not publicly released and its repository is private, so the
       // card points at the contact page rather than a link a visitor cannot open.
       link: { label: "Ask about Astronomy Open Night", href: "/contact", external: false },
+      actions: [
+        { label: "Open web app", href: "/astronomy-open-night/app/", external: false },
+        { label: "Privacy Policy", href: "/astronomy-open-night/privacy", external: false },
+        { label: "Official event website", href: "https://event.mq.edu.au/astronomy-open-night/", external: true },
+      ],
       features: [
         { name: "Programme & what's on now", description: "The published activities across the night's venues, filterable by start time and activity type, with a live happening-now view.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
         { name: "Night-time wayfinding", description: "An illustrated campus map with search, favourites, walking directions and a compass mode for moving between car parks and venues in the dark.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },

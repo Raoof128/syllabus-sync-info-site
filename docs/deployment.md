@@ -79,8 +79,8 @@ likely to break on a runtime change), sitemap, robots, structured data,
 security headers, 404 behaviour and mobile rendering.
 
 The Astronomy Open Night store pages are submitted to Apple and Google, so
-treat `/astronomy-open-night/app-privacy`, `/astronomy-open-night/app-support`
-and `/astronomy-open-night/app-terms` as must-not-404 routes: an outage there is
+treat `/astronomy-open-night/privacy`, `/astronomy-open-night/support`
+and `/astronomy-open-night/terms` as must-not-404 routes: an outage there is
 a store-compliance problem, not only a broken link. Their canonical URLs are
 covered by an end-to-end test.
 

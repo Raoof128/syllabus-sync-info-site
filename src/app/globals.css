@@ -241,6 +241,9 @@ p { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.
 /* Compact per-feature pills stay on one line ("Early access", not "Early\naccess");
    the longer product-level status label above is free to wrap. */
 .ecosystem-feature .status-pill { flex: none; white-space: nowrap; }
+/* Astronomy Open Night's card carries several actions (open app, privacy,
+   official site) rather than one link; they wrap on narrow cards. */
+.ecosystem-card-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: auto; }
 
 .connections-section { background: var(--surface); border-block: 1px solid var(--line); padding: clamp(3.5rem, 5vw, 5rem) 0; }
 .connections-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 2rem; }

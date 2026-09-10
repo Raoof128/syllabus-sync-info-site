@@ -58,15 +58,15 @@ test("metadata and machine-readable routes resolve", async ({ request }) => {
 });
 
 test("Astronomy Open Night store pages are live, accurate and in the sitemap", async ({ page, request }) => {
-  for (const path of ["/astronomy-open-night", "/astronomy-open-night/app-privacy", "/astronomy-open-night/app-support", "/astronomy-open-night/app-terms"]) {
+  for (const path of ["/astronomy-open-night", "/astronomy-open-night/privacy", "/astronomy-open-night/support", "/astronomy-open-night/terms"]) {
     const response = await request.get(path);
     expect(response.ok(), `${path} should resolve`).toBe(true);
   }
   const sitemap = await (await request.get("/sitemap.xml")).text();
-  expect(sitemap).toContain("/astronomy-open-night/app-privacy");
-  expect(sitemap).toContain("/astronomy-open-night/app-support");
+  expect(sitemap).toContain("/astronomy-open-night/privacy");
+  expect(sitemap).toContain("/astronomy-open-night/support");
 
-  await page.goto("/astronomy-open-night/app-privacy");
+  await page.goto("/astronomy-open-night/privacy");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Privacy Policy");
   const main = page.getByRole("main");
   await expect(main).toContainText("Google Maps");

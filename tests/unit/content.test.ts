@@ -70,6 +70,17 @@ describe("public content governance", () => {
     expect(openNight.link.href).toBe("/contact");
   });
 
+  it("gives the Astronomy Open Night card public actions: open app, privacy, official event site", () => {
+    const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
+    expect(openNight.actions?.map((action) => action.href)).toEqual([
+      "/astronomy-open-night/app/",
+      "/astronomy-open-night/privacy",
+      "https://event.mq.edu.au/astronomy-open-night/",
+    ]);
+    // Only the official event site opens off-site.
+    expect(openNight.actions?.map((action) => action.external)).toEqual([false, false, true]);
+  });
+
   it("never claims Sylla's study tools are anything more than a prototype", () => {
     const sylla = approvedEcosystem.find((product) => product.id === "sylla")!;
     const chat = sylla.features.find((feature) => feature.name === "AI chat")!;

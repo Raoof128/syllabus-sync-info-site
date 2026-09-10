@@ -34,7 +34,15 @@ export const aonContactEmail = AON_CONTACT_PLACEHOLDER;
 
 export const aonLastUpdated = "9 September 2026";
 
-export const aonLegalSlugs = ["app-privacy", "app-support", "app-terms"] as const;
+/** Event-side entity and copyright holder (never a university). */
+export const aonEventTeam = "Astronomy Night – FSE Outreach Team";
+export const aonCopyright = "© 2026 Astronomy Night - FSE Outreach Team";
+/** Official event information and support (Macquarie University event site). */
+export const aonEventSiteUrl = "https://event.mq.edu.au/astronomy-open-night/";
+/** The Astronomy Open Night web app (this info site, one level deeper). */
+export const aonWebAppPath = "/astronomy-open-night/app/";
+
+export const aonLegalSlugs = ["privacy", "support", "terms"] as const;
 export type AonLegalSlug = (typeof aonLegalSlugs)[number];
 
 const googleLinks = [
@@ -44,15 +52,15 @@ const googleLinks = [
 ];
 
 export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
-  "app-privacy": {
+  "privacy": {
     title: "Astronomy Open Night app: Privacy Policy",
     description: "How the Astronomy Open Night event app handles information.",
-    intro: `${aonPublisher}, the Syllabus Sync team, publish the Astronomy Open Night app as an independent project. On Google Play it is published under Leo Alavi's developer account. The app is not affiliated with, endorsed or sponsored by any university. This policy covers everyone who uses the app. Last updated ${aonLastUpdated}.`,
+    intro: `${aonPublisher}, the Syllabus Sync team, publish the Astronomy Open Night app as an independent project, developed and hosted within the Syllabus Sync ecosystem for the ${aonEventTeam}. On Google Play it is published under Leo Alavi's developer account. The app is not affiliated with, endorsed or sponsored by any university, and the Syllabus Sync team does not own or run the event; the official event information and support are provided through the Macquarie University event website. This policy applies specifically to the Astronomy Open Night 2026 app: it does not automatically apply to the main Syllabus Sync platform, to Sylla, or to other Syllabus Sync products. This policy covers everyone who uses the app. Last updated ${aonLastUpdated}. ${aonCopyright}.`,
     sections: [
       {
         heading: "What the app collects",
         body: [
-          "There is no account, sign-in, advertising or developer-operated analytics service. We do not operate a server that holds your saved plan, stamps or anything else about you.",
+          "There is no account, sign-in, advertising or developer-operated analytics service. There is no tracking, and we do not sell your personal data. We do not operate a server that holds your saved plan, stamps or anything else about you.",
           "The app stores passport stamps, favourites, your saved plan and your preferences on your device. Your device's own backup (iCloud or device backups on iOS; system backups or device transfers on Android) may include that local data, according to your device settings.",
         ],
       },
@@ -76,6 +84,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
         body: [
           "The app uses the camera for one purpose: reading the QR code on a venue sign for the Astronomy Passport. It starts only when you tap Scan. The app processes camera images on your device and never saves or uploads them.",
           "On Android, the QR scanner uses Google ML Kit, which reports device and app information, installation identifiers, and performance and usage diagnostics to Google over HTTPS. You can type the printed station code instead of using the camera.",
+          "The web version does not open the camera: the Astronomy Passport uses manual code entry, where you type the printed station code. No image is captured or uploaded.",
         ],
       },
       {
@@ -107,7 +116,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       },
     ],
   },
-  "app-support": {
+  "support": {
     title: "Astronomy Open Night app: Support",
     description: "Help with the Astronomy Open Night event app.",
     intro: `Need help with the app? Email ${aonContactEmail} and we will get back to you. On the night itself, the fastest help is at any information point in the Central Courtyard.`,
@@ -147,16 +156,16 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
           "Balaclava Road, Macquarie Park NSW 2109, Australia.",
         ],
         links: [
-          { label: "Privacy Policy", href: "/astronomy-open-night/app-privacy" },
-          { label: "Terms of Use", href: "/astronomy-open-night/app-terms" },
+          { label: "Privacy Policy", href: "/astronomy-open-night/privacy" },
+          { label: "Terms of Use", href: "/astronomy-open-night/terms" },
         ],
       },
     ],
   },
-  "app-terms": {
+  "terms": {
     title: "Astronomy Open Night app: Terms of Use",
     description: "Terms for using the Astronomy Open Night event app.",
-    intro: `${aonPublisher}, the Syllabus Sync team, provide the Astronomy Open Night app free of charge to help visitors find their way around the Astronomy Open Night event. Last updated ${aonLastUpdated}.`,
+    intro: `${aonPublisher}, the Syllabus Sync team, provide the Astronomy Open Night app free of charge to help visitors find their way around the Astronomy Open Night event, developed and hosted within the Syllabus Sync ecosystem for the ${aonEventTeam}. Last updated ${aonLastUpdated}. ${aonCopyright}.`,
     sections: [
       {
         heading: "Event information may change",
@@ -190,8 +199,8 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
         heading: "Contact",
         body: [`Questions about these terms: ${aonContactEmail}`],
         links: [
-          { label: "Privacy Policy", href: "/astronomy-open-night/app-privacy" },
-          { label: "Support", href: "/astronomy-open-night/app-support" },
+          { label: "Privacy Policy", href: "/astronomy-open-night/privacy" },
+          { label: "Support", href: "/astronomy-open-night/support" },
         ],
       },
     ],
@@ -200,18 +209,28 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
 
 /** Index page listing the three store-facing pages. */
 export const aonLegalIndex: PageDefinition = {
-  title: "Astronomy Open Night app",
-  description: "Privacy policy, support and terms for the Astronomy Open Night event app.",
-  intro:
-    "The Astronomy Open Night app is an offline-first event guide and night-time wayfinding app, built by the Syllabus Sync team as an independent project. These pages are the app's privacy policy, support information and terms of use.",
+  title: "Astronomy Open Night",
+  description:
+    "The Astronomy Open Night event companion — launch the web app, read the privacy policy, or visit the official event website.",
+  intro: `The Astronomy Open Night app is an offline-first event guide and night-time wayfinding companion, built by the Syllabus Sync team as an independent project for the ${aonEventTeam}. It is not affiliated with, endorsed or sponsored by any university. Launch the web app, or read its store pages below. ${aonCopyright}.`,
   sections: [
     {
-      heading: "Store pages",
+      heading: "The app",
+      body: [
+        "Use the Astronomy Open Night companion right in your browser — no install needed — for the programme, the campus map, the Astronomy Passport and your saved plan.",
+      ],
+      links: [
+        { label: "Open the web app", href: aonWebAppPath },
+        { label: "Official event website", href: aonEventSiteUrl },
+      ],
+    },
+    {
+      heading: "Privacy, support and terms",
       body: ["The same pages are linked from the app's Settings tab."],
       links: [
-        { label: "Privacy Policy", href: "/astronomy-open-night/app-privacy" },
-        { label: "Support", href: "/astronomy-open-night/app-support" },
-        { label: "Terms of Use", href: "/astronomy-open-night/app-terms" },
+        { label: "Privacy Policy", href: "/astronomy-open-night/privacy" },
+        { label: "Support", href: "/astronomy-open-night/support" },
+        { label: "Terms of Use", href: "/astronomy-open-night/terms" },
       ],
     },
   ],

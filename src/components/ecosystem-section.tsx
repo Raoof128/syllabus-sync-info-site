@@ -63,14 +63,30 @@ export function EcosystemSection() {
                   </div>
                 ))}
               </div>
-              <a
-                className="button button-secondary"
-                href={product.link.href}
-                rel={product.link.external ? "noreferrer" : undefined}
-                target={product.link.external ? "_blank" : undefined}
-              >
-                {product.link.label}
-              </a>
+              {product.actions && product.actions.length > 0 ? (
+                <div className="ecosystem-card-actions">
+                  {product.actions.map((action, index) => (
+                    <a
+                      className={index === 0 ? "button" : "button button-secondary"}
+                      href={action.href}
+                      key={action.href}
+                      rel={action.external ? "noreferrer" : undefined}
+                      target={action.external ? "_blank" : undefined}
+                    >
+                      {action.label}
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <a
+                  className="button button-secondary"
+                  href={product.link.href}
+                  rel={product.link.external ? "noreferrer" : undefined}
+                  target={product.link.external ? "_blank" : undefined}
+                >
+                  {product.link.label}
+                </a>
+              )}
             </article>
           ))}
         </div>
