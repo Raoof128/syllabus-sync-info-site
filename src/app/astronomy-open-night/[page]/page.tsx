@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ContentPage } from "@/components/content-page";
-import { aonLegalPages, aonLegalSlugs, type AonLegalSlug } from "@/content/astronomy-open-night-legal";
+import { aonOrigin, aonLegalPages, aonLegalSlugs, type AonLegalSlug } from "@/content/astronomy-open-night-legal";
 
 function isAonLegalSlug(value: string): value is AonLegalSlug {
   return (aonLegalSlugs as readonly string[]).includes(value);
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
   const { page } = await params;
   if (!isAonLegalSlug(page)) return {};
   const definition = aonLegalPages[page];
-  const path = `/astronomy-open-night/${page}`;
+  const path = `${aonOrigin}/${page}`;
   return {
     title: definition.title,
     description: definition.description,

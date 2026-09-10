@@ -13,7 +13,7 @@ import { projectFacts } from "@/content/project-facts";
 import { organisationJsonLd, websiteJsonLd } from "@/lib/metadata";
 
 const faqs = [
-  ["What is Syllabus Sync?", "Syllabus Sync is an independent student experience ecosystem: an academic planning platform, an AI study assistant called Sylla, and an offline-first event companion app called Astronomy Open Night."],
+  ["What is Syllabus Sync?", projectFacts.presentation.faqOverview],
   ["Does it replace my university portal?", "No. It is designed as an organisational layer and does not replace official enrolment, learning, policy, assessment or emergency systems."],
   ["Which universities are supported?", "The current implementation is for Macquarie University. Expansion to other Sydney universities, and later across Australia, is a future direction, not a confirmed rollout."],
   ["Is Sylla a fully working AI assistant?", "Sylla's chat is available in early access. Its study tools are working prototypes rather than live AI features: summaries, explanations, flashcards, quizzes and study planning."],
@@ -39,8 +39,8 @@ export default function Home() {
             */}
             <BrandLogo className="hero-brandmark" decorative height={52} priority variant="icon" />
             <h1>One connected<br />ecosystem for university life.</h1>
-            <p className="hero-lead">Syllabus Sync brings academic planning, AI-assisted study support and night-time event wayfinding into one connected student ecosystem, starting at Macquarie University.</p>
-            <p>Three distinct products, one shared direction: Syllabus Sync for planning, Sylla for study support, Astronomy Open Night for finding your way on the night.</p>
+            <p className="hero-lead">{projectFacts.presentation.homepageLead}</p>
+            <p>{projectFacts.presentation.homepageDetail}</p>
             <div className="button-row">
               <a className="button" href={projectFacts.mainApplicationUrl}>Explore Syllabus Sync <Icon name="arrow" /></a>
               <a className="button button-secondary" href="#ecosystem">Meet the ecosystem <Icon name="arrow" /></a>

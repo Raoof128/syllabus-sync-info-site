@@ -85,3 +85,7 @@ a store-compliance problem, not only a broken link. Their canonical URLs are
 covered by an end-to-end test.
 
 Add the subdomain to the domain-level Search Console property.
+
+## Astronomy Open Night dedicated host
+
+See [the domain migration](aon-domain-migration.md) for `aon.syllabus-sync.app`, the separate static Worker, policy parity check, legacy redirects and rollback. Deploy and verify the new legal pages before deploying information-site redirects.

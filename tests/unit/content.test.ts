@@ -73,12 +73,12 @@ describe("public content governance", () => {
   it("gives the Astronomy Open Night card public actions: open app, privacy, official event site", () => {
     const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
     expect(openNight.actions?.map((action) => action.href)).toEqual([
-      "/astronomy-open-night/app/",
-      "/astronomy-open-night/privacy",
+      "https://aon.syllabus-sync.app/",
+      "https://aon.syllabus-sync.app/privacy",
       "https://event.mq.edu.au/astronomy-open-night/",
     ]);
-    // Only the official event site opens off-site.
-    expect(openNight.actions?.map((action) => action.external)).toEqual([false, false, true]);
+    // App and legal pages now use their own origin.
+    expect(openNight.actions?.map((action) => action.external)).toEqual([true, true, true]);
   });
 
   it("never claims Sylla's study tools are anything more than a prototype", () => {

@@ -41,6 +41,16 @@ const nextConfig: NextConfig = {
     // in unrelated files.
     root: path.resolve(__dirname),
   },
+  async redirects() {
+    return [
+      { source: "/astronomy-open-night/app/:path*", destination: "https://aon.syllabus-sync.app/:path*", permanent: true },
+      ...["privacy", "support", "terms"].map((slug) => ({
+        source: `/astronomy-open-night/${slug}`,
+        destination: `https://aon.syllabus-sync.app/${slug}`,
+        permanent: true,
+      })),
+    ];
+  },
   async headers() {
     return [
       { source: "/(.*)", headers: securityHeaders },

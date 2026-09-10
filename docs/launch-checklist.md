@@ -42,8 +42,13 @@ Reviewed 9 September 2026.
 
 - [x] Privacy policy, support and terms hosted on a stable non-university HTTPS host
 - [x] Page content audited against the app's own declarations and store data answers
-- [ ] Replace `AON_CONTACT_PLACEHOLDER` with a working, non-university contact address. Both stores verify that the address works, so the pages are not submittable until this is done.
-- [ ] Point the app's `EventConfig.privacyPolicyUrl` at the hosted policy, and align the in-app policy body (English and Persian) and `android-privacy-policy.html` with these pages
+- [x] Working non-university contact address (`leo@leoalavi.dev`, already confirmed in the app release documents). The placeholder is gone and `tests/unit/aon-legal.test.ts` now requires a real address.
+- [x] `EventConfig.privacyPolicyUrl` points at `https://aon.syllabus-sync.app/privacy`, the in-app policy body (English and Persian) matches these pages, and `android-privacy-policy.html` is regenerated from the same HTML. `scripts/export-aon-pages.mjs` refuses to export if English parity breaks.
+- [x] Privacy page carries the event team's scope statement and attribution block, identical in the app (English and Persian), the web app and the hosted page
+- [ ] Deploy the `astronomy-open-night` Worker, then the information-site redirects. Order matters: the new legal pages must answer before the old ones start redirecting to them.
+- [ ] Enter `https://aon.syllabus-sync.app/privacy` and `/support` in App Store Connect and Google Play. Keep the existing App Privacy and Data Safety answer sets; do not replace them with "Data Not Collected".
+- [ ] Ship a new signed app build. The native policy and URL fixes do not reach existing TestFlight or Play installs through a website deployment.
+- [ ] Add `aon.syllabus-sync.app` to the domain-level Search Console property
 
 ## Accessibility gates
 

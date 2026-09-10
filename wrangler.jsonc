@@ -1,6 +1,8 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "syllabus-sync-info",
+  "account_id": "d630de5216d2cdc67a6497b7fc709ea4",
+  "routes": [{ "pattern": "info.syllabus-sync.app", "custom_domain": true }],
   "main": ".open-next/worker.js",
   "compatibility_date": "2026-09-09",
   "compatibility_flags": ["nodejs_compat"],

@@ -80,6 +80,19 @@ export type IncubatorFact = {
 
 export const projectFacts = {
   productName: "Syllabus Sync",
+  presentation: {
+    homepageLead: "Syllabus Sync brings academic planning and AI-assisted study support into one connected student ecosystem, starting at Macquarie University.",
+    homepageDetail: "Syllabus Sync helps with planning and Sylla supports study. Explore Astronomy Open Night, a separate event companion by the same developers, below.",
+    faqOverview: "Syllabus Sync is an independent student experience ecosystem: an academic planning platform and an AI study assistant called Sylla. The same developers also build the independent Astronomy Open Night app.",
+    relatedProjectsTitle: "Our platform and related projects.",
+    relatedProjectsDescription: "Syllabus Sync is the main platform and student workspace. Sylla adds AI-assisted study support. Astronomy Open Night is an independent event companion by the same developers. The status of each project is shown below.",
+    connectionsTitle: "Planning and study support that connect.",
+    connectionsDescription: "We are building a student ecosystem around Syllabus Sync and Sylla, with deeper integration still in development.",
+    aonConnection: "Independent project: programme, campus map, 360° venue previews and a QR passport for event nights.",
+    teamIntro: "The founders build Syllabus Sync and Sylla. They also develop Astronomy Open Night as a separate, independent project.",
+    source: "Astronomy Open Night AppIdentity and web-deployment documentation, commit 38db096, reviewed 2026-09-10",
+    approved: true,
+  },
   shortDescription:
     "A clearer way to bring units, deadlines, calendar information, campus context and student events into one academic planning experience.",
   mainApplicationUrl: "https://www.syllabus-sync.app",
@@ -184,17 +197,17 @@ export const projectFacts = {
     {
       id: "astronomy-open-night",
       name: "Astronomy Open Night",
-      tagline: "The offline-first companion app for open-night events.",
+      tagline: "An independent companion app for open-night events.",
       description:
-        "An event guide and night-time wayfinding app: the published programme, an illustrated campus map, 360° venue previews and a QR passport rally. Event data is compiled into the app, so it works with no account, no backend and no network.",
+        "An independent event guide by Leo Alavi and Mohammad Raouf Abedini: the published programme, an illustrated campus map, 360° venue previews and a QR passport rally. Event data is compiled into the app. The mobile app works offline; the web app needs a connection to load. This is a separate project hosted on the syllabus-sync.app domain.",
       statusLabel: "In testing ahead of the September 2026 event",
       status: "in-development",
       // The app is not publicly released and its repository is private, so the
       // card points at the contact page rather than a link a visitor cannot open.
       link: { label: "Ask about Astronomy Open Night", href: "/contact", external: false },
       actions: [
-        { label: "Open web app", href: "/astronomy-open-night/app/", external: false },
-        { label: "Privacy Policy", href: "/astronomy-open-night/privacy", external: false },
+        { label: "Open web app", href: "https://aon.syllabus-sync.app/", external: true },
+        { label: "Privacy Policy", href: "https://aon.syllabus-sync.app/privacy", external: true },
         { label: "Official event website", href: "https://event.mq.edu.au/astronomy-open-night/", external: true },
       ],
       features: [

@@ -15,32 +15,51 @@ import type { PageDefinition } from "./site";
  * holds to a code-checked standard. Nothing here is inferred.
  */
 
-/** Named publishers, as recorded in the app repository's maintainer list. */
+/** Named developers, as recorded in the app repository's maintainer list. */
 export const aonPublisher = "Leo Alavi and Mohammad Raouf Abedini";
 
 /**
- * Visible placeholder used until the real address is confirmed. Deliberately
- * not shaped like an email so it can never be mistaken for a working contact.
+ * Attribution model confirmed by the event team, 2026-09-09, and reaffirmed
+ * 2026-09-10. Each party is named for exactly what it does:
+ *
+ * - Leo Alavi holds the store developer account and is the App Store seller.
+ * - The Syllabus Sync team, `aonPublisher`, developed the app.
+ * - Astronomy Night - FSE Outreach Team owns the event and the copyright.
+ * - The Macquarie University event site is the official event and support source.
+ * - The syllabus-sync.app domain is the technical host of this policy and the
+ *   web app, and nothing more.
+ *
+ * "Developed by the Syllabus Sync team" is the team that built it, not a claim
+ * that the app is a Syllabus Sync product. Both statements appear together on
+ * purpose; do not drop one to tidy the other.
  */
-export const AON_CONTACT_PLACEHOLDER = "[contact address to be confirmed]";
+export const aonDeveloperCredit = `the Syllabus Sync team (${aonPublisher})`;
 
 /**
- * Contact address for privacy and support questions. Must be a working,
- * non-university address: both stores verify that it works, so the pages are
- * not store-submittable while this is still the placeholder. Guarded by a unit
- * test so a university address or a malformed value cannot ship.
+ * Privacy and data-request contact: the developer account holder, confirmed in
+ * the app's Play release listing, 2026-09-05. Data requests have to reach the
+ * party that can act on them, which is the developer, not the event team.
  */
-export const aonContactEmail = AON_CONTACT_PLACEHOLDER;
+export const aonContactEmail = "leo@leoalavi.dev";
 
-export const aonLastUpdated = "9 September 2026";
+/**
+ * Event-side contact, supplied by the event team 2026-09-09. This is a
+ * university address on purpose: the Astronomy Night - FSE Outreach Team owns
+ * the event and answers event questions. It is never presented as the app's
+ * publisher or as the developers' address.
+ */
+export const aonEventContactEmail = "astronomyopennight@mq.edu.au";
+
+export const aonLastUpdated = "10 September 2026";
 
 /** Event-side entity and copyright holder (never a university). */
 export const aonEventTeam = "Astronomy Night – FSE Outreach Team";
-export const aonCopyright = "© 2026 Astronomy Night - FSE Outreach Team";
+export const aonCopyright = "© 2026 Astronomy Night – FSE Outreach Team";
 /** Official event information and support (Macquarie University event site). */
 export const aonEventSiteUrl = "https://event.mq.edu.au/astronomy-open-night/";
-/** The Astronomy Open Night web app (this info site, one level deeper). */
-export const aonWebAppPath = "/astronomy-open-night/app/";
+/** Independent app; this domain supplies hosting, not product ownership. */
+export const aonOrigin = "https://aon.syllabus-sync.app";
+export const aonWebAppPath = `${aonOrigin}/`;
 
 export const aonLegalSlugs = ["privacy", "support", "terms"] as const;
 export type AonLegalSlug = (typeof aonLegalSlugs)[number];
@@ -55,13 +74,13 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
   "privacy": {
     title: "Astronomy Open Night app: Privacy Policy",
     description: "How the Astronomy Open Night event app handles information.",
-    intro: `${aonPublisher}, the Syllabus Sync team, publish the Astronomy Open Night app as an independent project, developed and hosted within the Syllabus Sync ecosystem for the ${aonEventTeam}. On Google Play it is published under Leo Alavi's developer account. The app is not affiliated with, endorsed or sponsored by any university, and the Syllabus Sync team does not own or run the event; the official event information and support are provided through the Macquarie University event website. This policy applies specifically to the Astronomy Open Night 2026 app: it does not automatically apply to the main Syllabus Sync platform, to Sylla, or to other Syllabus Sync products. This policy covers everyone who uses the app. Last updated ${aonLastUpdated}. ${aonCopyright}.`,
+    intro: `This Privacy Policy applies specifically to the Astronomy Open Night 2026 app, and covers its iOS, Android and web versions. It does not apply to other Syllabus Sync products or to the Macquarie University website. Astronomy Open Night was developed by ${aonDeveloperCredit} for the ${aonEventTeam}, which runs the event and holds the copyright. It is published under Leo Alavi's store developer account, and Leo Alavi is the App Store seller. The app is not affiliated with, endorsed or sponsored by any university, and the developers do not own or run the event; official event information and support are provided through the official event website. The syllabus-sync.app domain is the technical host of this policy and the web app, which does not make Astronomy Open Night a Syllabus Sync product. This policy covers everyone who uses the app. Last updated ${aonLastUpdated}.`,
     sections: [
       {
         heading: "What the app collects",
         body: [
-          "There is no account, sign-in, advertising or developer-operated analytics service. There is no tracking, and we do not sell your personal data. We do not operate a server that holds your saved plan, stamps or anything else about you.",
-          "The app stores passport stamps, favourites, your saved plan and your preferences on your device. Your device's own backup (iCloud or device backups on iOS; system backups or device transfers on Android) may include that local data, according to your device settings.",
+          "There is no account, sign-in, advertising or developer-operated analytics service. There is no tracking, and we do not sell your personal data. We do not operate a server that holds your saved plan or stamps.",
+          "The app stores passport stamps, favourites, your saved plan, Google Maps consent and your preferences on your device. The web version stores these in your browser. Your device's own backup (iCloud or device backups on iOS; system backups or device transfers on Android) may include that local data, according to your device settings.",
         ],
       },
       {
@@ -75,7 +94,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
         heading: "Google Maps and walking directions",
         body: [
           "The campus map is an image stored inside the app and works offline. Walking directions on a Google map are the one exception, and the app asks before using them.",
-          "To provide and improve its services, Google Maps also receives map requests, your IP address, device and app information, an SDK-specific identifier, crash diagnostics and map interactions. You can revoke your Google Maps choice at any time in Settings.",
+          "To provide and improve its services, Google Maps also receives map requests, your IP address, device and app information, an SDK-specific identifier, crash and performance diagnostics, usage data and map interactions. On web, Google receives device and browser information with map and directions requests. You can revoke your Google Maps choice at any time in Settings.",
         ],
         links: googleLinks,
       },
@@ -88,22 +107,30 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
         ],
       },
       {
+        heading: "Web hosting and external links",
+        body: [
+          "Cloudflare hosts the web app and these pages. Loading them sends your IP address, requested URL and browser request information to Cloudflare so it can deliver and protect the site. This hosting traffic is separate from the app's locally saved plan and stamps.",
+          "Opening an external link, including the official event website or Google Maps, sends a request to that provider. Its own privacy policy then applies.",
+        ],
+        links: [{ label: "Cloudflare Privacy Policy", href: "https://www.cloudflare.com/privacypolicy/" }],
+      },
+      {
         heading: "Retention and deletion",
         body: [
           "Saved stamps, favourites and plans remain until you delete them. In the app, Settings, then Delete my data, clears these items and your Google Maps consent; language and appearance preferences are retained.",
-          "Deleting data in the app does not delete data that Google has already received, or copies held in system backups. Google controls retention and deletion of its own service data under its privacy policy. Deleting the app removes everything it stored on your device.",
+          "Deleting data in the app does not delete data that Google has already received, or copies held in system backups. Google controls retention and deletion of its own service data under its privacy policy. Removing the mobile app removes its local app data but may leave system backups. On web, clear this site's data in your browser to remove all locally saved preferences as well.",
         ],
       },
       {
         heading: "Security",
         body: [
-          "Local storage uses the operating system's app sandbox. That protects the data from other apps but does not promise absolute security.",
+          "Mobile local storage uses the operating system's app sandbox. The web version uses browser storage for this site. Neither provides a promise of absolute security.",
         ],
       },
       {
         heading: "Children",
         body: [
-          "The app is intended for general audiences attending a public event. It has no account and asks for no personal details from anyone, including children. The only information that leaves your device is described above, and none of it is linked to who you are.",
+          "The app is intended for general audiences attending a public event. It has no account and asks for no personal details from anyone, including children. The third-party services and hosting described above still process their disclosed data when used. The app does not link saved plans or stamps to an account.",
         ],
       },
       {
@@ -112,14 +139,27 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       },
       {
         heading: "Contact",
-        body: [`Privacy questions: ${aonContactEmail}`],
+        body: [
+          `Privacy questions and data requests about the app: ${aonContactEmail}. That address reaches the developer account holder, who can act on the app itself.`,
+          `Event information and event support: ${aonEventContactEmail}, or the official event website.`,
+        ],
+        links: [{ label: "Official event website", href: aonEventSiteUrl }],
+      },
+      {
+        heading: "Astronomy Open Night 2026",
+        body: [
+          `Developed by ${aonDeveloperCredit} for the ${aonEventTeam}.`,
+          `Official event information and support: ${aonEventSiteUrl}`,
+          `Contact: ${aonEventContactEmail}`,
+        ],
+        links: [{ label: "Official event website", href: aonEventSiteUrl }],
       },
     ],
   },
   "support": {
     title: "Astronomy Open Night app: Support",
     description: "Help with the Astronomy Open Night event app.",
-    intro: `Need help with the app? Email ${aonContactEmail} and we will get back to you. On the night itself, the fastest help is at any information point in the Central Courtyard.`,
+    intro: `Need help with the app? Email ${aonContactEmail} and we will get back to you. For questions about the event itself, contact ${aonEventContactEmail} or the official event website. On the night itself, the fastest help is at any information point in the Central Courtyard.`,
     sections: [
       {
         heading: "The map does not show where I am",
@@ -136,7 +176,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       {
         heading: "Do I need internet?",
         body: [
-          "No. The map, programme, venue information and 360° tours all work offline. Only walking directions on a Google map need a connection, and the app asks first.",
+          "The installed mobile app includes the map, programme, venue information and 360° tours for offline use. The web version needs a connection to load the app and any assets that are not already cached. Google walking directions need a connection, and the app asks first.",
         ],
       },
       {
@@ -152,12 +192,12 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       {
         heading: "Event details",
         body: [
-          "Astronomy Open Night, Saturday 19 September 2026, 4pm to 10pm.",
+          "Astronomy Open Night, Saturday 110 September 2026, 4pm to 10pm.",
           "Balaclava Road, Macquarie Park NSW 2109, Australia.",
         ],
         links: [
-          { label: "Privacy Policy", href: "/astronomy-open-night/privacy" },
-          { label: "Terms of Use", href: "/astronomy-open-night/terms" },
+          { label: "Privacy Policy", href: `${aonOrigin}/privacy` },
+          { label: "Terms of Use", href: `${aonOrigin}/terms` },
         ],
       },
     ],
@@ -165,7 +205,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
   "terms": {
     title: "Astronomy Open Night app: Terms of Use",
     description: "Terms for using the Astronomy Open Night event app.",
-    intro: `${aonPublisher}, the Syllabus Sync team, provide the Astronomy Open Night app free of charge to help visitors find their way around the Astronomy Open Night event, developed and hosted within the Syllabus Sync ecosystem for the ${aonEventTeam}. Last updated ${aonLastUpdated}. ${aonCopyright}.`,
+    intro: `Astronomy Open Night is developed by ${aonDeveloperCredit} for the ${aonEventTeam} and provided free of charge. Last updated ${aonLastUpdated}. ${aonCopyright}.`,
     sections: [
       {
         heading: "Event information may change",
@@ -199,8 +239,8 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
         heading: "Contact",
         body: [`Questions about these terms: ${aonContactEmail}`],
         links: [
-          { label: "Privacy Policy", href: "/astronomy-open-night/privacy" },
-          { label: "Support", href: "/astronomy-open-night/support" },
+          { label: "Privacy Policy", href: `${aonOrigin}/privacy` },
+          { label: "Support", href: `${aonOrigin}/support` },
         ],
       },
     ],
@@ -211,13 +251,13 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
 export const aonLegalIndex: PageDefinition = {
   title: "Astronomy Open Night",
   description:
-    "The Astronomy Open Night event companion — launch the web app, read the privacy policy, or visit the official event website.",
-  intro: `The Astronomy Open Night app is an offline-first event guide and night-time wayfinding companion, built by the Syllabus Sync team as an independent project for the ${aonEventTeam}. It is not affiliated with, endorsed or sponsored by any university. Launch the web app, or read its store pages below. ${aonCopyright}.`,
+    "The Astronomy Open Night event companion. Launch the web app, read the privacy policy, or visit the official event website.",
+  intro: `The Astronomy Open Night app is an offline-first event guide and night-time wayfinding companion, developed by ${aonDeveloperCredit} for the ${aonEventTeam}. It is not affiliated with, endorsed or sponsored by any university, and it is not a Syllabus Sync product. Launch the web app, or read its store pages below. ${aonCopyright}.`,
   sections: [
     {
       heading: "The app",
       body: [
-        "Use the Astronomy Open Night companion right in your browser — no install needed — for the programme, the campus map, the Astronomy Passport and your saved plan.",
+        "Use the Astronomy Open Night companion right in your browser without installing it, for the programme, the campus map, the Astronomy Passport and your saved plan.",
       ],
       links: [
         { label: "Open the web app", href: aonWebAppPath },
@@ -228,9 +268,9 @@ export const aonLegalIndex: PageDefinition = {
       heading: "Privacy, support and terms",
       body: ["The same pages are linked from the app's Settings tab."],
       links: [
-        { label: "Privacy Policy", href: "/astronomy-open-night/privacy" },
-        { label: "Support", href: "/astronomy-open-night/support" },
-        { label: "Terms of Use", href: "/astronomy-open-night/terms" },
+        { label: "Privacy Policy", href: `${aonOrigin}/privacy` },
+        { label: "Support", href: `${aonOrigin}/support` },
+        { label: "Terms of Use", href: `${aonOrigin}/terms` },
       ],
     },
   ],
