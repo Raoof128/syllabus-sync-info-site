@@ -59,9 +59,8 @@ describe("public content governance", () => {
     const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
     expect(platform.status).toBe("early-access");
     expect(sylla.status).toBe("early-access");
-    // Built and in testing, but not publicly released — never "available".
     expect(openNight.status).toBe("in-development");
-    expect(openNight.statusLabel).toContain("In testing");
+    expect(openNight.statusLabel).toBe("Astronomy Open Night 2026 event project");
   });
 
   it("never links Astronomy Open Night to a repository the public cannot open", () => {

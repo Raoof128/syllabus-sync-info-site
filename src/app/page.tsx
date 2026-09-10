@@ -13,11 +13,11 @@ import { projectFacts } from "@/content/project-facts";
 import { organisationJsonLd, websiteJsonLd } from "@/lib/metadata";
 
 const faqs = [
-  ["What is Syllabus Sync?", "Syllabus Sync is an independent student experience ecosystem: an academic planning platform, an AI study assistant called Sylla, and an offline-first event companion app called Astronomy Open Night."],
+  ["What is Syllabus Sync?", "Syllabus Sync is an independent academic planning platform with an AI study assistant called Sylla."],
   ["Does it replace my university portal?", "No. It is designed as an organisational layer and does not replace official enrolment, learning, policy, assessment or emergency systems."],
   ["Which universities are supported?", "The current implementation is for Macquarie University. Expansion to other Sydney universities, and later across Australia, is a future direction, not a confirmed rollout."],
   ["Is Sylla a fully working AI assistant?", "Sylla's chat is available in early access. Its study tools are working prototypes rather than live AI features: summaries, explanations, flashcards, quizzes and study planning."],
-  ["What is Astronomy Open Night?", "An offline-first companion app for an astronomy open-night event: the published programme, an illustrated campus map, 360° venue previews and a QR passport rally. It is in testing ahead of its September 2026 event and is not publicly released yet."],
+  ["What is Astronomy Open Night?", "Astronomy Open Night 2026 is a separate event project developed by Leo Alavi and Mohammad Raouf Abedini for Astronomy Night – FSE Outreach Team. Its iOS, Android and web applications provide the programme, an illustrated campus map, 360° venue previews and a QR passport rally."],
   ["Is Syllabus Sync free?", "Current availability and any pricing are shown in the main application before you create an account."],
   ["Is the platform accessible?", "The information site targets WCAG 2.2 Level AA and includes keyboard, focus, reduced-motion, contrast and semantic support. It does not yet claim formal conformance."],
   ["Can universities work with Syllabus Sync?", "Yes, institutions can explore a pilot or collaboration conversation without any implication of an existing partnership or endorsement."],
@@ -38,12 +38,12 @@ export default function Home() {
               already name the product.
             */}
             <BrandLogo className="hero-brandmark" decorative height={52} priority variant="icon" />
-            <h1>One connected<br />ecosystem for university life.</h1>
-            <p className="hero-lead">Syllabus Sync brings academic planning, AI-assisted study support and night-time event wayfinding into one connected student ecosystem, starting at Macquarie University.</p>
-            <p>Three distinct products, one shared direction: Syllabus Sync for planning, Sylla for study support, Astronomy Open Night for finding your way on the night.</p>
+            <h1>A clearer workspace<br />for university life.</h1>
+            <p className="hero-lead">Syllabus Sync brings academic planning and AI-assisted study support into one connected student experience, starting at Macquarie University.</p>
+            <p>Our portfolio also includes Astronomy Open Night 2026, a separate event project developed for Astronomy Night – FSE Outreach Team.</p>
             <div className="button-row">
               <a className="button" href={projectFacts.mainApplicationUrl}>Explore Syllabus Sync <Icon name="arrow" /></a>
-              <a className="button button-secondary" href="#ecosystem">Meet the ecosystem <Icon name="arrow" /></a>
+              <a className="button button-secondary" href="#ecosystem">Products and projects <Icon name="arrow" /></a>
             </div>
             <div className="button-row">
               <a className="text-link" href="https://sylla.syllabus-sync.app">Open Sylla <Icon name="arrow" size={17} /></a>

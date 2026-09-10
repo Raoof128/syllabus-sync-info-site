@@ -7,42 +7,32 @@ records what changed after that report.
 
 ## 10 September 2026
 
-Astronomy Open Night moved to its own host, and the information site stopped
-serving the app.
+Astronomy Open Night's dedicated host and information-site handoff were prepared
+locally. Deployment and DNS verification remain external release actions.
 
-- **Moved the app and its store pages to `aon.syllabus-sync.app`.** A separate
-  static Worker (`wrangler.aon.jsonc`) serves the Flutter web build, with the
-  three reviewed legal documents taking precedence as static HTML and SPA
-  fallback for everything else. The information site keeps its
-  `/astronomy-open-night` hub and returns permanent redirects from the old app
-  and legal paths, so the URLs already filed with the stores keep working. The
-  legal pages left the sitemap because they now live on the other host.
+- **Prepared the app and canonical privacy page for `aon.syllabus-sync.app`.**
+  A separate static Worker (`wrangler.aon.jsonc`) is configured to serve the
+  Flutter web build, with semantic `/privacy` HTML taking precedence and SPA
+  fallback for app routes. The information site keeps its AON hub, support and
+  terms pages, and configures the old app and privacy paths as redirects.
 - **Confirmed the store contact address.** `leo@leoalavi.dev` was already the
   published contact in the app's release documents, so the placeholder is gone
   and the unit test now requires a working address. This was the last item
   blocking store submission of the pages themselves.
 - **Made the app an independent project in the site's own copy.** Astronomy
-  Open Night is by the same developers but is not a Syllabus Sync product; the
-  homepage, ecosystem, connections and team sections say so, and the wording
-  lives in `projectFacts.presentation`.
-- **Built the web bundle without native API keys.** `npm run aon:build` builds,
-  exports the reviewed pages, generates the panorama CSP hash and then refuses
-  to publish a bundle that carries a credential pattern, a source map, a private
-  file or an oversized asset. The build also fails if the app's English policy
-  body has drifted from the typed website policy.
-- **Adopted the event team's attribution model and policy scope.** The privacy
-  page now opens with the scope statement the event team asked for ("This
-  Privacy Policy applies specifically to the Astronomy Open Night 2026 app...
-  It does not apply to other Syllabus Sync products or to the Macquarie
-  University website") and closes with their attribution block, crediting the
-  Syllabus Sync team, Leo Alavi and Mohammad Raouf Abedini, as the developers
-  for the Astronomy Night - FSE Outreach Team. Privacy and data requests go to
-  the developer account holder; event questions go to the event team's own
-  address, `astronomyopennight@mq.edu.au`. The same text now ships in the app
-  (English and Persian), the web app and the hosted page, which the export
-  script enforces. An earlier revision that had removed the team credit was
-  reverted on the event team's instruction, and both repositories record why so
-  it is not flipped back.
+  Open Night is a separate event project, not a Syllabus Sync product; the
+  homepage, portfolio, connections and team sections now state that directly.
+- **Isolated the web Maps key.** `npm run aon:build` reads `.env.web` when
+  present and otherwise uses the empty example file. The Flutter web
+  compilation unit reads only `MAPS_API_KEY`; Android and iOS route-key defines
+  are excluded by conditional imports. Bundle verification rejects private key
+  material, source maps, private files and oversized assets.
+- **Adopted the final event identity and policy scope.** Leo Alavi and Mohammad
+  Raouf Abedini are credited as developers for Astronomy Night – FSE Outreach
+  Team. Privacy questions go to `leo@leoalavi.dev`; event questions go to
+  `astronomyopennight@mq.edu.au`. The canonical English semantic policy is
+  generated in the app repository, while the in-app presentation is available
+  in English and Persian from the same structured policy source.
 
 - **Fixed a duplicate panorama viewer.** The host and the iframe both trigger
   the 360° tour, by design, so `loadTour` ran twice and Pannellum stacked a

@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
-# Build without native API keys; add security headers and verify the bundle.
+# Build with the web-only define file; add security headers and verify the bundle.
 set -euo pipefail
 site_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-aon_dir="$(cd -- "$site_dir/../MQ-Astronomy-Open-Night-2026" && pwd)"
+aon_dir="$(cd -- "$site_dir/../../MQ-Astronomy-Open-Night-2026" && pwd)"
 cd "$aon_dir"
-flutter build web --release --base-href / --no-web-resources-cdn --no-source-maps
+env_file=".env.web"
+if [[ ! -f "$env_file" ]]; then
+  env_file=".env.web.example"
+fi
+flutter build web --release --dart-define-from-file="$env_file" \
+  --base-href / --no-web-resources-cdn --no-source-maps
 cd "$site_dir"
 # The privacy page is generated in the app repository, from its own ARB strings,
 # by tool/privacy/gen_privacy_html.py and held in sync by privacy_html_sync_test.

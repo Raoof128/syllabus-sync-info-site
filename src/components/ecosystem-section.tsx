@@ -21,8 +21,8 @@ export function EcosystemSection() {
           <h2>What we build.</h2>
           <p>
             Syllabus Sync is the main platform and student workspace, and Sylla adds AI-assisted
-            study support. Astronomy Open Night is an event companion app we built for a
-            university outreach event.
+            study support. Astronomy Open Night 2026 is a separate event project developed by
+            Leo Alavi and Mohammad Raouf Abedini for Astronomy Night – FSE Outreach Team.
           </p>
         </div>
         <div className="ecosystem-grid">

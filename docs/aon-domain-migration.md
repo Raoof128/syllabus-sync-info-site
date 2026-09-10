@@ -6,11 +6,11 @@ Reviewed 10 September 2026 against app commit `38db096` and the working-tree cor
 
 - App: `https://aon.syllabus-sync.app/`
 - Privacy: `https://aon.syllabus-sync.app/privacy`
-- Support: `https://aon.syllabus-sync.app/support`
-- Terms: `https://aon.syllabus-sync.app/terms`
+- Support: `https://info.syllabus-sync.app/astronomy-open-night/support`
+- Terms: `https://info.syllabus-sync.app/astronomy-open-night/terms`
 - Official event information: `https://event.mq.edu.au/astronomy-open-night/`
 
-The dedicated `astronomy-open-night` Worker serves the Flutter assets, with static HTML taking precedence at the three legal URLs and SPA fallback for app navigation. `wrangler.aon.jsonc` attaches the custom domain and disables public Worker preview hosts. The information-site Worker remains separate. Its legacy app and legal paths return permanent redirects to the new host.
+The dedicated `astronomy-open-night` Worker is configured to serve the Flutter assets, with static HTML taking precedence at `/privacy` and SPA fallback for app navigation. `wrangler.aon.jsonc` attaches the custom domain and disables public Worker preview hosts. The information-site Worker remains separate and serves the AON support and terms pages. Its old app and privacy paths are configured to redirect to the dedicated host.
 
 ## Sources and policy consistency
 
@@ -18,14 +18,11 @@ The identity comes from the app's `lib/config/app_identity.dart`: Leo Alavi and 
 
 Reviewed declarations: `ios/Runner/PrivacyInfo.xcprivacy`, iOS location/camera/motion purpose strings, Android permissions, `docs/release/app-store-connect-final-checklist.md` App Privacy answers, `docs/release/play-store-listing.md` Data Safety answers, the English and Persian ARBs, Google Maps and ML Kit disclosures, and local storage/deletion code.
 
-The policy separates native location/Maps, Android ML Kit diagnostics, native backups, web browser storage/manual passport entry and Cloudflare hosting requests. It does not claim no data leaves the device, does not promise erasing Google's data, and does not change the existing store data categories. The iOS app's own privacy manifest declares its direct location collection; the store answer set additionally declares Google's SDK data.
+The policy separates native location and Maps, Android ML Kit diagnostics, native backups, and web browser storage and manual passport entry. It does not claim no data leaves the device, does not promise erasing Google's data, and does not change the existing store data categories. The iOS app's own privacy manifest declares its direct location collection; the store answer set additionally declares Google's SDK data.
 
 The privacy policy is owned by the app repository. `tool/privacy/gen_privacy_html.py` generates `web/privacy.html` from the app's own `webPrivacy*` ARB strings, and `test/unit/privacy_html_sync_test.dart` fails if the two drift. The Flutter build copies that file into the bundle, so the information site exports nothing and holds no second copy to drift.
 
-Two gaps are recorded rather than fixed, because the policy wording is the app owners' to change:
-
-- The hosted page is English only. The app itself is fully localised and its in-app policy screen renders Persian, but the document the stores read is English.
-- The page does not mention that Cloudflare hosts it. Loading it sends an IP address, the requested URL and browser request information to Cloudflare.
+The canonical store-facing page is English. The in-app privacy presentation is localised into English and Persian from the same section structure.
 
 ## Build and release
 
@@ -41,7 +38,7 @@ npx wrangler deploy --config wrangler.aon.jsonc
 npm run cf:deploy
 ```
 
-The web build intentionally has no Maps keys. It uses the compiled campus map and the app's existing external-Maps fallback. Embedded Google Maps requires a separately reviewed, web-restricted key and corresponding CSP changes; native keys must never enter the web bundle. Flutter rendering assets and the Persian fallback font are self-hosted. The panorama inline script is allowed by its exact SHA-256 CSP hash, generated at build time. The build checks public assets for key patterns, private files and Cloudflare size limits.
+The web build reads only `MAPS_API_KEY`; conditional imports exclude native key defines. A production key must be HTTP-referrer restricted to the AON host and API-restricted to Maps JavaScript API and Routes API. Flutter rendering assets and the Persian fallback font are self-hosted. The panorama inline script is allowed by its exact SHA-256 CSP hash, generated at build time. The build checks public assets for private files, source maps and Cloudflare size limits.
 
 The 360° viewer is driven by a two-sided handshake: the iframe announces itself
 and the Flutter host also posts on its own load-stop, so whichever arrives second

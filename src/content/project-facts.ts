@@ -183,11 +183,11 @@ export const projectFacts = {
     },
     {
       id: "astronomy-open-night",
-      name: "Astronomy Open Night",
+      name: "Astronomy Open Night 2026",
       tagline: "An event companion app by Leo Alavi and Mohammad Raouf Abedini for the Astronomy Night – FSE Outreach Team.",
       description:
-        "An event guide and night-time wayfinding app: the published programme, an illustrated campus map, 360° venue previews and a QR passport rally. Event data is compiled into the app, so it works with no account, no backend and no network.",
-      statusLabel: "In testing ahead of the September 2026 event",
+        "A separate event guide and night-time wayfinding project: the published programme, an illustrated campus map, 360° venue previews and a QR passport rally. It has no account or developer-operated backend.",
+      statusLabel: "Astronomy Open Night 2026 event project",
       status: "in-development",
       // Kept for the type; the card renders the actions below instead.
       link: { label: "Ask about Astronomy Open Night", href: "/contact", external: false },
@@ -203,7 +203,7 @@ export const projectFacts = {
         { name: "Night-time wayfinding", description: "An illustrated campus map with search, favourites, walking directions and a compass mode for moving between car parks and venues in the dark.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
         { name: "360° venue previews", description: "Look inside a venue before walking to it at night.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
         { name: "QR passport rally", description: "Scan or type a venue code to collect a stamp and reveal a short astronomy fact, with manual entry as an offline fallback.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
-        { name: "Offline-first, no account", description: "No sign-in, no backend and no developer-operated analytics; saved stamps and favourites stay on the device.", status: "in-development", source: "Astronomy Open Night repo README and privacy audit, 2026-09-09", approved: true },
+        { name: "Local data, no account", description: "No sign-in, no backend and no developer-operated analytics; saved stamps and favourites stay in app-local or browser storage.", status: "in-development", source: "Astronomy Open Night repo README and privacy audit, 2026-09-10", approved: true },
         { name: "English and Persian", description: "Both languages with full right-to-left support and large-text scaling.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
       ],
       source: "Astronomy Open Night repo (README, ARCHITECTURE, release audits), reviewed 2026-09-09",
@@ -215,11 +215,10 @@ export const projectFacts = {
       phase: "Phase 1",
       title: "Macquarie University",
       description:
-        "Complete and validate the initial ecosystem at Macquarie: strengthen academic planning, improve Sylla, and ship Astronomy Open Night for its September 2026 event, informed by direct student feedback and the Macquarie University Incubator.",
+        "Complete and validate the initial Syllabus Sync and Sylla experience at Macquarie, informed by direct student feedback and the Macquarie University Incubator.",
       items: [
         "Validate academic planning workflows",
         "Improve Sylla's study tools",
-        "Ship Astronomy Open Night for its September 2026 event",
         "Gather student feedback",
         "Incubator-supported development",
       ],

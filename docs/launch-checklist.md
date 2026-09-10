@@ -40,14 +40,14 @@ Reviewed 9 September 2026.
 
 ## Astronomy Open Night store gates
 
-- [x] Privacy policy, support and terms hosted on a stable non-university HTTPS host
+- [ ] Deploy and verify the AON web app and canonical Privacy Policy at `aon.syllabus-sync.app`; DNS was not reachable from the final local audit on 10 September 2026
+- [x] AON support and terms are implemented on the information site; local route tests pass
 - [x] Page content audited against the app's own declarations and store data answers
 - [x] Working non-university contact address (`leo@leoalavi.dev`, already confirmed in the app release documents). The placeholder is gone and `tests/unit/aon-legal.test.ts` now requires a real address.
-- [x] `EventConfig.privacyPolicyUrl` points at `https://aon.syllabus-sync.app/privacy`, so the Settings row opens the hosted policy instead of the offline dialog. The page is generated from the app's own strings by `tool/privacy/gen_privacy_html.py` and guarded by `privacy_html_sync_test.dart`.
-- [ ] Decide whether the hosted policy should also carry Persian, and whether it should disclose Cloudflare hosting. Both are open questions on the app owners' wording, recorded in `docs/aon-domain-migration.md`.
+- [x] `EventConfig.privacyPolicyUrl` points at `https://aon.syllabus-sync.app/privacy`. The Settings row presents the same policy in-app. The semantic page is generated from the app's own strings by `tool/privacy/gen_privacy_html.py` and guarded by `privacy_html_sync_test.dart`.
 - [x] Privacy page carries the event team's scope statement and attribution block, identical in the app (English and Persian), the web app and the hosted page
 - [ ] Deploy the `astronomy-open-night` Worker, then the information-site redirects. Order matters: the new legal pages must answer before the old ones start redirecting to them.
-- [ ] Enter `https://aon.syllabus-sync.app/privacy` and `/support` in App Store Connect and Google Play. Keep the existing App Privacy and Data Safety answer sets; do not replace them with "Data Not Collected".
+- [ ] After deployment verification, enter `https://aon.syllabus-sync.app/privacy` as the privacy URL and `https://event.mq.edu.au/astronomy-open-night/` as the support URL in App Store Connect and Google Play. Keep the existing App Privacy and Data Safety answer sets; do not replace them with "Data Not Collected".
 - [ ] Ship a new signed app build. The native policy and URL fixes do not reach existing TestFlight or Play installs through a website deployment.
 - [ ] Add `aon.syllabus-sync.app` to the domain-level Search Console property
 

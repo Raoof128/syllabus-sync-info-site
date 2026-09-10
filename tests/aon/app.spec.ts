@@ -1,18 +1,17 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("the canonical policy is readable without JavaScript", async ({ browser }, testInfo) => {
+test("the canonical policy is readable without JavaScript", async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:8788/privacy");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Privacy Policy");
   // Generated in the app repository from its own ARB strings, so these assert
   // the disclosures survive generation and hosting.
-  for (const text of ["applies specifically to the Astronomy Open Night 2026 app", "ML Kit", "leo@leoalavi.dev", "astronomyopennight@mq.edu.au"]) {
+  for (const text of ["applies specifically to the Astronomy Open Night 2026 mobile applications", "ML Kit", "leo@leoalavi.dev", "astronomyopennight@mq.edu.au"]) {
     await expect(page.locator("body")).toContainText(text);
   }
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://aon.syllabus-sync.app/privacy");
-  await page.screenshot({ path: testInfo.outputPath("policy-mobile.png") });
   await context.close();
 });
 
@@ -39,6 +38,26 @@ test("Flutter app boots at root and on direct navigation to Settings", async ({ 
     await page.screenshot({ path: testInfo.outputPath(route === "/" ? "app-home.png" : "app-settings.png") });
   }
   expect(errors).toEqual([]);
+});
+
+test("every public app route is refresh-safe and panoramas stay lazy", async ({ page, request }) => {
+  for (const route of ["/", "/program", "/my-night", "/night", "/map", "/info", "/settings"]) {
+    const response = await request.get(route);
+    expect(response.status(), `${route} should serve the SPA shell`).toBe(200);
+    expect(response.headers()["content-type"]).toContain("text/html");
+  }
+
+  const panoramaRequests: string[] = [];
+  page.on("request", req => {
+    const url = req.url();
+    if (url.includes("/assets/assets/indoor/") || url.includes("/assets/web/pannellum/")) {
+      panoramaRequests.push(url);
+    }
+  });
+  await page.goto("/");
+  await expect(page.locator("canvas").first()).toBeVisible({ timeout: 60_000 });
+  await page.waitForLoadState("networkidle");
+  expect(panoramaRequests).toEqual([]);
 });
 
 test("privacy has no serious accessibility violations", async ({ page, browserName }) => {

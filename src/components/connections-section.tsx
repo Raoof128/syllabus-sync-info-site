@@ -4,11 +4,10 @@ export function ConnectionsSection() {
       <div className="container">
         <div className="section-heading centered">
           <p className="section-label">How they connect</p>
-          <h2>Three products built to connect.</h2>
+          <h2>Two connected products.</h2>
           <p>
-            We are building one student ecosystem where context moves between specialised
-            experiences. Today that means a shared identity across the three products, and
-            deeper integration is still in development.
+            Syllabus Sync and Sylla are designed to connect academic planning with study support.
+            Astronomy Open Night is shown in our portfolio as a separate event project.
           </p>
         </div>
         <div className="connections-grid">
@@ -22,12 +21,12 @@ export function ConnectionsSection() {
           </article>
           <article>
             <h3>Astronomy Open Night</h3>
-            <p>Event nights: programme, campus map, 360° venue previews and a QR passport, all offline.</p>
+            <p>A separate event project: programme, campus map, 360° venue previews and a QR passport.</p>
           </article>
         </div>
         <p className="problem-close">
-          Each product is usable on its own today, under one shared brand. Deeper integration, such
-          as an embedded Sylla panel inside Syllabus Sync, is still in development.
+          Syllabus Sync and Sylla share a product direction. Astronomy Open Night has its own
+          identity, event team, support channel and privacy policy.
         </p>
       </div>
     </section>

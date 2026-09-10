@@ -10,17 +10,15 @@ import type { PageDefinition } from "./site";
  * hosted on a stable HTTPS address that is NOT a university domain, and to
  * never contradict the policy text shipped inside the app.
  *
- * Every factual claim below is taken from the app's own privacy copy
- * (the in-app policy body and its Android privacy policy), which the app
- * holds to a code-checked standard. Nothing here is inferred.
+ * Privacy has one canonical source in the app repository. This file owns only
+ * the information site's support and terms pages.
  */
 
 /** Named publishers, as recorded in the app repository's maintainer list. */
 export const aonPublisher = "Leo Alavi and Mohammad Raouf Abedini";
 
 /**
- * Contact address for privacy and support questions — the event's own address.
- * A working contact both stores can verify.
+ * Contact address for event and support questions.
  */
 export const aonContactEmail = "astronomyopennight@mq.edu.au";
 /** Privacy / developer / legal contact (distinct from event support above). */
@@ -62,7 +60,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       {
         heading: "Do I need internet?",
         body: [
-          "No. The map, programme, venue information and 360° tours all work offline. Only walking directions on a Google map need a connection, and the app asks first.",
+          "The iOS and Android apps bundle the programme, illustrated campus map, venue information and 360° tours. The web app is online-first and needs a connection for its initial load. Google Maps and walking directions need a connection and are processed only when the related feature is used after consent.",
         ],
       },
       {
@@ -135,10 +133,10 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
 
 /** Index page listing the three store-facing pages. */
 export const aonLegalIndex: PageDefinition = {
-  title: "Astronomy Open Night",
+  title: "Astronomy Open Night 2026",
   description:
     "The Astronomy Open Night event companion — launch the web app, read the privacy policy, or visit the official event website.",
-  intro: `The Astronomy Open Night app is an offline-first event guide and night-time wayfinding companion, built by ${aonPublisher} as an independent project for the ${aonEventTeam}. It is not affiliated with, endorsed or sponsored by any university. Launch the web app, or read its store pages below. ${aonCopyright}.`,
+  intro: `Astronomy Open Night 2026 is an event guide and night-time wayfinding companion developed by ${aonPublisher} for the ${aonEventTeam}. Its iOS, Android and web applications have no account or developer-operated backend. Launch the web app, or use the links below. ${aonCopyright}.`,
   sections: [
     {
       heading: "The app",

@@ -14,8 +14,11 @@ The following items were intentionally not invented and remain production decisi
 10. External status provider and incident process.
 11. Final legal approval for terms and privacy.
 12. Brand-asset ownership and public-use approval.
-13. Contact address for the Astronomy Open Night store pages. The pages render a visible placeholder, and both stores verify that the address works, so they are not submittable until it is supplied.
+13. **Resolved 10 September 2026:** Astronomy Open Night privacy/developer
+    contact is `leo@leoalavi.dev`; event support is
+    `astronomyopennight@mq.edu.au`. The generated AON pages contain no contact
+    placeholder.
 
 The site uses the supplied positioning and product direction while clearly separating it from unverified availability and technical controls.
 
-Updated 9 September 2026.
+Updated 10 September 2026.

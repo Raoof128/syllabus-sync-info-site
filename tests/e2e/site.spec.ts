@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("homepage exposes the product story and safe links", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/Syllabus Sync/);
-  await expect(page.getByRole("heading", { level: 1, name: "One connected ecosystem for university life." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "A clearer workspace for university life." })).toBeVisible();
   const appLinks = page.getByRole("main").getByRole("link", { name: "Open Syllabus Sync", exact: true });
   await expect(appLinks.first()).toHaveAttribute("href", "https://www.syllabus-sync.app");
   await expect(page.getByRole("link", { name: "Open Sylla", exact: true }).first()).toHaveAttribute("href", "https://sylla.syllabus-sync.app");
@@ -97,15 +97,16 @@ test("ecosystem section exposes all three products with distinct anchors", async
   await expect(page.locator("#platform")).toContainText("Web platform available in early access");
   await expect(page.locator("#sylla")).toContainText("AI chat available in early access");
   await expect(page.locator("#sylla")).toContainText("Flashcards");
-  await expect(page.locator("#astronomy-open-night")).toContainText("In testing ahead of the September 2026 event");
+  await expect(page.locator("#astronomy-open-night")).toContainText("Astronomy Open Night 2026 event project");
   await expect(page.locator("#astronomy-open-night")).toContainText("QR passport rally");
   await expect(page.locator("#astronomy-open-night .status-pill").first()).toHaveClass(/status-pill-in-development/);
 });
 
-test("Astronomy Open Night is never presented as publicly released", async ({ page }) => {
+test("Astronomy Open Night is presented as a separate event project", async ({ page }) => {
   await page.goto("/#astronomy-open-night");
   const card = page.locator("#astronomy-open-night");
-  await expect(card).toContainText("In testing");
+  await expect(card).toContainText("separate event");
+  await expect(card).not.toContainText("Syllabus Sync");
   await expect(card).not.toContainText("Download");
   // The repository is private, so the card must not offer a link the public cannot open.
   await expect(card.getByRole("link", { name: /GitHub/i })).toHaveCount(0);
@@ -117,7 +118,7 @@ test("connections section explains the ecosystem without exposing backend detail
   await expect(section.getByRole("heading", { level: 2 })).toContainText("connect");
   await expect(section).toContainText("Academic context");
   await expect(section).toContainText("AI-assisted study layer");
-  await expect(section).toContainText("Event nights");
+  await expect(section).toContainText("separate event project");
   await expect(section).not.toContainText("Supabase");
   await expect(section).not.toContainText("cookie");
 });
