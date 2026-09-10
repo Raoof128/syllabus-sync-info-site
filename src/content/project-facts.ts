@@ -184,17 +184,18 @@ export const projectFacts = {
     {
       id: "astronomy-open-night",
       name: "Astronomy Open Night",
-      tagline: "The offline-first companion app for open-night events.",
+      tagline: "An event companion app by Leo Alavi and Mohammad Raouf Abedini for the Astronomy Night – FSE Outreach Team.",
       description:
         "An event guide and night-time wayfinding app: the published programme, an illustrated campus map, 360° venue previews and a QR passport rally. Event data is compiled into the app, so it works with no account, no backend and no network.",
       statusLabel: "In testing ahead of the September 2026 event",
       status: "in-development",
-      // The app is not publicly released and its repository is private, so the
-      // card points at the contact page rather than a link a visitor cannot open.
+      // Kept for the type; the card renders the actions below instead.
       link: { label: "Ask about Astronomy Open Night", href: "/contact", external: false },
+      // The app and its privacy live on their own subdomain (hosting only), so
+      // these open off-site. The official event site is Macquarie University's.
       actions: [
-        { label: "Open web app", href: "/astronomy-open-night/app/", external: false },
-        { label: "Privacy Policy", href: "/astronomy-open-night/privacy", external: false },
+        { label: "Open web app", href: "https://aon.syllabus-sync.app/", external: true },
+        { label: "Privacy Policy", href: "https://aon.syllabus-sync.app/privacy", external: true },
         { label: "Official event website", href: "https://event.mq.edu.au/astronomy-open-night/", external: true },
       ],
       features: [

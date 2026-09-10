@@ -70,15 +70,25 @@ describe("public content governance", () => {
     expect(openNight.link.href).toBe("/contact");
   });
 
+  it("does not present Astronomy Open Night as a Syllabus Sync product", () => {
+    const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
+    // The AON card copy should describe the app on its own terms and must never
+    // imply it is a Syllabus Sync product (guardrail; no defensive wording in
+    // the visible copy).
+    const copy = `${openNight.tagline} ${openNight.description}`;
+    expect(copy).not.toMatch(/Syllabus Sync/i);
+    expect(copy).toContain("Leo Alavi and Mohammad Raouf Abedini");
+  });
+
   it("gives the Astronomy Open Night card public actions: open app, privacy, official event site", () => {
     const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
     expect(openNight.actions?.map((action) => action.href)).toEqual([
-      "/astronomy-open-night/app/",
-      "/astronomy-open-night/privacy",
+      "https://aon.syllabus-sync.app/",
+      "https://aon.syllabus-sync.app/privacy",
       "https://event.mq.edu.au/astronomy-open-night/",
     ]);
-    // Only the official event site opens off-site.
-    expect(openNight.actions?.map((action) => action.external)).toEqual([false, false, true]);
+    // The app, its privacy and the event site all live off this info site.
+    expect(openNight.actions?.map((action) => action.external)).toEqual([true, true, true]);
   });
 
   it("never claims Sylla's study tools are anything more than a prototype", () => {

@@ -17,12 +17,12 @@ export function EcosystemSection() {
     <section className="ecosystem-section" id="ecosystem">
       <div className="container">
         <div className="section-heading centered">
-          <p className="section-label">The ecosystem</p>
-          <h2>One ecosystem, three connected products.</h2>
+          <p className="section-label">Products and projects</p>
+          <h2>What we build.</h2>
           <p>
-            Syllabus Sync is the main platform and student workspace. Sylla adds AI-assisted study
-            support, and Astronomy Open Night is the offline companion for event nights. Each is a
-            distinct product, built to work together.
+            Syllabus Sync is the main platform and student workspace, and Sylla adds AI-assisted
+            study support. Astronomy Open Night is an event companion app we built for a
+            university outreach event.
           </p>
         </div>
         <div className="ecosystem-grid">

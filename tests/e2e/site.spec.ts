@@ -57,23 +57,29 @@ test("metadata and machine-readable routes resolve", async ({ request }) => {
   }
 });
 
-test("Astronomy Open Night store pages are live, accurate and in the sitemap", async ({ page, request }) => {
-  for (const path of ["/astronomy-open-night", "/astronomy-open-night/privacy", "/astronomy-open-night/support", "/astronomy-open-night/terms"]) {
+test("Astronomy Open Night support & terms are live and in the sitemap", async ({ page, request }) => {
+  for (const path of ["/astronomy-open-night", "/astronomy-open-night/support", "/astronomy-open-night/terms"]) {
     const response = await request.get(path);
     expect(response.ok(), `${path} should resolve`).toBe(true);
   }
   const sitemap = await (await request.get("/sitemap.xml")).text();
-  expect(sitemap).toContain("/astronomy-open-night/privacy");
   expect(sitemap).toContain("/astronomy-open-night/support");
+  expect(sitemap).toContain("/astronomy-open-night/terms");
+  // The privacy policy has ONE canonical home (the AON app); the info site does
+  // not host a copy and must not list one in its sitemap.
+  expect(sitemap).not.toContain("/astronomy-open-night/privacy");
 
-  await page.goto("/astronomy-open-night/privacy");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Privacy Policy");
+  // The old privacy path redirects to the canonical AON policy URL.
+  const privacy = await request.get("/astronomy-open-night/privacy", { maxRedirects: 0 });
+  expect([301, 308]).toContain(privacy.status());
+  expect(privacy.headers()["location"]).toBe("https://aon.syllabus-sync.app/privacy");
+
+  await page.goto("/astronomy-open-night/terms");
   const main = page.getByRole("main");
   await expect(main).toContainText("Google Maps");
-  await expect(main).toContainText("ML Kit");
-  await expect(main).toContainText("Delete my data");
-  // Google's policy must be a real, clickable link for reviewers.
-  await expect(main.getByRole("link", { name: "Google Privacy Policy" })).toHaveAttribute("href", "https://policies.google.com/privacy");
+  // Google's terms must be a real, clickable link for reviewers.
+  await expect(main.getByRole("link", { name: "Google Maps/Google Earth Additional Terms of Service" }))
+    .toHaveAttribute("href", "https://maps.google.com/help/terms_maps/");
 
   await page.goto("/astronomy-open-night/nope");
   await expect(page.getByRole("heading", { level: 1, name: "That page is out of the plan." })).toBeVisible();

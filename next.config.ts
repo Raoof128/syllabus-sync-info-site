@@ -41,6 +41,19 @@ const nextConfig: NextConfig = {
     // in unrelated files.
     root: path.resolve(__dirname),
   },
+  async redirects() {
+    return [
+      {
+        // The Astronomy Open Night privacy policy has ONE canonical home — the
+        // AON app's own page. Any old link to the info-site copy redirects
+        // there, so there is a single stable policy URL and no duplicate copy
+        // to drift.
+        source: "/astronomy-open-night/privacy",
+        destination: "https://aon.syllabus-sync.app/privacy",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       { source: "/(.*)", headers: securityHeaders },
