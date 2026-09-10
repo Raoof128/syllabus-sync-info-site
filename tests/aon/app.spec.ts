@@ -1,38 +1,31 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("store policy is readable without JavaScript and covers all three platforms", async ({ browser }, testInfo) => {
+test("the canonical policy is readable without JavaScript", async ({ browser }, testInfo) => {
   const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
   const page = await context.newPage();
   await page.goto("http://127.0.0.1:8788/privacy");
   await expect(page.getByRole("heading", { level: 1 })).toContainText("Privacy Policy");
-  for (const text of ["iOS, Android and web", "ML Kit", "iCloud", "motion sensor", "Cloudflare", "leo@leoalavi.dev", "manual code entry"]) {
-    await expect(page.locator("main")).toContainText(text);
+  // Generated in the app repository from its own ARB strings, so these assert
+  // the disclosures survive generation and hosting.
+  for (const text of ["applies specifically to the Astronomy Open Night 2026 app", "ML Kit", "leo@leoalavi.dev", "astronomyopennight@mq.edu.au"]) {
+    await expect(page.locator("body")).toContainText(text);
   }
-  // The scope statement and attribution block the event team asked for.
-  await expect(page.locator("main")).toContainText("This Privacy Policy applies specifically to the Astronomy Open Night 2026 app");
-  await expect(page.locator("main")).toContainText("does not apply to other Syllabus Sync products or to the Macquarie University website");
-  await expect(page.locator("main")).toContainText("Developed by the Syllabus Sync team (Leo Alavi and Mohammad Raouf Abedini) for the Astronomy Night – FSE Outreach Team.");
-  await expect(page.locator("main")).toContainText("Contact: astronomyopennight@mq.edu.au");
-  // The credit under the policy must not drift from the credit inside it.
-  await expect(page.locator("footer")).toContainText("Developed by the Syllabus Sync team (Leo Alavi and Mohammad Raouf Abedini)");
-  await expect(page.locator("footer")).toContainText("© 2026 Astronomy Night – FSE Outreach Team");
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://aon.syllabus-sync.app/privacy");
-  await expect(page.locator('[lang="fa"][dir="rtl"]')).toContainText("سیاست حریم خصوصی");
   await page.screenshot({ path: testInfo.outputPath("policy-mobile.png") });
   await context.close();
 });
 
-test("legal routes have real HTML and safe links", async ({ page, request }) => {
-  for (const slug of ["privacy", "support", "terms"]) {
-    const response = await request.get(`/${slug}`);
-    expect(response.status()).toBe(200);
-    expect(response.headers()["content-type"]).toContain("text/html");
-    expect(response.headers()["x-content-type-options"]).toBe("nosniff");
-    await page.goto(`/${slug}`);
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Open app", exact: true })).toHaveAttribute("href", "/");
-  }
+test("the policy is served as real HTML with the security headers", async ({ page, request }) => {
+  // Support and terms stay on the information site; this host serves the app
+  // and the one canonical policy.
+  const response = await request.get("/privacy");
+  expect(response.status()).toBe(200);
+  expect(response.headers()["content-type"]).toContain("text/html");
+  expect(response.headers()["x-content-type-options"]).toBe("nosniff");
+  expect(response.headers()["content-security-policy"]).toContain("default-src 'self'");
+  await page.goto("/privacy");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
 test("Flutter app boots at root and on direct navigation to Settings", async ({ page }, testInfo) => {

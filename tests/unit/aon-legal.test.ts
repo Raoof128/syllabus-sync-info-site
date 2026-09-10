@@ -2,12 +2,10 @@ import { describe, expect, it } from "vitest";
 
 import {
   aonContactEmail,
-  aonCopyright,
-  aonDeveloperCredit,
-  aonEventContactEmail,
   aonLegalIndex,
   aonLegalPages,
   aonLegalSlugs,
+  aonPrivacyUrl,
   aonPublisher,
 } from "@/content/astronomy-open-night-legal";
 
@@ -16,14 +14,18 @@ const allText = (slug: keyof typeof aonLegalPages) => {
   return [page.title, page.intro, ...page.sections.flatMap((s) => [s.heading, ...s.body])].join("\n");
 };
 
-describe("Astronomy Open Night store pages", () => {
-  it("publishes exactly the three store-facing pages plus an index", () => {
-    expect([...aonLegalSlugs]).toEqual(["privacy", "support", "terms"]);
+describe("Astronomy Open Night pages on the info site", () => {
+  it("hosts only support and terms — the privacy policy lives on the AON app", () => {
+    // Privacy has ONE canonical home: the AON app's own page. The info site
+    // does not host a duplicate; the old route redirects there (next.config).
+    expect([...aonLegalSlugs]).toEqual(["support", "terms"]);
+    expect(aonPrivacyUrl).toBe("https://aon.syllabus-sync.app/privacy");
+
     const legalSection = aonLegalIndex.sections.find((s) => s.heading === "Privacy, support and terms");
     expect(legalSection?.links?.map((l) => l.href)).toEqual([
-      "https://aon.syllabus-sync.app/privacy",
-      "https://aon.syllabus-sync.app/support",
-      "https://aon.syllabus-sync.app/terms",
+      aonPrivacyUrl,
+      "/astronomy-open-night/support",
+      "/astronomy-open-night/terms",
     ]);
     // The index also launches the app and links the official event site.
     const appSection = aonLegalIndex.sections.find((s) => s.heading === "The app");
@@ -33,76 +35,40 @@ describe("Astronomy Open Night store pages", () => {
     ]);
   });
 
-  it("names both developers and never a university as publisher", () => {
+  it("credits the individual developers and never presents Syllabus Sync as owner/publisher", () => {
     expect(aonPublisher).toBe("Leo Alavi and Mohammad Raouf Abedini");
-    // The event team's attribution model: the Syllabus Sync team built it, and
-    // both developers are named. Neither half may be dropped.
-    expect(aonDeveloperCredit).toBe(`the Syllabus Sync team (${aonPublisher})`);
-    expect(allText("privacy")).toContain(`developed by the Syllabus Sync team (${aonPublisher})`);
-    expect(allText("privacy")).toContain("Mohammad Raouf Abedini");
+    // The developer credit appears (on the terms page and the index).
+    expect(`${allText("terms")}\n${aonLegalIndex.intro}`).toContain(aonPublisher);
     for (const slug of aonLegalSlugs) {
-      // "published by <a university>" must never appear; "not affiliated with any university" is fine.
+      // Never present a university, or Syllabus Sync, as the publisher/owner.
       expect(allText(slug)).not.toMatch(/published (by|under) (the |a |an )?(macquarie|university)/i);
+      expect(allText(slug)).not.toContain("Syllabus Sync");
     }
+    expect(aonLegalIndex.intro).not.toContain("Syllabus Sync");
   });
 
-  it("routes privacy to the developer and event questions to the event team", () => {
-    const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    expect(isValidEmail(aonContactEmail)).toBe(true);
-    expect(isValidEmail(aonEventContactEmail)).toBe(true);
-    // Data requests must reach the developer, never a university mailbox that
-    // cannot act on the app.
-    expect(aonContactEmail.toLowerCase()).not.toMatch(/\.edu\.au$|mq\.edu\.au/);
-    // The event team owns the event, so its own address is the event contact.
-    expect(aonEventContactEmail).toBe("astronomyopennight@mq.edu.au");
-    const privacy = allText("privacy");
-    expect(privacy).toContain(`Privacy questions and data requests about the app: ${aonContactEmail}`);
-    expect(privacy).toContain(`Contact: ${aonEventContactEmail}`);
+  it("uses a working event contact address", () => {
+    // The event's own address is fine — being hosted on aon.syllabus-sync.app
+    // does not require a non-university contact.
+    expect(aonContactEmail).toBe("astronomyopennight@mq.edu.au");
+    expect(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(aonContactEmail)).toBe(true);
   });
 
-  it("scopes the policy exactly as the event team asked", () => {
-    const privacy = allText("privacy");
-    expect(privacy).toContain("This Privacy Policy applies specifically to the Astronomy Open Night 2026 app");
-    expect(privacy).toContain("It does not apply to other Syllabus Sync products or to the Macquarie University website.");
-    // The scope sentence must not shrink the policy to mobile only: the web
-    // version stores data in the browser and is served by Cloudflare.
-    expect(privacy).toContain("covers its iOS, Android and web versions");
-  });
-
-  it("privacy policy discloses the real data flows rather than claiming nothing is collected", () => {
-    const privacy = allText("privacy");
-    expect(privacy).toContain("no account");
-    expect(privacy).toContain("Google Maps");
-    expect(privacy).toContain("ML Kit");
-    expect(privacy).toContain("route origin");
-    expect(privacy).toContain("system backups");
-    expect(privacy).toContain("Delete my data");
-    // The disproven "we collect nothing" framing must not come back, in any wording:
-    // a route origin and Google SDK diagnostics do leave the device.
-    expect(privacy).not.toMatch(/collects? (nothing|no personal (information|data))/i);
-    // Both platforms' backups are covered, and the compass sensor is disclosed.
-    expect(privacy).toMatch(/iCloud/);
-    expect(privacy).toMatch(/motion sensor/);
+  it("copyright is the event team, never a university or the developers", () => {
+    const terms = allText("terms");
+    expect(terms).toContain("© 2026 Astronomy Night – FSE Outreach Team");
+    expect(terms).toContain(`developed for the Astronomy Night – FSE Outreach Team`);
+    expect(terms).not.toMatch(/©\s*Macquarie University/i);
+    expect(terms).not.toMatch(/©\s*20\d\d\s*(Leo Alavi|Mohammad|Syllabus Sync)/i);
   });
 
   it("support page claims only the accessibility support the app team verified", () => {
     const support = allText("support");
     expect(support).toContain("VoiceOver");
     expect(support).not.toContain("TalkBack");
-  });
-
-  it("frames identity as the Syllabus Sync team for the FSE outreach team, with the confirmed copyright", () => {
-    const privacy = allText("privacy");
-    expect(privacy).toContain("Astronomy Night – FSE Outreach Team");
-    expect(aonCopyright).toBe("© 2026 Astronomy Night – FSE Outreach Team");
-    expect(privacy).not.toMatch(/©\s*Macquarie University/i);
-  });
-
-  it("scopes the policy to Astronomy Open Night and discloses the web camera fallback and no data sale", () => {
-    const privacy = allText("privacy");
-    expect(privacy).toContain("covers its iOS, Android and web versions");
-    expect(privacy).toContain("manual code entry");
-    expect(privacy).toContain("do not sell your personal data");
+    // Support links out to the canonical privacy, not an info-site copy.
+    const links = aonLegalPages["support"].sections.flatMap((s) => s.links ?? []);
+    expect(links.some((l) => l.href === aonPrivacyUrl)).toBe(true);
   });
 
   it("terms flow the Google Maps terms through to end users", () => {

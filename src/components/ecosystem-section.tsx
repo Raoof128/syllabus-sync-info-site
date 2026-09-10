@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { approvedEcosystem, projectFacts, type FeatureStatus } from "@/content/project-facts";
+import { approvedEcosystem, type FeatureStatus } from "@/content/project-facts";
 
 import { Icon } from "./icons";
 
@@ -18,8 +18,12 @@ export function EcosystemSection() {
       <div className="container">
         <div className="section-heading centered">
           <p className="section-label">Products and projects</p>
-          <h2>{projectFacts.presentation.relatedProjectsTitle}</h2>
-          <p>{projectFacts.presentation.relatedProjectsDescription}</p>
+          <h2>What we build.</h2>
+          <p>
+            Syllabus Sync is the main platform and student workspace, and Sylla adds AI-assisted
+            study support. Astronomy Open Night is an event companion app we built for a
+            university outreach event.
+          </p>
         </div>
         <div className="ecosystem-grid">
           {approvedEcosystem.map((product) => (

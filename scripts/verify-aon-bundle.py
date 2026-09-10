@@ -7,7 +7,9 @@ import sys
 def main() -> int:
     try:
         root = Path(sys.argv[1]).resolve(strict=True)
-        for name in ("index.html", "main.dart.js", "privacy.html", "support.html", "terms.html", "_headers"):
+        # Support and terms live on the information site; this host serves the app and
+        # the canonical privacy policy.
+        for name in ("index.html", "main.dart.js", "privacy.html", "_headers"):
             if not (root / name).is_file():
                 raise ValueError("A required public asset is missing")
         files = [item for item in root.rglob("*") if item.is_file()]

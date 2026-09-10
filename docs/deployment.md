@@ -78,11 +78,13 @@ canonical tags, the OG image (it is server-rendered, so it is the route most
 likely to break on a runtime change), sitemap, robots, structured data,
 security headers, 404 behaviour and mobile rendering.
 
-The Astronomy Open Night store pages are submitted to Apple and Google, so
-treat `/astronomy-open-night/privacy`, `/astronomy-open-night/support`
-and `/astronomy-open-night/terms` as must-not-404 routes: an outage there is
-a store-compliance problem, not only a broken link. Their canonical URLs are
-covered by an end-to-end test.
+The Astronomy Open Night support and terms pages are referenced by the app, so
+treat `/astronomy-open-night/support` and `/astronomy-open-night/terms` as
+must-not-404 routes. The **privacy policy has one canonical home** — the AON
+app at `https://aon.syllabus-sync.app/privacy` — and the old
+`/astronomy-open-night/privacy` path 308-redirects there (see `next.config.ts`),
+so the info site never hosts a duplicate privacy copy. These are covered by an
+end-to-end test.
 
 Add the subdomain to the domain-level Search Console property.
 

@@ -1,13 +1,15 @@
-import { projectFacts } from "@/content/project-facts";
-
 export function ConnectionsSection() {
   return (
     <section className="connections-section" id="connections">
       <div className="container">
         <div className="section-heading centered">
           <p className="section-label">How they connect</p>
-          <h2>{projectFacts.presentation.connectionsTitle}</h2>
-          <p>{projectFacts.presentation.connectionsDescription}</p>
+          <h2>Three products built to connect.</h2>
+          <p>
+            We are building one student ecosystem where context moves between specialised
+            experiences. Today that means a shared identity across the three products, and
+            deeper integration is still in development.
+          </p>
         </div>
         <div className="connections-grid">
           <article>
@@ -20,7 +22,7 @@ export function ConnectionsSection() {
           </article>
           <article>
             <h3>Astronomy Open Night</h3>
-            <p>{projectFacts.presentation.aonConnection}</p>
+            <p>Event nights: programme, campus map, 360° venue previews and a QR passport, all offline.</p>
           </article>
         </div>
         <p className="problem-close">

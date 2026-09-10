@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { approvedTeam, projectFacts } from "@/content/project-facts";
+import { approvedTeam } from "@/content/project-facts";
 
 export function TeamSection() {
   return (
@@ -9,7 +9,7 @@ export function TeamSection() {
         <div className="section-heading centered">
           <p className="section-label">Team</p>
           <h2>Built by two founders.</h2>
-          <p>{projectFacts.presentation.teamIntro}</p>
+          <p>Syllabus Sync, Sylla and Astronomy Open Night are built together, with each founder leading different parts of the ecosystem.</p>
         </div>
         <div className="team-grid">
           {approvedTeam.map((member) => (

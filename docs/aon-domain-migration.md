@@ -20,7 +20,12 @@ Reviewed declarations: `ios/Runner/PrivacyInfo.xcprivacy`, iOS location/camera/m
 
 The policy separates native location/Maps, Android ML Kit diagnostics, native backups, web browser storage/manual passport entry and Cloudflare hosting requests. It does not claim no data leaves the device, does not promise erasing Google's data, and does not change the existing store data categories. The iOS app's own privacy manifest declares its direct location collection; the store answer set additionally declares Google's SDK data.
 
-`scripts/export-aon-pages.mjs` refuses to export if the English native policy differs from the typed website policy. Both native locales are bundled; the web route renders the same policy. The static `/privacy` document contains English and Persian without requiring JavaScript, plus clickable Google and Cloudflare policies. The Android policy artifact is regenerated from that same HTML.
+The privacy policy is owned by the app repository. `tool/privacy/gen_privacy_html.py` generates `web/privacy.html` from the app's own `webPrivacy*` ARB strings, and `test/unit/privacy_html_sync_test.dart` fails if the two drift. The Flutter build copies that file into the bundle, so the information site exports nothing and holds no second copy to drift.
+
+Two gaps are recorded rather than fixed, because the policy wording is the app owners' to change:
+
+- The hosted page is English only. The app itself is fully localised and its in-app policy screen renders Persian, but the document the stores read is English.
+- The page does not mention that Cloudflare hosts it. Loading it sends an IP address, the requested URL and browser request information to Cloudflare.
 
 ## Build and release
 

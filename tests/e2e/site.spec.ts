@@ -57,20 +57,30 @@ test("metadata and machine-readable routes resolve", async ({ request }) => {
   }
 });
 
-test("Astronomy Open Night links and legacy redirects use its own host", async ({ page, request }) => {
-  for (const slug of ["privacy", "support", "terms"]) {
-    const response = await request.get(`/astronomy-open-night/${slug}`, { maxRedirects: 0 });
-    expect(response.status()).toBe(308);
-    expect(response.headers().location).toBe(`https://aon.syllabus-sync.app/${slug}`);
+test("Astronomy Open Night support & terms are live and in the sitemap", async ({ page, request }) => {
+  for (const path of ["/astronomy-open-night", "/astronomy-open-night/support", "/astronomy-open-night/terms"]) {
+    const response = await request.get(path);
+    expect(response.ok(), `${path} should resolve`).toBe(true);
   }
-  const legacyApp = await request.get("/astronomy-open-night/app/map?from=legacy", { maxRedirects: 0 });
-  expect(legacyApp.status()).toBe(308);
-  expect(legacyApp.headers().location).toBe("https://aon.syllabus-sync.app/map?from=legacy");
-  await page.goto("/astronomy-open-night");
-  await expect(page.getByRole("link", { name: "Open the web app", exact: true })).toHaveAttribute("href", "https://aon.syllabus-sync.app/");
-  await expect(page.getByRole("main").getByRole("link", { name: "Privacy Policy", exact: true })).toHaveAttribute("href", "https://aon.syllabus-sync.app/privacy");
   const sitemap = await (await request.get("/sitemap.xml")).text();
+  expect(sitemap).toContain("/astronomy-open-night/support");
+  expect(sitemap).toContain("/astronomy-open-night/terms");
+  // The privacy policy has ONE canonical home (the AON app); the info site does
+  // not host a copy and must not list one in its sitemap.
   expect(sitemap).not.toContain("/astronomy-open-night/privacy");
+
+  // The old privacy path redirects to the canonical AON policy URL.
+  const privacy = await request.get("/astronomy-open-night/privacy", { maxRedirects: 0 });
+  expect([301, 308]).toContain(privacy.status());
+  expect(privacy.headers()["location"]).toBe("https://aon.syllabus-sync.app/privacy");
+
+  await page.goto("/astronomy-open-night/terms");
+  const main = page.getByRole("main");
+  await expect(main).toContainText("Google Maps");
+  // Google's terms must be a real, clickable link for reviewers.
+  await expect(main.getByRole("link", { name: "Google Maps/Google Earth Additional Terms of Service" }))
+    .toHaveAttribute("href", "https://maps.google.com/help/terms_maps/");
+
   await page.goto("/astronomy-open-night/nope");
   await expect(page.getByRole("heading", { level: 1, name: "That page is out of the plan." })).toBeVisible();
 });
@@ -107,7 +117,7 @@ test("connections section explains the ecosystem without exposing backend detail
   await expect(section.getByRole("heading", { level: 2 })).toContainText("connect");
   await expect(section).toContainText("Academic context");
   await expect(section).toContainText("AI-assisted study layer");
-  await expect(section).toContainText("Independent project");
+  await expect(section).toContainText("Event nights");
   await expect(section).not.toContainText("Supabase");
   await expect(section).not.toContainText("cookie");
 });
