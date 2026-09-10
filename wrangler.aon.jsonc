@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "astronomy-open-night",
+  "account_id": "d630de5216d2cdc67a6497b7fc709ea4",
+  "compatibility_date": "2026-09-10",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "aon.syllabus-sync.app", "custom_domain": true }],
+  "assets": {
+    "directory": "../MQ-Astronomy-Open-Night-2026/build/web",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "single-page-application"
+  }
+}

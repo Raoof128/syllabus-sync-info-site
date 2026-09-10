@@ -5,6 +5,52 @@ request so the diff is one command away (`gh pr view <n>`). Point-in-time
 verification evidence stays in `docs/final-implementation-report.md`; this file
 records what changed after that report.
 
+## 10 September 2026
+
+Astronomy Open Night moved to its own host, and the information site stopped
+serving the app.
+
+- **Moved the app and its store pages to `aon.syllabus-sync.app`.** A separate
+  static Worker (`wrangler.aon.jsonc`) serves the Flutter web build, with the
+  three reviewed legal documents taking precedence as static HTML and SPA
+  fallback for everything else. The information site keeps its
+  `/astronomy-open-night` hub and returns permanent redirects from the old app
+  and legal paths, so the URLs already filed with the stores keep working. The
+  legal pages left the sitemap because they now live on the other host.
+- **Confirmed the store contact address.** `leo@leoalavi.dev` was already the
+  published contact in the app's release documents, so the placeholder is gone
+  and the unit test now requires a working address. This was the last item
+  blocking store submission of the pages themselves.
+- **Made the app an independent project in the site's own copy.** Astronomy
+  Open Night is by the same developers but is not a Syllabus Sync product; the
+  homepage, ecosystem, connections and team sections say so, and the wording
+  lives in `projectFacts.presentation`.
+- **Built the web bundle without native API keys.** `npm run aon:build` builds,
+  exports the reviewed pages, generates the panorama CSP hash and then refuses
+  to publish a bundle that carries a credential pattern, a source map, a private
+  file or an oversized asset. The build also fails if the app's English policy
+  body has drifted from the typed website policy.
+- **Adopted the event team's attribution model and policy scope.** The privacy
+  page now opens with the scope statement the event team asked for ("This
+  Privacy Policy applies specifically to the Astronomy Open Night 2026 app...
+  It does not apply to other Syllabus Sync products or to the Macquarie
+  University website") and closes with their attribution block, crediting the
+  Syllabus Sync team, Leo Alavi and Mohammad Raouf Abedini, as the developers
+  for the Astronomy Night - FSE Outreach Team. Privacy and data requests go to
+  the developer account holder; event questions go to the event team's own
+  address, `astronomyopennight@mq.edu.au`. The same text now ships in the app
+  (English and Persian), the web app and the hosted page, which the export
+  script enforces. An earlier revision that had removed the team credit was
+  reverted on the event team's instruction, and both repositories record why so
+  it is not flipped back.
+
+- **Fixed a duplicate panorama viewer.** The host and the iframe both trigger
+  the 360° tour, by design, so `loadTour` ran twice and Pannellum stacked a
+  second WebGL canvas and loading box over the first, downloading every panorama
+  twice and leaking the first viewer's GL context. The viewer now tears down the
+  previous instance before building the next. `tests/aon/app.spec.ts` catches a
+  second viewer in all three engines.
+
 ## 9 September 2026
 
 The site went from repository-ready to live on `https://info.syllabus-sync.app`

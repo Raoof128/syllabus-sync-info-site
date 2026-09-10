@@ -47,9 +47,16 @@ const nextConfig: NextConfig = {
         // The Astronomy Open Night privacy policy has ONE canonical home — the
         // AON app's own page. Any old link to the info-site copy redirects
         // there, so there is a single stable policy URL and no duplicate copy
-        // to drift.
+        // to drift. Support and terms stay here, so they are not redirected.
         source: "/astronomy-open-night/privacy",
         destination: "https://aon.syllabus-sync.app/privacy",
+        permanent: true,
+      },
+      {
+        // The web app moved to its own host too. Old links and any printed code
+        // pointing at the info-site path still have to land somewhere real.
+        source: "/astronomy-open-night/app/:path*",
+        destination: "https://aon.syllabus-sync.app/:path*",
         permanent: true,
       },
     ];

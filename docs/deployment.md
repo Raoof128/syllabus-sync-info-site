@@ -87,3 +87,7 @@ so the info site never hosts a duplicate privacy copy. These are covered by an
 end-to-end test.
 
 Add the subdomain to the domain-level Search Console property.
+
+## Astronomy Open Night dedicated host
+
+See [the domain migration](aon-domain-migration.md) for `aon.syllabus-sync.app`, the separate static Worker, policy parity check, legacy redirects and rollback. Deploy and verify the new legal pages before deploying information-site redirects.
