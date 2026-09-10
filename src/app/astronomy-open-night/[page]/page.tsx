@@ -8,6 +8,13 @@ function isAonLegalSlug(value: string): value is AonLegalSlug {
   return (aonLegalSlugs as readonly string[]).includes(value);
 }
 
+// Astronomy Open Night is an independent project, not a Syllabus Sync product,
+// so its pages use an ABSOLUTE title (no site-wide "| Syllabus Sync" suffix).
+const aonPageTitles: Record<AonLegalSlug, string> = {
+  support: "Astronomy Open Night 2026 — Support",
+  terms: "Astronomy Open Night 2026 — Terms",
+};
+
 export function generateStaticParams() {
   return aonLegalSlugs.map((page) => ({ page }));
 }
@@ -17,11 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
   if (!isAonLegalSlug(page)) return {};
   const definition = aonLegalPages[page];
   const path = `/astronomy-open-night/${page}`;
+  const title = aonPageTitles[page];
   return {
-    title: definition.title,
+    title: { absolute: title },
     description: definition.description,
     alternates: { canonical: path },
-    openGraph: { title: `${definition.title} | Syllabus Sync`, description: definition.description, url: path, type: "website" },
+    openGraph: { title, description: definition.description, url: path, type: "website" },
   };
 }
 
