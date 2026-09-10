@@ -5,6 +5,7 @@ import {
   aonLegalIndex,
   aonLegalPages,
   aonLegalSlugs,
+  aonPrivacyContact,
   aonPrivacyUrl,
   aonPublisher,
 } from "@/content/astronomy-open-night-legal";
@@ -52,6 +53,14 @@ describe("Astronomy Open Night pages on the info site", () => {
     // does not require a non-university contact.
     expect(aonContactEmail).toBe("astronomyopennight@mq.edu.au");
     expect(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(aonContactEmail)).toBe(true);
+  });
+
+  it("keeps privacy/legal contact separate from event support", () => {
+    // Support page = event support; Terms = developer/legal contact.
+    expect(aonPrivacyContact).toBe("leo@leoalavi.dev");
+    expect(allText("support")).toContain(aonContactEmail);
+    expect(allText("support")).not.toContain(aonPrivacyContact);
+    expect(allText("terms")).toContain(aonPrivacyContact);
   });
 
   it("copyright is the event team, never a university or the developers", () => {

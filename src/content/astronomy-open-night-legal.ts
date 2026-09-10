@@ -23,6 +23,8 @@ export const aonPublisher = "Leo Alavi and Mohammad Raouf Abedini";
  * A working contact both stores can verify.
  */
 export const aonContactEmail = "astronomyopennight@mq.edu.au";
+/** Privacy / developer / legal contact (distinct from event support above). */
+export const aonPrivacyContact = "leo@leoalavi.dev";
 
 export const aonLastUpdated = "9 September 2026";
 
@@ -121,7 +123,7 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
       },
       {
         heading: "Contact",
-        body: [`Questions about these terms: ${aonContactEmail}`],
+        body: [`Questions about these terms: ${aonPrivacyContact}`],
         links: [
           { label: "Privacy Policy", href: aonPrivacyUrl },
           { label: "Support", href: "/astronomy-open-night/support" },
