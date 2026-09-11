@@ -40,13 +40,14 @@ Reviewed 9 September 2026.
 
 ## Astronomy Open Night store gates
 
-- [ ] Deploy and verify the AON web app and canonical Privacy Policy at `aon.syllabus-sync.app`; DNS was not reachable from the final local audit on 10 September 2026
-- [x] AON support and terms are implemented on the information site; local route tests pass
+- [x] Deploy and verify the AON web app and canonical Privacy Policy at `aon.syllabus-sync.app`. Deployed 11 September 2026: the `astronomy-open-night` Worker serves the Flutter build, the custom domain is attached, Cloudflare issued the certificate, and `/` and `/privacy` both answer 200 over HTTPS.
+- [x] AON support and terms are live on the information site, and the retired `/astronomy-open-night/app-*` names redirect rather than 404
 - [x] Page content audited against the app's own declarations and store data answers
 - [x] Working non-university contact address (`leo@leoalavi.dev`, already confirmed in the app release documents). The placeholder is gone and `tests/unit/aon-legal.test.ts` now requires a real address.
 - [x] `EventConfig.privacyPolicyUrl` points at `https://aon.syllabus-sync.app/privacy`. The Settings row presents the same policy in-app. The semantic page is generated from the app's own strings by `tool/privacy/gen_privacy_html.py` and guarded by `privacy_html_sync_test.dart`.
 - [x] Privacy page carries the event team's scope statement and attribution block, identical in the app (English and Persian), the web app and the hosted page
-- [ ] Deploy the `astronomy-open-night` Worker, then the information-site redirects. Order matters: the new legal pages must answer before the old ones start redirecting to them.
+- [x] Deploy the `astronomy-open-night` Worker, then the information-site redirects. Done in that order on 11 September 2026: the AON policy answered 200 before the info site began redirecting to it.
+- [ ] Supply the production web Maps key. The deployed web build carries an **empty** `MAPS_API_KEY` (no `.env.web`), so the Google map degrades to its "map unavailable" state. The key must be HTTP-referrer restricted to `https://aon.syllabus-sync.app/*` and API-restricted to Maps JavaScript API and Routes API, then `npm run aon:build && npx wrangler deploy --config wrangler.aon.jsonc` again.
 - [ ] After deployment verification, enter `https://aon.syllabus-sync.app/privacy` as the privacy URL and `https://event.mq.edu.au/astronomy-open-night/` as the support URL in App Store Connect and Google Play. Keep the existing App Privacy and Data Safety answer sets; do not replace them with "Data Not Collected".
 - [ ] Ship a new signed app build. The native policy and URL fixes do not reach existing TestFlight or Play installs through a website deployment.
 - [ ] Add `aon.syllabus-sync.app` to the domain-level Search Console property

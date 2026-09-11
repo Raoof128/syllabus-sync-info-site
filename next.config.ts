@@ -59,6 +59,25 @@ const nextConfig: NextConfig = {
         destination: "https://aon.syllabus-sync.app/:path*",
         permanent: true,
       },
+      // The first published names for these three pages were `app-privacy`,
+      // `app-support` and `app-terms`. They were live and publicly reachable
+      // before the rename, so they redirect rather than 404: a store console,
+      // a bookmark or a printed link may still carry them.
+      {
+        source: "/astronomy-open-night/app-privacy",
+        destination: "https://aon.syllabus-sync.app/privacy",
+        permanent: true,
+      },
+      {
+        source: "/astronomy-open-night/app-support",
+        destination: "/astronomy-open-night/support",
+        permanent: true,
+      },
+      {
+        source: "/astronomy-open-night/app-terms",
+        destination: "/astronomy-open-night/terms",
+        permanent: true,
+      },
     ];
   },
   async headers() {
