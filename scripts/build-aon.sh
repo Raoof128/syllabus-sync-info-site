@@ -2,7 +2,7 @@
 # Build with the web-only define file; add security headers and verify the bundle.
 set -euo pipefail
 site_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
-aon_dir="$(cd -- "$site_dir/../../MQ-Astronomy-Open-Night-2026" && pwd)"
+aon_dir="$(cd -- "$site_dir/../MQ-Astronomy-Open-Night-2026" && pwd)"
 cd "$aon_dir"
 env_file=".env.web"
 if [[ ! -f "$env_file" ]]; then

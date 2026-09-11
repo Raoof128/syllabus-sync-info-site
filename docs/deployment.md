@@ -52,6 +52,21 @@ Set `CONTACT_WEBHOOK_URL` and `CONTACT_WEBHOOK_TOKEN` as Worker secrets
 (`wrangler secret put …`), not in `wrangler.jsonc`, and never with a
 `NEXT_PUBLIC_` prefix.
 
+### `cf:deploy` can exit 1 after a successful deploy
+
+`syllabus-sync-info` has a custom domain attached but declares no `routes` in
+`wrangler.jsonc`, so wrangler reconciles zone routes at the end of a deploy. A
+token without zone-scoped **Workers Routes: Edit** fails that last call with
+`Authentication error [code: 10000]` and wrangler exits 1 — *after* the Worker
+has uploaded and gone live. Read the log before believing the exit code: an
+`Uploaded syllabus-sync-info` line above the error means the deploy landed.
+Confirm with `npx wrangler deployments list --name syllabus-sync-info` and by
+requesting a route that only the new code serves.
+
+Add Workers Routes: Edit to the deploy token to make the exit code honest. Until
+then, do not wire `npm run cf:deploy` into automation that treats a non-zero
+exit as "not deployed" and rolls back.
+
 ## Environment
 
 - `CONTACT_WEBHOOK_URL`: approved HTTPS receiver for validated contact enquiries.

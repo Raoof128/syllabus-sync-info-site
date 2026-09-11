@@ -74,6 +74,19 @@ test("Astronomy Open Night support & terms are live and in the sitemap", async (
   expect([301, 308]).toContain(privacy.status());
   expect(privacy.headers()["location"]).toBe("https://aon.syllabus-sync.app/privacy");
 
+  // The first published names for these pages were publicly reachable before the
+  // rename, so they redirect instead of 404ing.
+  const legacy: Record<string, string> = {
+    "/astronomy-open-night/app-privacy": "https://aon.syllabus-sync.app/privacy",
+    "/astronomy-open-night/app-support": "/astronomy-open-night/support",
+    "/astronomy-open-night/app-terms": "/astronomy-open-night/terms",
+  };
+  for (const [from, to] of Object.entries(legacy)) {
+    const response = await request.get(from, { maxRedirects: 0 });
+    expect([301, 308], `${from} should redirect`).toContain(response.status());
+    expect(response.headers()["location"]).toBe(to);
+  }
+
   await page.goto("/astronomy-open-night/terms");
   const main = page.getByRole("main");
   await expect(main).toContainText("Google Maps");

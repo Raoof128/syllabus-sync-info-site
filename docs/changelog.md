@@ -5,6 +5,38 @@ request so the diff is one command away (`gh pr view <n>`). Point-in-time
 verification evidence stays in `docs/final-implementation-report.md`; this file
 records what changed after that report.
 
+## 11 September 2026
+
+Astronomy Open Night went live on its own host, which clears the last
+website-side blocker to submitting the app for review.
+
+- **Fixed the sibling-path bug that made the AON build and deploy impossible.**
+  `scripts/build-aon.sh` and `wrangler.aon.jsonc` both pointed at
+  `../../MQ-Astronomy-Open-Night-2026`, one level too deep: the app repository is
+  a sibling of this one, not an uncle. The build script died on `cd` and the
+  Worker had no asset directory, so neither command had ever run end to end.
+- **Deployed `https://aon.syllabus-sync.app`.** The `astronomy-open-night`
+  Worker serves the Flutter web build; the custom domain is attached, Cloudflare
+  issued the certificate, and `/` and `/privacy` answer 200. The canonical
+  privacy policy is now publicly reachable, which is what App Store Connect and
+  Google Play require.
+- **Then deployed the information site**, in that order, so the old
+  `/astronomy-open-night/privacy` path only began redirecting once its
+  destination answered. Support and terms are live, and the redirect chain ends
+  on a 200.
+- **Kept the retired page names alive.** `app-privacy`, `app-support` and
+  `app-terms` were publicly reachable for two days before the rename, so they
+  now redirect permanently instead of 404ing, and `tests/e2e/site.spec.ts`
+  asserts all three.
+- **Recorded what deploying actually needs**, in `docs/aon-domain-migration.md`:
+  Workers Scripts Edit uploads the Worker, but the zone-scoped Workers Routes
+  Edit is what `"custom_domain": true` needs, and the account-level
+  `workers/domains` endpoint attaches the hostname without it.
+
+The web build shipped with an **empty** `MAPS_API_KEY`, so the Google map shows
+its "map unavailable" state until the restricted production key exists. The
+privacy policy, programme, passport and 360° tours do not depend on it.
+
 ## 10 September 2026
 
 Astronomy Open Night's dedicated host and information-site handoff were prepared

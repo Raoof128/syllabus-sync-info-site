@@ -38,6 +38,39 @@ npx wrangler deploy --config wrangler.aon.jsonc
 npm run cf:deploy
 ```
 
+### Deploy credentials, as actually required
+
+Both Workers live in the Cloudflare account that owns the `syllabus-sync.app`
+zone, so the credential has to be issued in **that** account. Two permissions
+are separate and both matter:
+
+- **Workers Scripts: Edit** uploads the Worker and its assets.
+- **Workers Routes: Edit** (zone-scoped) is what `"custom_domain": true` in
+  `wrangler.aon.jsonc` needs. Without it `wrangler deploy` uploads the Worker
+  and then fails on `/zones/{zone}/workers/routes` with `10000`, which reads
+  like a total failure but is not: the upload has already succeeded.
+
+When only Workers Scripts: Edit is available, attach the hostname once through
+the account-level endpoint instead, which does not touch the zone routes API:
+
+```bash
+curl -X PUT "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains" \
+  -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+  --data '{"zone_id":"<zone id>","hostname":"aon.syllabus-sync.app","service":"astronomy-open-night","environment":"production"}'
+```
+
+Cloudflare then creates the proxied DNS record and issues the edge certificate
+itself, so no DNS permission is needed. Allow a few minutes, and verify with a
+resolver other than your own machine's (`dig @1.1.1.1`), because a local
+resolver that already cached `NXDOMAIN` for the new hostname will keep failing
+long after the host is live.
+
+A `wrangler login` OAuth session is not a substitute. Its scopes look broad,
+but the account membership behind them can be domain-scoped only, in which case
+every Workers call returns `10000`. Check with `npx wrangler whoami`: the
+"Membership roles" block is the one that decides, not the "Token Permissions"
+block.
+
 The web build reads only `MAPS_API_KEY`; conditional imports exclude native key defines. A production key must be HTTP-referrer restricted to the AON host and API-restricted to Maps JavaScript API and Routes API. Flutter rendering assets and the Persian fallback font are self-hosted. The panorama inline script is allowed by its exact SHA-256 CSP hash, generated at build time. The build checks public assets for private files, source maps and Cloudflare size limits.
 
 The 360° viewer is driven by a two-sided handshake: the iframe announces itself

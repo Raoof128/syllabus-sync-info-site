@@ -7,7 +7,7 @@
   "preview_urls": false,
   "routes": [{ "pattern": "aon.syllabus-sync.app", "custom_domain": true }],
   "assets": {
-    "directory": "../../MQ-Astronomy-Open-Night-2026/build/web",
+    "directory": "../MQ-Astronomy-Open-Night-2026/build/web",
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "single-page-application"
   }
