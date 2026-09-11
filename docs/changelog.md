@@ -33,9 +33,23 @@ website-side blocker to submitting the app for review.
   Edit is what `"custom_domain": true` needs, and the account-level
   `workers/domains` endpoint attaches the hostname without it.
 
-The web build shipped with an **empty** `MAPS_API_KEY`, so the Google map shows
-its "map unavailable" state until the restricted production key exists. The
-privacy policy, programme, passport and 360° tours do not depend on it.
+- **Shipped the web Maps key, so the map works.** The first deploy carried an
+  empty `MAPS_API_KEY` and the app showed its truthful "map unavailable" state.
+  The web build reads `--dart-define-from-file=.env.web`, and that file did not
+  exist; the key was in `.env`, which feeds only the native builds. Creating
+  `.env.web` (git-ignored, in the app repository root) and rebuilding embeds it.
+  Verified on the live bundle: the web key is present and both native route keys
+  are absent, so the conditional imports are doing their job.
+- **Confirmed the key is restricted before publishing it.** Probed live: Routes
+  answers 200 from `Referer: https://aon.syllabus-sync.app/` and 403 from an
+  empty or foreign referer. A referrer-locked browser key is public by design,
+  which is what makes shipping it in `main.dart.js` safe rather than a leak. The
+  two native keys are separate keys, restricted to their own app identities, and
+  neither enters the web compilation unit.
+
+A local `flutter run -d chrome` still needs `--dart-define-from-file=.env.web`
+or the map reports itself unavailable again, and a referrer-locked key cannot
+work from `localhost` at all: test the map on the production host.
 
 ## 10 September 2026
 
