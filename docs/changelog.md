@@ -51,6 +51,39 @@ A local `flutter run -d chrome` still needs `--dart-define-from-file=.env.web`
 or the map reports itself unavailable again, and a referrer-locked key cannot
 work from `localhost` at all: test the map on the production host.
 
+- **Let the CSP load Google Maps.** With the key finally in the bundle the map
+  still did not appear, and the reason was our own policy: the app injects the
+  Maps JavaScript API at runtime, and `script-src` named neither
+  `maps.googleapis.com` nor `maps.gstatic.com`, so Chrome refused the script on
+  every visit and no Google call left the browser. The policy now allows exactly
+  the Maps origins the app uses — script, XHR, tiles, and the fonts Maps pulls
+  for its own labels — and nothing else; `default-src 'self'`, `object-src
+  'none'`, `frame-ancestors 'self'` and `form-action 'none'` are unchanged.
+  `tests/aon/app.spec.ts` now fails if the served policy stops naming the Maps
+  origin or if anything the app needs is refused.
+
+  The diagnosis is worth keeping because the symptom lies: a blocked script and
+  a wrong key look identical from the app, and the app's own "map unavailable"
+  copy points at the key. Isolating it took bypassing the policy and loading the
+  same bundle with the same key from the production origin, where Maps answered
+  200 with no console error at all.
+
+### The three-key architecture, written down
+
+One key per platform, each with the restriction type its caller can actually
+satisfy. Getting this wrong is what broke iOS:
+
+| Key | Restriction | Delivered by | Used for |
+|---|---|---|---|
+| web | HTTP referrer, production host only | `.env.web` -> `main.dart.js` | Maps JavaScript API, and the browser's direct `computeRoutes` call |
+| iOS | iOS app, bundle `au.edu.mq.astronomy.aon2026` | `.env` `MAPS_API_KEY` -> `ios/Flutter/Secrets.xcconfig` -> `Info.plist GMSApiKey` | Maps SDK for iOS and Routes |
+| Android | Android app, package plus signing SHA-1 | `android/secrets.properties` -> manifest | Maps SDK for Android and Routes |
+
+`.env` is native only and `.env.web` is web only. A referrer-restricted key in
+`.env` reaches the iOS Maps SDK through two paths — the Podfile's secrets sync
+and the Dart define, which `AppDelegate` prefers over `Info.plist` — and the SDK
+rejects it, because it authenticates by bundle id and sends no `Referer`.
+
 ## 10 September 2026
 
 Astronomy Open Night's dedicated host and information-site handoff were prepared
