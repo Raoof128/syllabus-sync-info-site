@@ -255,13 +255,13 @@ export const projectFacts = {
   ] satisfies RoadmapPhase[],
   team: [
     {
-      name: "Pouya Alavi Naeini",
+      name: "Leo Alavi",
       role: "Co-founder, Software Engineering & Product",
       bio: "Leads software engineering and product direction across Syllabus Sync and Sylla, and is lead developer on Astronomy Open Night, with full-stack and applied-AI implementation work.",
-      linkedIn: "https://www.linkedin.com/in/pouya-alavi/",
-      gitHub: "https://github.com/mrpouyaalavi",
-      photo: "/team/pouya.jpg",
-      source: "Founder-provided, 2026-07-22",
+      linkedIn: "https://www.linkedin.com/in/leo-alavi/",
+      gitHub: "https://github.com/leoalavi",
+      photo: "/team/leo.jpg",
+      source: "Founder-provided, 2026-09-11",
       approved: true,
     },
     {

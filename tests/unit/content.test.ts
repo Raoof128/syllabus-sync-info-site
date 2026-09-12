@@ -110,10 +110,14 @@ describe("public content governance", () => {
   it("attributes the team accurately", () => {
     expect(approvedTeam).toHaveLength(2);
     expect(approvedTeam.every((member) => member.approved)).toBe(true);
-    const pouya = approvedTeam.find((member) => member.name.startsWith("Pouya"))!;
-    const raouf = approvedTeam.find((member) => member.name.startsWith("Raouf") || member.name.includes("Raouf"))!;
-    expect(pouya.role).toBe("Co-founder, Software Engineering & Product");
+    const leo = approvedTeam.find((member) => member.name === "Leo Alavi")!;
+    const raouf = approvedTeam.find((member) => member.name.includes("Raouf"))!;
+    expect(leo.role).toBe("Co-founder, Software Engineering & Product");
     expect(raouf.role).toBe("Co-founder, Backend & Platform Engineering");
+    // Founder-confirmed public identity (2026-09-11): the credit standardises on
+    // "Leo Alavi", matching the Astronomy Open Night app credit and leo@leoalavi.dev.
+    expect(leo.linkedIn).toBe("https://www.linkedin.com/in/leo-alavi/");
+    expect(leo.gitHub).toBe("https://github.com/leoalavi");
   });
 
   it("states the incubator fact with the exact approved wording", () => {

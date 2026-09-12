@@ -5,6 +5,19 @@ request so the diff is one command away (`gh pr view <n>`). Point-in-time
 verification evidence stays in `docs/final-implementation-report.md`; this file
 records what changed after that report.
 
+## 12 September 2026
+
+- **Corrected the team credit to the founder's confirmed public identity.** The
+  team registry in `src/content/project-facts.ts` still carried the older name,
+  LinkedIn and GitHub for the software-engineering co-founder. On 2026-09-11 the
+  founder confirmed the public identity is **Leo Alavi**
+  (`linkedin.com/in/leo-alavi`, `github.com/leoalavi`), which matches the
+  Astronomy Open Night app credit and the `leo@leoalavi.dev` privacy contact.
+  Updated the name, both links and the fact's `source` date, renamed the photo
+  asset `pouya.jpg` to `leo.jpg` so no old handle remains, and updated the
+  `attributes the team accurately` unit test to assert the corrected identity.
+  Role and bio are unchanged. `npm run check` green. PR #21.
+
 ## 11 September 2026
 
 Astronomy Open Night went live on its own host, which clears the last
