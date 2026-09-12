@@ -7,6 +7,23 @@ records what changed after that report.
 
 ## 12 September 2026
 
+- **Backend security audit: fixed a rate-limit bypass and closed observability
+  and test gaps on `/api/contact`.** The limiter keyed on `X-Forwarded-For` /
+  `X-Real-IP`, both client-controlled — an attacker could rotate the header to
+  get a fresh bucket every request and evade the 5-per-window limit (and the
+  Cloudflare edge limiter, which was keyed on the same value). Added
+  `resolveClientIp()` in `src/lib/contact.ts`, which prefers the edge-trusted
+  `CF-Connecting-IP` (falling back to the forwarded headers only off Cloudflare),
+  and pointed the route's key at it. Webhook delivery failures are now logged
+  server-side (status/error only — never the token or the submitter's PII) so the
+  enabled observability can surface them. Added unit tests for the IP resolution
+  (including the spoofing case) and a new `security-headers.test.ts` that locks in
+  the CSP, HSTS, framing and sniffing protections from `next.config.ts`. Full
+  audit found no injection, IDOR, secret exposure or unauthenticated-access
+  issues; the dynamic page routes already allowlist their params and `npm audit`
+  reports 0 production vulnerabilities. `npm run check` green (38 unit tests);
+  Chromium e2e 19/19.
+
 - **Corrected the team credit to the founder's confirmed public identity.** The
   team registry in `src/content/project-facts.ts` still carried the older name,
   LinkedIn and GitHub for the software-engineering co-founder. On 2026-09-11 the

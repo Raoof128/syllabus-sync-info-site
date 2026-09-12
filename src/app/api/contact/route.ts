@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { NextRequest } from "next/server";
 
-import { validateContactInput } from "@/lib/contact";
+import { resolveClientIp, validateContactInput } from "@/lib/contact";
 
 type RateEntry = { count: number; resetAt: number };
 const rateLimits = new Map<string, RateEntry>();
@@ -36,8 +36,9 @@ async function edgeRateLimited(key: string): Promise<boolean | null> {
 }
 
 function rateLimitKey(request: NextRequest) {
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim().slice(0, 80);
-  const candidate = forwarded || request.headers.get("x-real-ip")?.slice(0, 80) || "unknown";
+  // Trustworthy client identity (prefers CF-Connecting-IP). Never key on the raw
+  // spoofable X-Forwarded-For, or an attacker rotates it to evade the limit.
+  const candidate = resolveClientIp(request.headers);
   return createHash("sha256").update(candidate).digest("hex");
 }
 
@@ -158,7 +159,13 @@ export async function POST(request: NextRequest) {
     });
     if (!response.ok) throw new Error(`Contact transport returned ${response.status}`);
     return Response.json({ message: "Thanks, your enquiry has been sent." });
-  } catch {
+  } catch (error) {
+    // Observability (wrangler observability is enabled): record WHY delivery
+    // failed so an operator can diagnose it. The reason is a status code or a
+    // fetch/timeout error name only — never the webhook token or the submitter's
+    // name, email or message, none of which appear in `error`.
+    const reason = error instanceof Error ? error.message : "unknown error";
+    console.error(`[contact] webhook delivery failed: ${reason}`);
     return Response.json({ message: "The contact service is temporarily unavailable. Please try again later." }, { status: 502 });
   }
 }
