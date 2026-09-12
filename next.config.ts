@@ -3,6 +3,15 @@ import type { NextConfig } from "next";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
+// `script-src 'unsafe-inline'` is a deliberate, reviewed decision, not an
+// oversight. Next.js App Router emits inline bootstrap/RSC-streaming scripts
+// (e.g. `self.__next_f.push(...)`) on every page. Removing 'unsafe-inline'
+// requires per-request nonces via middleware, which forces every route to render
+// dynamically and drops this site's static generation (AGENTS.md rule 3, "16
+// indexable static routes"). That trade is not justified here: the site renders
+// no user-supplied HTML, and the only inline data (JSON-LD) is `<`-escaped and
+// built from the typed content registry, so there is no injection sink for an
+// inline-script CSP to defend. 'unsafe-eval' is dev-only (React Fast Refresh).
 const contentSecurityPolicy = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,

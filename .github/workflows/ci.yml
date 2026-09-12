@@ -1,0 +1,48 @@
+name: CI
+
+# Runs the full gate on every push to main and every pull request, so the
+# lint / typecheck / unit / build checks and the three-engine end-to-end suite
+# that AGENTS.md rule 8 requires are enforced automatically, not just by hand.
+# Deployment stays manual (`npm run cf:deploy`) and is intentionally not here —
+# it needs account credentials and is a human-gated step.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint, typecheck, unit tests, production build
+        run: npm run check
+
+      - name: Production dependency audit
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: End-to-end tests (Chromium, Firefox, WebKit)
+        run: npm run test:e2e
+        env:
+          CI: "true"

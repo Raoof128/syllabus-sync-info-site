@@ -21,6 +21,34 @@ export const contactSchema = z.object({
 
 export type ContactInput = z.infer<typeof contactSchema>;
 
+/**
+ * Resolve the client identifier used to key rate limiting.
+ *
+ * Security: `X-Forwarded-For` and `X-Real-IP` are attacker-controlled — a client
+ * can send any value and its leftmost `X-Forwarded-For` hop is the client's own
+ * claim. Keying the limiter on those lets an attacker rotate the header to get a
+ * fresh bucket on every request and bypass the limit entirely.
+ *
+ * On Cloudflare, `CF-Connecting-IP` is set by the edge and any client-supplied
+ * value is overwritten, so it is the only trustworthy source and is preferred.
+ * The forwarded headers remain as a fallback for non-Cloudflare hosts (local
+ * dev, Vercel), where there is no spoofing boundary to protect anyway. Returns
+ * `"unknown"` when nothing is present, so all such requests share one bucket
+ * rather than going unlimited.
+ */
+export function resolveClientIp(headers: Headers): string {
+  const cfConnectingIp = headers.get("cf-connecting-ip")?.trim();
+  if (cfConnectingIp) return cfConnectingIp.slice(0, 80);
+
+  const realIp = headers.get("x-real-ip")?.trim();
+  if (realIp) return realIp.slice(0, 80);
+
+  const forwarded = headers.get("x-forwarded-for")?.split(",")[0]?.trim();
+  if (forwarded) return forwarded.slice(0, 80);
+
+  return "unknown";
+}
+
 export function validateContactInput(input: unknown, now = Date.now()) {
   const result = contactSchema.safeParse(input);
   if (!result.success) return result;
