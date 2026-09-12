@@ -23,6 +23,15 @@ records what changed after that report.
   issues; the dynamic page routes already allowlist their params and `npm audit`
   reports 0 production vulnerabilities. `npm run check` green (38 unit tests);
   Chromium e2e 19/19.
+- **Added CI and documented the CSP decision (audit follow-through).** New
+  `.github/workflows/ci.yml` runs `npm run check`, a production `npm audit`, and
+  the full three-engine Playwright suite on every push and pull request — rule 8
+  was only ever enforced by hand. Verified the three engines pass locally first
+  (47 passed / 10 skipped). Also recorded, in `next.config.ts`, why
+  `script-src 'unsafe-inline'` stays: removing it needs per-request nonces that
+  would force dynamic rendering and drop the static-generation architecture
+  (rule 3), and the site has no inline-script injection sink to defend. Deploy is
+  intentionally not in CI (needs credentials, stays a human step).
 
 - **Corrected the team credit to the founder's confirmed public identity.** The
   team registry in `src/content/project-facts.ts` still carried the older name,
