@@ -33,6 +33,14 @@ export const aonCopyright = "© 2026 Astronomy Night – FSE Outreach Team";
 export const aonEventSiteUrl = "https://event.mq.edu.au/astronomy-open-night/";
 /** The Astronomy Open Night web app — its own subdomain, an independent site. */
 export const aonWebAppUrl = "https://aon.syllabus-sync.app/";
+/**
+ * Direct-download Android APK (signed release build). Hosted as a GitHub release
+ * asset on this public repository because the file is ~138 MB, well over the
+ * Cloudflare Workers per-asset limit, so it cannot ship inside the site bundle.
+ * Bump the tag when a new build is published.
+ */
+export const aonAndroidApkUrl =
+  "https://github.com/Raoof128/syllabus-sync-info-site/releases/download/aon-android-v1.0.0/astronomy-open-night-2026-v1.0.0.apk";
 /** The single canonical Privacy Policy — the AON app's own page, not this site. */
 export const aonPrivacyUrl = "https://aon.syllabus-sync.app/privacy";
 
@@ -142,9 +150,11 @@ export const aonLegalIndex: PageDefinition = {
       heading: "The app",
       body: [
         "Use the Astronomy Open Night companion right in your browser — no install needed — for the programme, the campus map, the Astronomy Passport and your saved plan.",
+        "Prefer the Android app on your phone? Download the signed APK below and open it to install. Android asks you to allow installs from your browser the first time. The file is about 138 MB. The iOS app is coming to the App Store.",
       ],
       links: [
         { label: "Open the web app", href: aonWebAppUrl },
+        { label: "Download for Android (APK)", href: aonAndroidApkUrl },
         { label: "Official event website", href: aonEventSiteUrl },
       ],
     },
