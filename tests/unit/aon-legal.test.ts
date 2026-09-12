@@ -28,10 +28,12 @@ describe("Astronomy Open Night pages on the info site", () => {
       "/astronomy-open-night/support",
       "/astronomy-open-night/terms",
     ]);
-    // The index also launches the app and links the official event site.
+    // The index launches the web app, offers the signed Android APK download,
+    // and links the official event site.
     const appSection = aonLegalIndex.sections.find((s) => s.heading === "The app");
     expect(appSection?.links?.map((l) => l.href)).toEqual([
       "https://aon.syllabus-sync.app/",
+      "https://github.com/Raoof128/syllabus-sync-info-site/releases/download/aon-android-v1.0.0/astronomy-open-night-2026-v1.0.0.apk",
       "https://event.mq.edu.au/astronomy-open-night/",
     ]);
   });

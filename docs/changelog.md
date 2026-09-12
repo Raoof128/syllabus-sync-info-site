@@ -5,6 +5,18 @@ request so the diff is one command away (`gh pr view <n>`). Point-in-time
 verification evidence stays in `docs/final-implementation-report.md`; this file
 records what changed after that report.
 
+## 12 September 2026 (later)
+
+- **Added an Android APK download to the Astronomy Open Night page.** The AON
+  index at `/astronomy-open-night` now offers "Download for Android (APK)"
+  alongside the web app, pointing at a signed release build
+  (`au.edu.mq.astronomy.aon2026`, v1.0.0 build 5, ~138 MB, upload-key signed).
+  The APK is hosted as a GitHub release asset on this public repo
+  (`aon-android-v1.0.0`) rather than in the site bundle, because it far exceeds
+  the Cloudflare Workers per-asset limit. Verified the public download URL
+  returns 200 with `application/vnd.android.package-archive`. `npm run check`
+  green.
+
 ## 12 September 2026
 
 - **Backend security audit: fixed a rate-limit bypass and closed observability
