@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import nextConfig from "../../next.config";
 import {
   aonAndroidApkUrl,
   aonContactEmail,
@@ -43,6 +44,19 @@ describe("Astronomy Open Night pages on the info site", () => {
     expect(aonAndroidApkUrl).toMatch(
       /^https:\/\/github\.com\/Raoof128\/syllabus-sync-info-site\/releases\/download\/[\w.+-]+\/[\w.+-]+\.apk$/,
     );
+  });
+
+  it("gives the printed flyer a stable Android short link that never pins a build", async () => {
+    // A QR on a printed flyer cannot be reissued when the APK tag moves, so the
+    // flyer encodes /astronomy-open-night/android and this redirect carries it
+    // to whatever the current release asset is.
+    const redirects = await nextConfig.redirects!();
+    const android = redirects.find((r) => r.source === "/astronomy-open-night/android");
+    expect(android).toBeDefined();
+    expect(android!.destination).toBe(aonAndroidApkUrl);
+    // Temporary on purpose: a permanent redirect gets cached against one
+    // build's asset URL, which would strand every printed flyer on that build.
+    expect(android!.permanent).toBe(false);
   });
 
   it("credits the individual developers and never presents Syllabus Sync as owner/publisher", () => {
