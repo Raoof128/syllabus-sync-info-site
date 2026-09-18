@@ -40,7 +40,7 @@ export const aonWebAppUrl = "https://aon.syllabus-sync.app/";
  * Bump the tag when a new build is published.
  */
 export const aonAndroidApkUrl =
-  "https://github.com/Raoof128/syllabus-sync-info-site/releases/download/aon-android-v1.0.0/astronomy-open-night-2026-v1.0.0.apk";
+  "https://github.com/Raoof128/syllabus-sync-info-site/releases/download/aon-android-v1.0.0-build6/astronomy-open-night-2026-v1.0.0-build6.apk";
 /** The single canonical Privacy Policy — the AON app's own page, not this site. */
 export const aonPrivacyUrl = "https://aon.syllabus-sync.app/privacy";
 
