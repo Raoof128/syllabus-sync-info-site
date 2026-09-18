@@ -1,6 +1,8 @@
 import path from "node:path";
 import type { NextConfig } from "next";
 
+import { aonAndroidApkUrl } from "./src/content/astronomy-open-night-legal";
+
 const isDevelopment = process.env.NODE_ENV === "development";
 
 // `script-src 'unsafe-inline'` is a deliberate, reviewed decision, not an
@@ -67,6 +69,17 @@ const nextConfig: NextConfig = {
         source: "/astronomy-open-night/app/:path*",
         destination: "https://aon.syllabus-sync.app/:path*",
         permanent: true,
+      },
+      {
+        // The printed flyer carries a QR for the Android download. The APK's
+        // release tag moves with every build, and nobody reprints a flyer per
+        // build -- so the QR encodes this short, stable path and only the
+        // destination below changes. Deliberately NOT permanent: a 308 would be
+        // cached by browsers and scanners against one build's asset URL, which
+        // is exactly the staleness this indirection exists to prevent.
+        source: "/astronomy-open-night/android",
+        destination: aonAndroidApkUrl,
+        permanent: false,
       },
       // The first published names for these three pages were `app-privacy`,
       // `app-support` and `app-terms`. They were live and publicly reachable
