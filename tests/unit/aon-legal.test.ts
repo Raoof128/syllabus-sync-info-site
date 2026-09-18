@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  aonAndroidApkUrl,
   aonContactEmail,
   aonLegalIndex,
   aonLegalPages,
@@ -33,9 +34,15 @@ describe("Astronomy Open Night pages on the info site", () => {
     const appSection = aonLegalIndex.sections.find((s) => s.heading === "The app");
     expect(appSection?.links?.map((l) => l.href)).toEqual([
       "https://aon.syllabus-sync.app/",
-      "https://github.com/Raoof128/syllabus-sync-info-site/releases/download/aon-android-v1.0.0/astronomy-open-night-2026-v1.0.0.apk",
+      aonAndroidApkUrl,
       "https://event.mq.edu.au/astronomy-open-night/",
     ]);
+    // The tag moves with every build, so pin the shape, not the version: a
+    // .apk release asset on THIS public repo (the app repo is private, and the
+    // file is far too large to ship inside the Worker bundle).
+    expect(aonAndroidApkUrl).toMatch(
+      /^https:\/\/github\.com\/Raoof128\/syllabus-sync-info-site\/releases\/download\/[\w.+-]+\/[\w.+-]+\.apk$/,
+    );
   });
 
   it("credits the individual developers and never presents Syllabus Sync as owner/publisher", () => {
