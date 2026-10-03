@@ -6,27 +6,24 @@ export function ConnectionsSection() {
           <p className="section-label">How they connect</p>
           <h2>Two connected products.</h2>
           <p>
-            Syllabus Sync and Sylla are designed to connect academic planning with study support.
-            Astronomy Open Night is shown in our portfolio as a separate event project.
+            The Syllabus Sync platform includes the student workspace and Sylla. Campus Navigation
+            is its connected mobile wayfinding companion.
           </p>
         </div>
         <div className="connections-grid">
           <article>
-            <h3>Syllabus Sync</h3>
-            <p>Academic context: units, assessments, deadlines and the student workspace.</p>
+            <h3>Syllabus Sync Platform</h3>
+            <p>Academic planning, units, deadlines and calendar information in the main workspace, with AI-assisted study support through Sylla.</p>
           </article>
           <article>
-            <h3>Sylla</h3>
-            <p>The AI-assisted study layer: summaries, explanations, flashcards, quizzes and planning support.</p>
-          </article>
-          <article>
-            <h3>Astronomy Open Night</h3>
-            <p>A separate event project: programme, campus map, 360° venue previews and a QR passport.</p>
+            <h3>Campus Navigation</h3>
+            <p>A dedicated mobile companion for campus discovery, locations and wayfinding. Its app-side deep-link handoff is ready for integration with Syllabus Sync.</p>
           </article>
         </div>
-        <p className="problem-close">
-          Syllabus Sync and Sylla share a product direction. Astronomy Open Night has its own
-          identity, event team, support channel and privacy policy.
+        <p className="connections-separate-note">
+          <strong>Separate team project:</strong> Astronomy Open Night 2026 was developed by Leo Alavi
+          and Mohammad Raouf Abedini for Astronomy Night – FSE Outreach Team. It is not part of
+          the Syllabus Sync platform.
         </p>
       </div>
     </section>

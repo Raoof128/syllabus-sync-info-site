@@ -43,24 +43,30 @@ describe("public content governance", () => {
   });
 
   it("only exposes approved ecosystem products, each with an id and at least one feature", () => {
-    expect(approvedEcosystem.length).toBe(3);
+    expect(approvedEcosystem.length).toBe(4);
     expect(approvedEcosystem.every((product) => product.approved)).toBe(true);
     expect(approvedEcosystem.map((product) => product.id)).toEqual([
       "platform",
       "sylla",
+      "campus-navigation",
       "astronomy-open-night",
     ]);
     expect(approvedEcosystem.every((product) => product.features.length > 0)).toBe(true);
+    expect(approvedEcosystem.filter((product) => product.relationship === "Syllabus Sync ecosystem")).toHaveLength(3);
+    expect(approvedEcosystem.find((product) => product.id === "astronomy-open-night")?.relationship).toBe("Separate team project");
+    expect(approvedEcosystem.every((product) => product.screenshot.src.startsWith("/products/"))).toBe(true);
   });
 
   it("gives each ecosystem product a status matching its label's actual maturity, not a default", () => {
     const platform = approvedEcosystem.find((p) => p.id === "platform")!;
     const sylla = approvedEcosystem.find((p) => p.id === "sylla")!;
+    const campus = approvedEcosystem.find((p) => p.id === "campus-navigation")!;
     const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
     expect(platform.status).toBe("early-access");
     expect(sylla.status).toBe("early-access");
-    expect(openNight.status).toBe("in-development");
-    expect(openNight.statusLabel).toBe("Astronomy Open Night 2026 event project");
+    expect(campus.statusLabel).toBe("Mobile release links coming soon");
+    expect(openNight.status).toBe("available");
+    expect(openNight.statusLabel).toBe("Published event app");
   });
 
   it("never links Astronomy Open Night to a repository the public cannot open", () => {
@@ -79,15 +85,24 @@ describe("public content governance", () => {
     expect(copy).toContain("Leo Alavi and Mohammad Raouf Abedini");
   });
 
-  it("gives the Astronomy Open Night card public actions: open app, privacy, official event site", () => {
+  it("gives the Astronomy Open Night card accurate store, APK and public links", () => {
     const openNight = approvedEcosystem.find((p) => p.id === "astronomy-open-night")!;
     expect(openNight.actions?.map((action) => action.href)).toEqual([
+      "https://apps.apple.com/au/app/astronomy-open-night-2026/id6808865067",
+      "https://info.syllabus-sync.app/astronomy-open-night/android",
       "https://aon.syllabus-sync.app/",
       "https://aon.syllabus-sync.app/privacy",
       "https://event.mq.edu.au/astronomy-open-night/",
     ]);
     // The app, its privacy and the event site all live off this info site.
-    expect(openNight.actions?.map((action) => action.external)).toEqual([true, true, true]);
+    expect(openNight.actions?.map((action) => action.external)).toEqual([true, true, true, true, true]);
+  });
+
+  it("does not invent a Campus Navigation web app or store URL", () => {
+    const campus = approvedEcosystem.find((product) => product.id === "campus-navigation")!;
+    expect(campus.link).toBeUndefined();
+    expect(campus.actions).toBeUndefined();
+    expect(campus.description).toContain("Syllabus Sync-side handoff");
   });
 
   it("never claims Sylla's study tools are anything more than a prototype", () => {
@@ -112,7 +127,7 @@ describe("public content governance", () => {
     expect(approvedTeam.every((member) => member.approved)).toBe(true);
     const leo = approvedTeam.find((member) => member.name === "Leo Alavi")!;
     const raouf = approvedTeam.find((member) => member.name.includes("Raouf"))!;
-    expect(leo.role).toBe("Co-founder, Software Engineering & Product");
+    expect(leo.role).toBe("Co-founder, Software Engineering & Product Development");
     expect(raouf.role).toBe("Co-founder, Backend & Platform Engineering");
     // Founder-confirmed public identity (2026-09-11): the credit standardises on
     // "Leo Alavi", matching the Astronomy Open Night app credit and leo@leoalavi.dev.
@@ -132,14 +147,16 @@ describe("public content governance", () => {
       "Home",
       "Platform",
       "Sylla",
-      "Open Night",
+      "Campus Navigation",
+      "Projects",
       "Vision",
       "About",
       "Contact",
     ]);
     expect(primaryNavigation.find((item) => item.label === "Platform")?.href).toBe("/#platform");
     expect(primaryNavigation.find((item) => item.label === "Sylla")?.href).toBe("/#sylla");
-    expect(primaryNavigation.find((item) => item.label === "Open Night")?.href).toBe("/#astronomy-open-night");
+    expect(primaryNavigation.find((item) => item.label === "Campus Navigation")?.href).toBe("/#campus-navigation");
+    expect(primaryNavigation.find((item) => item.label === "Projects")?.href).toBe("/#astronomy-open-night");
   });
 
   it("footer navigation still reaches every existing standalone page", () => {

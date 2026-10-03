@@ -13,14 +13,15 @@ import { projectFacts } from "@/content/project-facts";
 import { organisationJsonLd, websiteJsonLd } from "@/lib/metadata";
 
 const faqs = [
-  ["What is Syllabus Sync?", "Syllabus Sync is an independent academic planning platform with an AI study assistant called Sylla."],
+  ["What is Syllabus Sync?", "Syllabus Sync is an independent student platform for academic planning. Its ecosystem includes the Sylla study experience and connects with the Campus Navigation mobile companion."],
+  ["What is Sylla?", "Sylla is the AI-assisted study layer in the Syllabus Sync ecosystem. It has its own interface. Chat is in early access; summaries, explanations, flashcards, quizzes and study planning currently use prototype mock responses."],
+  ["What is Campus Navigation?", "Campus Navigation is a dedicated iOS and Android app for finding locations and navigating campus. The mobile app accepts destination deep links; the handoff from Syllabus Sync still needs integration. Public download links are not yet confirmed."],
   ["Does it replace my university portal?", "No. It is designed as an organisational layer and does not replace official enrolment, learning, policy, assessment or emergency systems."],
   ["Which universities are supported?", "The current implementation is for Macquarie University. Expansion to other Sydney universities, and later across Australia, is a future direction, not a confirmed rollout."],
-  ["Is Sylla a fully working AI assistant?", "Sylla's chat is available in early access. Its study tools are working prototypes rather than live AI features: summaries, explanations, flashcards, quizzes and study planning."],
-  ["What is Astronomy Open Night?", "Astronomy Open Night 2026 is a separate event project developed by Leo Alavi and Mohammad Raouf Abedini for Astronomy Night – FSE Outreach Team. Its iOS, Android and web applications provide the programme, an illustrated campus map, 360° venue previews and a QR passport rally."],
   ["Is Syllabus Sync free?", "Current availability and any pricing are shown in the main application before you create an account."],
   ["Is the platform accessible?", "The information site targets WCAG 2.2 Level AA and includes keyboard, focus, reduced-motion, contrast and semantic support. It does not yet claim formal conformance."],
   ["Can universities work with Syllabus Sync?", "Yes, institutions can explore a pilot or collaboration conversation without any implication of an existing partnership or endorsement."],
+  ["What is Astronomy Open Night?", "Astronomy Open Night 2026 is a separate event project developed by Leo Alavi and Mohammad Raouf Abedini for Astronomy Night – FSE Outreach Team. It is not a Syllabus Sync product. The published app provides the event programme, campus map, venue previews and an Astronomy Passport."],
 ] as const;
 
 export default function Home() {
@@ -39,8 +40,8 @@ export default function Home() {
             */}
             <BrandLogo className="hero-brandmark" decorative height={52} priority variant="icon" />
             <h1>A clearer workspace<br />for university life.</h1>
-            <p className="hero-lead">Syllabus Sync brings academic planning and AI-assisted study support into one connected student experience, starting at Macquarie University.</p>
-            <p>Our portfolio also includes Astronomy Open Night 2026, a separate event project developed for Astronomy Night – FSE Outreach Team.</p>
+            <p className="hero-lead">Syllabus Sync connects academic planning, AI-assisted study through Sylla and campus wayfinding through Campus Navigation, starting at Macquarie University.</p>
+            <p>The team also developed Astronomy Open Night 2026 as a separate event project for Astronomy Night – FSE Outreach Team.</p>
             <div className="button-row">
               <a className="button" href={projectFacts.mainApplicationUrl}>Explore Syllabus Sync <Icon name="arrow" /></a>
               <a className="button button-secondary" href="#ecosystem">Products and projects <Icon name="arrow" /></a>
@@ -67,7 +68,7 @@ export default function Home() {
             <div className="flow-lines" aria-hidden="true"><i /><i /><i /><i /><i /><i /></div>
             <div className="fragment-demo"><ProductDemo view="overview" /></div>
           </div>
-          <p className="problem-close">Syllabus Sync is the layer that connects these scattered pieces.</p>
+          <p className="problem-close">Syllabus Sync brings planning and study together, with a connected mobile companion for the campus journey.</p>
         </div>
       </section>
 
@@ -95,7 +96,7 @@ export default function Home() {
 
       <section className="origin-faq" id="faq">
         <div className="container origin-faq-grid">
-          <div className="origin-copy"><h2>Built from the<br />student experience.</h2><p>Syllabus Sync began with a simple problem: university life should not require a scavenger hunt through tabs, PDFs, portals, maps and screenshots.</p><strong>We are building a calmer, clearer way for students to navigate their academic day, and the ecosystem to support it.</strong><small>{projectFacts.independenceStatement}</small></div>
+          <div className="origin-copy"><h2>Built from the<br />student experience.</h2><p>Syllabus Sync began with a simple problem: students move between portals, PDFs, calendars, maps and study tools to manage one academic day.</p><strong>We are building a calmer experience with planning in Syllabus Sync, study support in Sylla and wayfinding in Campus Navigation.</strong><small>{projectFacts.independenceStatement}</small></div>
           <div className="faq"><h2>Questions, clearly answered.</h2>{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div>
         </div>
       </section>

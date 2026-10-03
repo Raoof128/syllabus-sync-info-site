@@ -37,7 +37,6 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <a className="text-link desktop-action" href={projectFacts.mainApplicationUrl}>Sign in</a>
           <a className="button button-small desktop-action" href={projectFacts.mainApplicationUrl}>
             Open Syllabus Sync <Icon name="arrow" size={17} />
           </a>
@@ -77,7 +76,6 @@ export function Header() {
             ))}
           </nav>
           <a className="button" href={projectFacts.mainApplicationUrl}>Open Syllabus Sync <Icon name="arrow" /></a>
-          <a className="mobile-sign-in" href={projectFacts.mainApplicationUrl}>Sign in to the main app</a>
         </div>
       )}
     </header>

@@ -2,8 +2,6 @@ import Image from "next/image";
 
 import { approvedEcosystem, type FeatureStatus } from "@/content/project-facts";
 
-import { Icon } from "./icons";
-
 const statusLabels: Record<FeatureStatus, string> = {
   available: "Available",
   "early-access": "Early access",
@@ -20,30 +18,24 @@ export function EcosystemSection() {
           <p className="section-label">Products and projects</p>
           <h2>What we build.</h2>
           <p>
-            Syllabus Sync is the main platform and student workspace, and Sylla adds AI-assisted
-            study support. Astronomy Open Night 2026 is a separate event project developed by
-            Leo Alavi and Mohammad Raouf Abedini for Astronomy Night – FSE Outreach Team.
+            Syllabus Sync brings together the workspace, Sylla&apos;s AI-assisted study experience
+            and the connected Campus Navigation companion. Astronomy Open Night 2026 is shown
+            separately as a project by the same team.
           </p>
         </div>
         <div className="ecosystem-grid">
           {approvedEcosystem.map((product) => (
-            <article className="ecosystem-card" id={product.id} key={product.id}>
-              {product.screenshot ? (
-                <div className="ecosystem-card-media">
+            <article className={`ecosystem-card${product.relationship === "Separate team project" ? " ecosystem-card-independent" : ""}`} id={product.id} key={product.id}>
+                <div className={`ecosystem-card-media ecosystem-card-media-${product.id}`}>
                   <Image
                     alt={product.screenshot.alt}
-                    height={360}
+                    height={product.screenshot.height}
+                    sizes="(max-width: 700px) 100vw, (max-width: 1200px) 50vw, 580px"
                     src={product.screenshot.src}
-                    width={640}
+                    width={product.screenshot.width}
                   />
                 </div>
-              ) : (
-                <div className="ecosystem-card-media ecosystem-card-media-placeholder" aria-hidden="true">
-                  {/* A motif that says something about the product rather than
-                      repeating one decorative glyph on every card. */}
-                  <Icon name={product.id === "astronomy-open-night" ? "compass" : "spark"} size={40} />
-                </div>
-              )}
+              <span className="ecosystem-relationship">{product.relationship}</span>
               <div>
                 <h3>{product.name}</h3>
                 <p className="tagline">{product.tagline}</p>
@@ -70,23 +62,25 @@ export function EcosystemSection() {
                       className={index === 0 ? "button" : "button button-secondary"}
                       href={action.href}
                       key={action.href}
-                      rel={action.external ? "noreferrer" : undefined}
+                      rel={action.external ? "noopener noreferrer" : undefined}
                       target={action.external ? "_blank" : undefined}
                     >
                       {action.label}
+                      {action.external && <span className="sr-only"> (opens in a new tab)</span>}
                     </a>
                   ))}
                 </div>
-              ) : (
+              ) : product.link ? (
                 <a
                   className="button button-secondary"
                   href={product.link.href}
-                  rel={product.link.external ? "noreferrer" : undefined}
+                  rel={product.link.external ? "noopener noreferrer" : undefined}
                   target={product.link.external ? "_blank" : undefined}
                 >
                   {product.link.label}
+                  {product.link.external && <span className="sr-only"> (opens in a new tab)</span>}
                 </a>
-              )}
+              ) : <p className="ecosystem-release-note">Public download links will appear here once confirmed.</p>}
             </article>
           ))}
         </div>

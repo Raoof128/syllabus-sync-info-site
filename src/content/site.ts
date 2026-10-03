@@ -6,7 +6,8 @@ export const primaryNavigation = [
   { label: "Home", href: "/" },
   { label: "Platform", href: "/#platform" },
   { label: "Sylla", href: "/#sylla" },
-  { label: "Open Night", href: "/#astronomy-open-night" },
+  { label: "Campus Navigation", href: "/#campus-navigation" },
+  { label: "Projects", href: "/#astronomy-open-night" },
   { label: "Vision", href: "/#vision" },
   { label: "About", href: "/#team" },
   { label: "Contact", href: "/contact" },
@@ -55,9 +56,9 @@ export const updates = [
 export const pages = {
   product: {
     title: "One place for the academic day",
-    description: "See how Syllabus Sync is designed to organise the semester.",
+    description: "Explore the Syllabus Sync workspace, Sylla study support and connected Campus Navigation companion.",
     intro:
-      "Syllabus Sync turns scattered academic information into a clearer path from semester overview to the next useful action.",
+      "Syllabus Sync turns scattered academic information into a clearer plan. Sylla supports study, while Campus Navigation handles mobile wayfinding.",
     sections: [
       {
         heading: "From information to a clear plan",
@@ -84,9 +85,9 @@ export const pages = {
   },
   features: {
     title: "Features organised around student outcomes",
-    description: "Planning, calendar, deadlines, campus context and events.",
+    description: "Academic planning, Sylla study support, campus navigation and student events.",
     intro:
-      "The product direction centres on cutting the effort it takes to see what is happening and where you need to be.",
+      "The product direction centres on cutting the effort it takes to plan your work, study and find your way around campus.",
     sections: [
       {
         heading: "Planning and calendar",
@@ -98,9 +99,15 @@ export const pages = {
       {
         heading: "Deadlines and campus context",
         body: [
-          "Keep upcoming work visible and connect academic activities with useful place information.",
+          "Keep upcoming work visible and connect academic activities with place information. Campus Navigation provides a separate mobile wayfinding experience; the handoff from Syllabus Sync remains to be integrated.",
         ],
         items: ["Upcoming deadlines", "Workload visibility", "Campus locations"],
+      },
+      {
+        heading: "AI-assisted study through Sylla",
+        body: [
+          "Sylla has its own interface within the Syllabus Sync ecosystem. Chat is in early access, while summaries, explanations, flashcards, quizzes and study planning currently use prototype mock responses.",
+        ],
       },
       {
         heading: "Events, accessibility and language",
@@ -241,12 +248,12 @@ export const pages = {
     title: "Built from the student experience",
     description: "The mission and principles behind Syllabus Sync.",
     intro:
-      "University life should not require a scavenger hunt through tabs, PDFs, portals, maps and screenshots.",
+      "University life should not require a scavenger hunt through portals, PDFs, calendars, maps and learning tools.",
     sections: [
       {
         heading: "Our mission",
         body: [
-          "We are building a calmer, clearer way for students to navigate their academic day.",
+          "We are building a calmer, clearer way for students to navigate their academic day across the Syllabus Sync workspace, Sylla study support and Campus Navigation.",
           "The goal is practical: reduce searching, make commitments easier to understand and keep students in control of their information.",
         ],
       },

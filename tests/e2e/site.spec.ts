@@ -17,6 +17,16 @@ test("primary navigation reaches a supporting page", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: "Contact Syllabus Sync" })).toBeVisible();
 });
 
+test("header keeps one app action and makes Campus Navigation discoverable", async ({ page }) => {
+  await page.goto("/");
+  const header = page.locator("header");
+  await expect(header.getByRole("link", { name: "Sign in", exact: true })).toHaveCount(0);
+  await expect(header.getByRole("link", { name: "Open Syllabus Sync" })).toHaveCount(1);
+  await header.getByRole("navigation", { name: "Primary" }).getByRole("link", { name: "Campus Navigation" }).click();
+  await expect(page).toHaveURL(/#campus-navigation$/);
+  await expect(page.locator("#campus-navigation")).toBeVisible();
+});
+
 test("mobile menu opens and Escape restores the closed state", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
@@ -33,6 +43,36 @@ test("FAQ opens using the native disclosure control", async ({ page }) => {
   const summary = page.locator("summary").filter({ hasText: "Does it replace my university portal?" });
   await summary.click();
   await expect(page.getByText("It is designed as an organisational layer", { exact: false })).toBeVisible();
+});
+
+test("FAQ distinguishes the platform, mobile companion and separate event project", async ({ page }) => {
+  await page.goto("/#faq");
+  for (const question of ["What is Sylla?", "What is Campus Navigation?", "What is Astronomy Open Night?"]) {
+    await page.locator("summary").filter({ hasText: question }).click();
+  }
+  await expect(page.locator(".faq details").filter({ hasText: "What is Sylla?" }).locator("p")).toContainText("AI-assisted study layer");
+  await expect(page.locator(".faq details").filter({ hasText: "What is Campus Navigation?" }).locator("p")).toContainText("destination deep links");
+  await expect(page.locator(".faq details").filter({ hasText: "What is Astronomy Open Night?" }).locator("p")).toContainText("not a Syllabus Sync product");
+});
+
+test("small-screen product cards and menu do not overflow", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 640 });
+  await page.goto("/");
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
+  await page.getByRole("button", { name: "Open navigation" }).click();
+  const menu = page.getByRole("dialog", { name: "Mobile navigation" });
+  await expect(menu.getByRole("link", { name: "Campus Navigation" })).toBeVisible();
+  await expect(menu.getByRole("link", { name: "Open Syllabus Sync" })).toBeVisible();
+  await expect(menu.getByRole("link", { name: /Sign in/ })).toHaveCount(0);
+});
+
+test("product layout fits phone, tablet and desktop widths", async ({ page }) => {
+  for (const width of [375, 430, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/#ecosystem");
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    await expect(page.locator("#campus-navigation")).toBeVisible();
+  }
 });
 
 test("contact form reports validation and unavailable delivery honestly", async ({ page }) => {
@@ -104,15 +144,23 @@ test("unknown routes show useful navigation", async ({ page }) => {
   await expect(page.getByRole("link", { name: "Return home" })).toBeVisible();
 });
 
-test("ecosystem section exposes all three products with distinct anchors", async ({ page }) => {
+test("product showcase exposes four entries with accurate relationships and screenshots", async ({ page }) => {
   await page.goto("/#ecosystem");
   await expect(page.locator("#platform")).toContainText("Syllabus Sync Platform");
   await expect(page.locator("#platform")).toContainText("Web platform available in early access");
   await expect(page.locator("#sylla")).toContainText("AI chat available in early access");
   await expect(page.locator("#sylla")).toContainText("Flashcards");
-  await expect(page.locator("#astronomy-open-night")).toContainText("Astronomy Open Night 2026 event project");
+  await expect(page.locator("#campus-navigation")).toContainText("Mobile release links coming soon");
+  await expect(page.locator("#campus-navigation")).not.toContainText("Open web app");
+  await expect(page.locator("#astronomy-open-night")).toContainText("Separate team project");
   await expect(page.locator("#astronomy-open-night")).toContainText("QR passport rally");
-  await expect(page.locator("#astronomy-open-night .status-pill").first()).toHaveClass(/status-pill-in-development/);
+  await expect(page.locator("#astronomy-open-night .status-pill").first()).toHaveClass(/status-pill-available/);
+  for (const id of ["platform", "sylla", "campus-navigation", "astronomy-open-night"]) {
+    const image = page.locator(`#${id} img`);
+    await image.scrollIntoViewIfNeeded();
+    await expect(image).toBeVisible();
+    await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  }
 });
 
 test("Astronomy Open Night is presented as a separate event project", async ({ page }) => {
@@ -120,7 +168,8 @@ test("Astronomy Open Night is presented as a separate event project", async ({ p
   const card = page.locator("#astronomy-open-night");
   await expect(card).toContainText("separate event");
   await expect(card).not.toContainText("Syllabus Sync");
-  await expect(card).not.toContainText("Download");
+  await expect(card.getByRole("link", { name: /Download on the App Store/ })).toHaveAttribute("href", "https://apps.apple.com/au/app/astronomy-open-night-2026/id6808865067");
+  await expect(card.getByRole("link", { name: /Get for Android/ })).toHaveAttribute("href", "https://info.syllabus-sync.app/astronomy-open-night/android");
   // The repository is private, so the card must not offer a link the public cannot open.
   await expect(card.getByRole("link", { name: /GitHub/i })).toHaveCount(0);
 });
@@ -129,9 +178,10 @@ test("connections section explains the ecosystem without exposing backend detail
   await page.goto("/#connections");
   const section = page.locator("#connections");
   await expect(section.getByRole("heading", { level: 2 })).toContainText("connect");
-  await expect(section).toContainText("Academic context");
-  await expect(section).toContainText("AI-assisted study layer");
-  await expect(section).toContainText("separate event project");
+  await expect(section.getByRole("article")).toHaveCount(2);
+  await expect(section).toContainText("Syllabus Sync Platform");
+  await expect(section).toContainText("Campus Navigation");
+  await expect(section).toContainText("not part of the Syllabus Sync platform");
   await expect(section).not.toContainText("Supabase");
   await expect(section).not.toContainText("cookie");
 });
@@ -160,7 +210,7 @@ test("roadmap section presents three future-facing phases without naming a Sydne
 test("team section credits both founders with neutral titles", async ({ page }) => {
   await page.goto("/#team");
   const section = page.locator("#team");
-  await expect(section).toContainText("Co-founder, Software Engineering & Product");
+  await expect(section).toContainText("Co-founder, Software Engineering & Product Development");
   await expect(section).toContainText("Co-founder, Backend & Platform Engineering");
   await expect(section.getByRole("link", { name: /LinkedIn/ })).toHaveCount(2);
   await expect(section.getByRole("link", { name: /GitHub/ })).toHaveCount(2);

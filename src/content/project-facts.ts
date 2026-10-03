@@ -31,13 +31,14 @@ export type EcosystemFeature = {
 };
 
 export type EcosystemProduct = {
-  id: "platform" | "sylla" | "astronomy-open-night";
+  id: "platform" | "sylla" | "campus-navigation" | "astronomy-open-night";
+  relationship: "Syllabus Sync ecosystem" | "Separate team project";
   name: string;
   tagline: string;
   description: string;
   statusLabel: string;
   status: FeatureStatus;
-  link: { label: string; href: string; external: boolean };
+  link?: { label: string; href: string; external: boolean };
   /**
    * Optional extra call-to-action buttons rendered on the card. When present,
    * these are shown instead of the single {@link link}. Used by Astronomy Open
@@ -45,7 +46,7 @@ export type EcosystemProduct = {
    * official event site — all public destinations.
    */
   actions?: { label: string; href: string; external: boolean }[];
-  screenshot?: { src: string; alt: string };
+  screenshot: { src: string; alt: string; width: number; height: number };
   features: EcosystemFeature[];
   source: string;
   approved: boolean;
@@ -81,7 +82,7 @@ export type IncubatorFact = {
 export const projectFacts = {
   productName: "Syllabus Sync",
   shortDescription:
-    "A clearer way to bring units, deadlines, calendar information, campus context and student events into one academic planning experience.",
+    "An independent student platform for academic planning, AI-assisted study through Sylla and a connected Campus Navigation companion.",
   mainApplicationUrl: "https://www.syllabus-sync.app",
   informationSiteUrl: "https://info.syllabus-sync.app",
   supportContact: { label: "Contact Syllabus Sync", href: "/contact" },
@@ -142,6 +143,7 @@ export const projectFacts = {
   ecosystem: [
     {
       id: "platform",
+      relationship: "Syllabus Sync ecosystem",
       name: "Syllabus Sync Platform",
       tagline: "The main workspace and entry point into the ecosystem.",
       description:
@@ -149,7 +151,7 @@ export const projectFacts = {
       statusLabel: "Web platform available in early access",
       status: "early-access",
       link: { label: "Open Syllabus Sync", href: "https://www.syllabus-sync.app", external: true },
-      screenshot: { src: "/products/platform-dashboard.png", alt: "Syllabus Sync dashboard showing a semester overview" },
+      screenshot: { src: "/products/platform-dashboard.png", alt: "Syllabus Sync dashboard showing a semester overview", width: 1569, height: 1600 },
       features: [
         { name: "Academic planning & units", description: "Bring units and academic commitments into one semester view.", status: "early-access", source: "Repo audit, 2026-07-22", approved: true },
         { name: "Calendar & deadlines", description: "See upcoming classes, tasks and assessment dates together.", status: "early-access", source: "Repo audit, 2026-07-22", approved: true },
@@ -162,13 +164,15 @@ export const projectFacts = {
     },
     {
       id: "sylla",
+      relationship: "Syllabus Sync ecosystem",
       name: "Sylla",
-      tagline: "The AI-assisted study companion for the Syllabus Sync ecosystem.",
+      tagline: "The AI-assisted study layer of the Syllabus Sync platform.",
       description:
-        "A standalone AI study assistant today, with chat available in early access. Study tools are working prototypes, not yet live AI features.",
+        "Sylla has its own study interface within the Syllabus Sync ecosystem. Chat is in early access; the other study tools currently use a mock provider and are prototypes.",
       statusLabel: "AI chat available in early access",
       status: "early-access",
       link: { label: "Open Sylla", href: "https://sylla.syllabus-sync.app", external: true },
+      screenshot: { src: "/products/sylla-study-home.png", alt: "Sylla study home with Ask Sylla and study-tool cards", width: 2406, height: 1604 },
       features: [
         { name: "AI chat", description: "Ask questions and get help understanding study material.", status: "early-access", source: "Repo audit, 2026-07-22", approved: true },
         { name: "Summaries", description: "Condense study material into shorter overviews.", status: "prototype", source: "Repo audit, 2026-07-22", approved: true },
@@ -182,31 +186,55 @@ export const projectFacts = {
       approved: true,
     },
     {
+      id: "campus-navigation",
+      relationship: "Syllabus Sync ecosystem",
+      name: "Campus Navigation",
+      tagline: "A dedicated mobile wayfinding companion for the Syllabus Sync ecosystem.",
+      description:
+        "An independent iOS and Android app for finding campus places and navigating between them. Its app-side deep-link handoff is implemented; the Syllabus Sync-side handoff and public download links still need confirmation.",
+      statusLabel: "Mobile release links coming soon",
+      status: "in-development",
+      screenshot: { src: "/products/campus-navigation-map.png", alt: "Campus Navigation mobile map showing campus buildings and search", width: 390, height: 844 },
+      features: [
+        { name: "Campus map and search", description: "Find buildings and services using the illustrated campus map or Google Maps view.", status: "available", source: "Campus Navigation README and screenshots, reviewed 2026-10-03", approved: true },
+        { name: "Walking directions", description: "Get campus-specific routes between locations.", status: "available", source: "Campus Navigation README, reviewed 2026-10-03", approved: true },
+        { name: "Indoor and 360° views", description: "Preview supported buildings and venues where imagery is available.", status: "available", source: "Campus Navigation README, reviewed 2026-10-03", approved: true },
+        { name: "Syllabus Sync handoff", description: "The mobile app accepts destination deep links; the main platform's handoff remains a planned integration.", status: "planned", source: "Campus Navigation README deep-linking section, reviewed 2026-10-03", approved: true },
+        { name: "Optional Open Day mode", description: "Opt-in visitor planning and location activities within the mobile app.", status: "available", source: "Campus Navigation README, reviewed 2026-10-03", approved: true },
+      ],
+      source: "Campus Navigation repository README, screenshots and deep-link contract, reviewed 2026-10-03; founder brief, 2026-10-03",
+      approved: true,
+    },
+    {
       id: "astronomy-open-night",
+      relationship: "Separate team project",
       name: "Astronomy Open Night 2026",
       tagline: "An event companion app by Leo Alavi and Mohammad Raouf Abedini for the Astronomy Night – FSE Outreach Team.",
       description:
         "A separate event guide and night-time wayfinding project: the published programme, an illustrated campus map, 360° venue previews and a QR passport rally. It has no account or developer-operated backend.",
-      statusLabel: "Astronomy Open Night 2026 event project",
-      status: "in-development",
+      statusLabel: "Published event app",
+      status: "available",
       // Kept for the type; the card renders the actions below instead.
       link: { label: "Ask about Astronomy Open Night", href: "/contact", external: false },
+      screenshot: { src: "/products/astronomy-open-night-home.png", alt: "Astronomy Open Night app home showing the passport, campus map and venue links", width: 2878, height: 1604 },
       // The app and its privacy live on their own subdomain (hosting only), so
       // these open off-site. The official event site is Macquarie University's.
       actions: [
-        { label: "Open web app", href: "https://aon.syllabus-sync.app/", external: true },
-        { label: "Privacy Policy", href: "https://aon.syllabus-sync.app/privacy", external: true },
-        { label: "Official event website", href: "https://event.mq.edu.au/astronomy-open-night/", external: true },
+        { label: "Download on the App Store", href: aonAppStoreUrl, external: true },
+        { label: "Get for Android (APK)", href: aonAndroidDownloadUrl, external: true },
+        { label: "Open web app", href: aonWebAppUrl, external: true },
+        { label: "Privacy Policy", href: aonPrivacyUrl, external: true },
+        { label: "Official event website", href: aonEventSiteUrl, external: true },
       ],
       features: [
-        { name: "Programme & what's on now", description: "The published activities across the night's venues, filterable by start time and activity type, with a live happening-now view.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
-        { name: "Night-time wayfinding", description: "An illustrated campus map with search, favourites, walking directions and a compass mode for moving between car parks and venues in the dark.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
-        { name: "360° venue previews", description: "Look inside a venue before walking to it at night.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
-        { name: "QR passport rally", description: "Scan or type a venue code to collect a stamp and reveal a short astronomy fact, with manual entry as an offline fallback.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
-        { name: "Local data, no account", description: "No sign-in, no backend and no developer-operated analytics; saved stamps and favourites stay in app-local or browser storage.", status: "in-development", source: "Astronomy Open Night repo README and privacy audit, 2026-09-10", approved: true },
-        { name: "English and Persian", description: "Both languages with full right-to-left support and large-text scaling.", status: "in-development", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
+        { name: "Programme & what's on now", description: "Browse published activities and see what is happening at each venue.", status: "available", source: "Astronomy Open Night App Store listing, checked 2026-10-03", approved: true },
+        { name: "Night-time wayfinding", description: "Use the illustrated campus map and written walking directions between venues.", status: "available", source: "Astronomy Open Night App Store listing, checked 2026-10-03", approved: true },
+        { name: "360° venue previews", description: "Look inside supported venues before walking to them.", status: "available", source: "Astronomy Open Night App Store listing, checked 2026-10-03", approved: true },
+        { name: "QR passport rally", description: "Scan or type a venue code to collect a stamp and an astronomy fact.", status: "available", source: "Astronomy Open Night App Store listing, checked 2026-10-03", approved: true },
+        { name: "Local data, no account", description: "Saved stamps and favourites stay on the device; the app does not require sign-in.", status: "available", source: "Astronomy Open Night repo README and privacy audit, 2026-09-10", approved: true },
+        { name: "English and Persian", description: "The app provides both languages with right-to-left support.", status: "available", source: "Astronomy Open Night repo README, 2026-09-09", approved: true },
       ],
-      source: "Astronomy Open Night repo (README, ARCHITECTURE, release audits), reviewed 2026-09-09",
+      source: "Astronomy Open Night repo and live App Store listing, reviewed 2026-10-03; founder brief, 2026-10-03",
       approved: true,
     },
   ] satisfies EcosystemProduct[],
@@ -215,14 +243,15 @@ export const projectFacts = {
       phase: "Phase 1",
       title: "Macquarie University",
       description:
-        "Complete and validate the initial Syllabus Sync and Sylla experience at Macquarie, informed by direct student feedback and the Macquarie University Incubator.",
+        "Validate the Syllabus Sync workspace, Sylla study experience and Campus Navigation companion at Macquarie, informed by student feedback and the Macquarie University Incubator.",
       items: [
         "Validate academic planning workflows",
         "Improve Sylla's study tools",
+        "Validate the Campus Navigation handoff",
         "Gather student feedback",
         "Incubator-supported development",
       ],
-      source: "Founder-provided, 2026-07-22",
+      source: "Founder brief, 2026-10-03",
       approved: true,
     },
     {
@@ -256,18 +285,18 @@ export const projectFacts = {
   team: [
     {
       name: "Leo Alavi",
-      role: "Co-founder, Software Engineering & Product",
-      bio: "Leads software engineering and product direction across Syllabus Sync and Sylla, and is lead developer on Astronomy Open Night, with full-stack and applied-AI implementation work.",
+      role: "Co-founder, Software Engineering & Product Development",
+      bio: "Leads software engineering and product development across Syllabus Sync and Sylla, with full-stack and applied-AI implementation work. Co-developed Campus Navigation and Astronomy Open Night 2026; the latter is a separate event project.",
       linkedIn: "https://www.linkedin.com/in/leo-alavi/",
       gitHub: "https://github.com/leoalavi",
       photo: "/team/leo.jpg",
-      source: "Founder-provided, 2026-09-11",
+      source: "Founder brief, 2026-10-03; Campus Navigation README, reviewed 2026-10-03",
       approved: true,
     },
     {
       name: "Mohammad Raouf Abedini",
       role: "Co-founder, Backend & Platform Engineering",
-      bio: "Leads backend, security and platform engineering across Syllabus Sync, and co-develops Astronomy Open Night, working on the passport/QR and 360° panorama subsystems.",
+      bio: "Leads backend, security and platform engineering across Syllabus Sync. Co-developed Campus Navigation and Astronomy Open Night 2026, including passport/QR and 360° panorama work on the separate event project.",
       linkedIn: "https://www.linkedin.com/in/mohammad-raouf-abedini-885a9226a/",
       gitHub: "https://github.com/Raoof128",
       photo: "/team/raouf.jpg",
@@ -282,7 +311,7 @@ export const projectFacts = {
     source: "Founder-provided, 2026-07-22",
     approved: true,
   } satisfies IncubatorFact,
-  lastReviewed: "2026-07-21",
+  lastReviewed: "2026-10-03",
 } as const;
 
 export const approvedProofPoints = projectFacts.proofPoints.filter(
@@ -298,3 +327,10 @@ export const approvedEcosystem = projectFacts.ecosystem.filter((product) => prod
 export const approvedRoadmapPhases = projectFacts.roadmapPhases.filter((phase) => phase.approved);
 
 export const approvedTeam = projectFacts.team.filter((member) => member.approved);
+import {
+  aonAndroidDownloadUrl,
+  aonAppStoreUrl,
+  aonEventSiteUrl,
+  aonPrivacyUrl,
+  aonWebAppUrl,
+} from "./astronomy-open-night-legal";

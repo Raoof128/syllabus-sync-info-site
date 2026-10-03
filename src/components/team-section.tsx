@@ -9,7 +9,7 @@ export function TeamSection() {
         <div className="section-heading centered">
           <p className="section-label">Team</p>
           <h2>Built by two founders.</h2>
-          <p>The founders build Syllabus Sync and Sylla, and separately developed Astronomy Open Night 2026 for Astronomy Night – FSE Outreach Team.</p>
+          <p>The founders build Syllabus Sync, Sylla and the connected Campus Navigation app. They developed Astronomy Open Night 2026 separately for Astronomy Night – FSE Outreach Team.</p>
         </div>
         <div className="team-grid">
           {approvedTeam.map((member) => (

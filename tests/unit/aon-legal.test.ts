@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 
 import nextConfig from "../../next.config";
 import {
+  aonAndroidDownloadUrl,
   aonAndroidApkUrl,
+  aonAppStoreUrl,
   aonContactEmail,
   aonLegalIndex,
   aonLegalPages,
@@ -24,9 +26,8 @@ describe("Astronomy Open Night pages on the info site", () => {
     expect([...aonLegalSlugs]).toEqual(["support", "terms"]);
     expect(aonPrivacyUrl).toBe("https://aon.syllabus-sync.app/privacy");
 
-    const legalSection = aonLegalIndex.sections.find((s) => s.heading === "Privacy, support and terms");
+    const legalSection = aonLegalIndex.sections.find((s) => s.heading === "Support and terms");
     expect(legalSection?.links?.map((l) => l.href)).toEqual([
-      aonPrivacyUrl,
       "/astronomy-open-night/support",
       "/astronomy-open-night/terms",
     ]);
@@ -34,10 +35,14 @@ describe("Astronomy Open Night pages on the info site", () => {
     // and links the official event site.
     const appSection = aonLegalIndex.sections.find((s) => s.heading === "The app");
     expect(appSection?.links?.map((l) => l.href)).toEqual([
+      aonAppStoreUrl,
+      aonAndroidDownloadUrl,
       "https://aon.syllabus-sync.app/",
-      aonAndroidApkUrl,
+      aonPrivacyUrl,
       "https://event.mq.edu.au/astronomy-open-night/",
     ]);
+    expect(aonAndroidDownloadUrl).toBe("https://info.syllabus-sync.app/astronomy-open-night/android");
+    expect(appSection?.body.join(" ")).not.toContain("coming to the App Store");
     // The tag moves with every build, so pin the shape, not the version: a
     // .apk release asset on THIS public repo (the app repo is private, and the
     // file is far too large to ship inside the Worker bundle).

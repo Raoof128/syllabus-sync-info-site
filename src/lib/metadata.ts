@@ -10,7 +10,7 @@ export const rootMetadata: Metadata = {
     template: "%s | Syllabus Sync",
   },
   description:
-    "Bring units, deadlines, calendar information, campus context and student events into one clear academic planning experience.",
+    "Explore the independent Syllabus Sync student platform, Sylla's AI-assisted study experience and the connected Campus Navigation mobile companion.",
   applicationName: projectFacts.productName,
   alternates: { canonical: "/" },
   openGraph: {
@@ -19,14 +19,14 @@ export const rootMetadata: Metadata = {
     siteName: projectFacts.productName,
     title: "Syllabus Sync | Your Semester, Finally Organised",
     description:
-      "One clear place for the academic day: units, deadlines, calendar, campus context and student events.",
+      "Academic planning in Syllabus Sync, AI-assisted study through Sylla and campus wayfinding with Campus Navigation.",
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Syllabus Sync | Your Semester, Finally Organised",
     description:
-      "One clear place for the academic day: units, deadlines, calendar, campus context and student events.",
+      "Academic planning in Syllabus Sync, AI-assisted study through Sylla and campus wayfinding with Campus Navigation.",
     images: ["/opengraph-image"],
   },
   robots: { index: true, follow: true },

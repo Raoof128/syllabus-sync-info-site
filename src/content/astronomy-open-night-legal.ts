@@ -41,6 +41,10 @@ export const aonWebAppUrl = "https://aon.syllabus-sync.app/";
  */
 export const aonAndroidApkUrl =
   "https://github.com/Raoof128/syllabus-sync-info-site/releases/download/aon-android-v1.0.0-build6/astronomy-open-night-2026-v1.0.0-build6.apk";
+/** Public App Store listing verified on 3 October 2026. */
+export const aonAppStoreUrl = "https://apps.apple.com/au/app/astronomy-open-night-2026/id6808865067";
+/** Stable redirect to the current signed Android APK, not a Google Play listing. */
+export const aonAndroidDownloadUrl = "https://info.syllabus-sync.app/astronomy-open-night/android";
 /** The single canonical Privacy Policy — the AON app's own page, not this site. */
 export const aonPrivacyUrl = "https://aon.syllabus-sync.app/privacy";
 
@@ -143,26 +147,27 @@ export const aonLegalPages: Record<AonLegalSlug, PageDefinition> = {
 export const aonLegalIndex: PageDefinition = {
   title: "Astronomy Open Night 2026",
   description:
-    "The Astronomy Open Night event companion — launch the web app, read the privacy policy, or visit the official event website.",
+    "A separate event project by Leo Alavi and Mohammad Raouf Abedini for Astronomy Night – FSE Outreach Team. Explore the published iOS, Android and web app.",
   intro: `Astronomy Open Night 2026 is an event guide and night-time wayfinding companion developed by ${aonPublisher} for the ${aonEventTeam}. Its iOS, Android and web applications have no account or developer-operated backend. Launch the web app, or use the links below. ${aonCopyright}.`,
   sections: [
     {
       heading: "The app",
       body: [
         "Use the Astronomy Open Night companion right in your browser — no install needed — for the programme, the campus map, the Astronomy Passport and your saved plan.",
-        "Prefer the Android app on your phone? Download the signed APK below and open it to install. Android asks you to allow installs from your browser the first time. The file is about 138 MB. The iOS app is coming to the App Store.",
+        "The iOS app is on the App Store. The Android link downloads a signed APK directly rather than opening Google Play. Android may ask you to allow installs from your browser.",
       ],
       links: [
+        { label: "Download on the App Store", href: aonAppStoreUrl },
+        { label: "Get for Android (APK)", href: aonAndroidDownloadUrl },
         { label: "Open the web app", href: aonWebAppUrl },
-        { label: "Download for Android (APK)", href: aonAndroidApkUrl },
+        { label: "Privacy Policy", href: aonPrivacyUrl },
         { label: "Official event website", href: aonEventSiteUrl },
       ],
     },
     {
-      heading: "Privacy, support and terms",
-      body: ["The same pages are linked from the app's Settings tab."],
+      heading: "Support and terms",
+      body: ["The privacy policy is linked above. Support and terms are also linked from the app's Settings tab."],
       links: [
-        { label: "Privacy Policy", href: aonPrivacyUrl },
         { label: "Support", href: "/astronomy-open-night/support" },
         { label: "Terms of Use", href: "/astronomy-open-night/terms" },
       ],
