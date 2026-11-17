@@ -38,7 +38,7 @@ root token, and never commit one. Details in `docs/deployment.md`.
 
 ## Architecture
 
-A standalone Next.js 16.3 App Router project. Public pages are statically
+A standalone Next.js 16.4 App Router project. Public pages are statically
 generated; `POST /api/contact` is the only dynamic route. Public claims come
 from `src/content/project-facts.ts` and `src/content/site.ts`, and the
 Astronomy Open Night store pages come from

@@ -10,7 +10,7 @@ The repository now contains a complete public information and trust site for `in
 
 ## Architecture
 
-- Location: `/Users/raoof.r12/Desktop/Raouf/Info_S`.
+- Location: the root of this repository.
 - Runtime: Next.js 16.2.10 App Router with React 19.2.7, TypeScript 6.0.3 and Tailwind CSS 4.3.3.
 - Rendering: 24 generated routes; public content is static or statically generated, while `/api/contact` is the only dynamic endpoint.
 - Component model: Server Components by default, with client code limited to the mobile navigation and contact form.

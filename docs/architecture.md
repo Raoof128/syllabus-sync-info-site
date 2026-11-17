@@ -2,7 +2,7 @@
 
 ## Decision
 
-The information site is a standalone Next.js 16.3.4 application. The workspace contained only the approved implementation brief and brand images, so a separate deployment boundary is the simplest architecture and avoids coupling public content to the authenticated product.
+The information site is a standalone Next.js 16.4.6 application. The workspace contained only the approved implementation brief and brand images, so a separate deployment boundary is the simplest architecture and avoids coupling public content to the authenticated product.
 
 ## Rendering model
 

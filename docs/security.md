@@ -18,9 +18,9 @@ Nonce CSP would force every otherwise-static page into dynamic rendering. Follow
 
 ## Dependency review
 
-`npm audit` reports **0 vulnerabilities**.
+**Status, 17 November 2026.** The production audit gate in CI (`npm audit --omit=dev --audit-level=high`) had been failing on `main` since 3 October 2026, on advisories published after the review below: Next.js (critical), `proxy-addr`, `body-parser`, `sharp`, `undici`, `source-map-js`, `brace-expansion` and `zod`. Next.js is now 16.4.6, `zod` 4.6.7 and the `sharp` override `^0.35.5`, with the remaining compatible fixes applied through `npm audit fix`. The gate passes: production dependencies report 3 moderate advisories and none high or critical. The full audit, development tooling included, reports 5 moderate and 1 high (`brace-expansion` under lint tooling, not in the deployed bundle). The deployed site carries these fixes only after the next manual deploy.
 
-Reviewed 9 September 2026, in two passes.
+The earlier review, of 9 September 2026, reported 0 vulnerabilities at that time. It ran in two passes.
 
 The first pass surfaced a critical Next.js advisory (unauthenticated RCE in the Image Optimization API), several high Next.js advisories (App Router middleware/proxy bypass, SSRF in Server Actions and rewrites) and transitive `postcss`/`sharp` advisories, all against Next.js `16.2.10`. These were resolved by upgrading to `next` `16.3.4` (a non-major, in-line security release; `eslint-config-next` bumped to match). The remaining transitive build/lint-tooling advisories (`brace-expansion`, `browserslist`, `js-yaml`, `baseline-browser-mapping`) were cleared with a non-forced `npm audit fix`, which adjusted only nested lockfile versions and left the pinned direct dependencies unchanged.
 
