@@ -5,6 +5,20 @@ request so the diff is one command away (`gh pr view <n>`). Point-in-time
 verification evidence stays in `docs/final-implementation-report.md`; this file
 records what changed after that report.
 
+## 17 November 2026
+
+- **Dependency security update; CI green again.** The production audit step had
+  failed on `main` since 3 October 2026 on advisories published after the last
+  review. Next.js and `eslint-config-next` move from 16.3.4 to 16.4.6, `zod`
+  from 4.4.3 to 4.6.7, the `sharp` override to `^0.35.5`, and `npm audit fix`
+  applies the remaining compatible updates. `npm audit --omit=dev
+  --audit-level=high` passes (3 moderate, none high or critical). `npm run
+  check` green (40 unit tests) and `npm run cf:build` completes. The live site
+  carries the update only after the next manual `npm run cf:deploy`.
+- **Documentation.** `docs/security.md` no longer states "0 vulnerabilities"
+  without a date, and a local machine path is removed from
+  `docs/final-implementation-report.md`.
+
 ## 12 September 2026 (later)
 
 - **Added an Android APK download to the Astronomy Open Night page.** The AON
